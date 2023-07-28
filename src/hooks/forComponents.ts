@@ -5,7 +5,7 @@ import { fetchCategories, fetchCuisines, fetchIngredients } from "../data_fetchi
 import { CategoriesType, CategoryItemType } from "../features/categories/categoriesSlice";
 import { CuisineNameType, CuisinesListType } from "../features/area/areaSlices";
 import { IngredientsListType, IngredientsType, InitIngredientStateType } from "../features/ingredients/ingredientSlice";
-import { annoymousAuth } from "../firebase/utils";
+import { annoymousAuth, readingDataFromFirestore } from "../firebase/utils";
 
 export const useToGetCategories = () => {
     const list = useAppSelector(state => state.categories.list);
@@ -182,7 +182,7 @@ export const useToGetFourPopularItems = (list: (CategoryItemType | CuisineNameTy
     useEffect(() => {
         highestCount !== undefined && names.length < 4 && highestOnly.length > 5 && allHighestToList(highestOnly)
         highestCount !== undefined && names.length < 4 && highestOnly.length < 5 && whenFewerHighestItems()
-        highestOnly.length < 5 && lesserCountsItems.length && names.length < 5 && allHighestToList(lesserCountsItems)
+        highestOnly.length < 4 && lesserCountsItems.length && names.length < 5 && allHighestToList(lesserCountsItems)
         // names.length > 0 && names.length < 4 && removeDuplicate()
     }, [highestCount, names])
 
@@ -220,4 +220,11 @@ export const useConfirmUserAuth = () => {
     }, [])
 
     return { ready }
+}
+
+export const useToFetchDataFromFirebase = async (documentName: string) => {
+    const fbResp = await readingDataFromFirestore("4M")
+    const filteredData = fbResp.filter(item => Object.keys(item)[0] === documentName)
+
+    return { filteredData }
 }

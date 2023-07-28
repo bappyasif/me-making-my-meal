@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { fetchIngredients, fetchMealsByIngredient } from "../../data_fetching";
 import { MealItemType } from "../category/categorySlice";
 import { addDataIntoCollection } from "../../firebase/utils";
+// import { useConfirmUserAuth } from "../../hooks/forComponents";
 
 export type IngredientsType = {
     // [index: string]: number;
@@ -39,20 +40,25 @@ const ingredientSlices = createSlice({
             })
             // console.log(state.list, "after increase!!")
 
+            // const { ready } = useConfirmUserAuth()
+
             addDataIntoCollection("4M", {ingredients: [...state.list]}, "ingredients")
         }
     },
     extraReducers: builder => {
         builder.addCase(fetchIngredients.fulfilled, (state, action) => {
             state.list = action.payload.meals.map((item: any) => {
-                const ingredient: IngredientsType = {
-                    id: item.idIngredient,
-                    name: item.strIngredient,
-                    description: item.strDescription,
-                    count: 0
+                if(item.idIngredient) {
+                    const ingredient: IngredientsType = {
+                        id: item.idIngredient,
+                        name: item.strIngredient,
+                        description: item.strDescription,
+                        count: 0
+                    }
+    
+                    return ingredient
                 }
-
-                return ingredient
+                return item
             })
             console.log(action.payload, "payload ingredients!!")
         }),

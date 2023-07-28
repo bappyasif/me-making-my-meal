@@ -32,11 +32,11 @@ const RenderCategoryMeal = ({ ...item }: CategoryItemType) => {
 
     const dispatch = useAppDispatch();
 
-    const { ready } = useConfirmUserAuth()
+    // const { ready } = useConfirmUserAuth()
 
     const handleClicked = (itemId: string) => {
         dispatch(increaseCategoryItemCount(itemId))
-        console.log(ready, "READY!!")
+        // console.log(ready, "READY!!")
     }
 
     const { t } = useTranslation()
@@ -46,9 +46,9 @@ const RenderCategoryMeal = ({ ...item }: CategoryItemType) => {
             <h2 className="text-center text-4xl">
                 <Link 
                     to={`/categories/${name}`}
-                    style={{
-                        pointerEvents: !ready ? "none" : "auto"
-                    }}
+                    // style={{
+                    //     pointerEvents: !ready ? "none" : "auto"
+                    // }}
                 >{t(`${name}`)} - {count}</Link>
                 {/* <div>{name} - {count}</div> */}
             </h2>

@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { fetchCategories, fetchFilterByCategory } from "../../data_fetching";
 import { addDataIntoCollection } from "../../firebase/utils";
+// import { useConfirmUserAuth } from "../../hooks/forComponents";
 
 // type CategoryState = {
 //     Beef: number,
@@ -74,23 +75,18 @@ const categorySlice = createSlice({
     reducers: {
         increaseCategoryItemCount: (state, action) => {
             state.list = state.list.map((item) => {
-                if(item.id === action.payload) {
+                if (item.id === action.payload) {
                     item.count = item.count ? item.count + 1 : 1
                     // item.count += 1
                 }
                 return item
             })
 
-            addDataIntoCollection("4M", {categories: [...state.list]}, "categories")
-            // state.list = state.list.map((item: CategoryItemType) => {
-            //     const key = Object.keys(item)[0]
-            //     if (item[key] === action.payload) {
-            //         item.categoryCount = item.categoryCount ? item.categoryCount + 1 : 1
-            //         console.log("increase count for :", action.payload, key, Object.keys(item))
-            //     }
-            //     return item
-            //     // console.log("increase count for :", action.payload, key)
-            // })
+            // const { ready } = useConfirmUserAuth()
+
+            // ready && addDataIntoCollection("4M", {categories: [...state.list]}, "categories")
+
+            addDataIntoCollection("4M", { categories: [...state.list] }, "categories")
         },
 
         // handleViewCategory: (state, action) => {
@@ -100,13 +96,17 @@ const categorySlice = createSlice({
     extraReducers: builder => {
         builder.addCase(fetchCategories.fulfilled, (state, action) => {
             state.list = action.payload.categories.map((item: any) => {
-                const {idCategory, strCategory, strCategoryDescription, strCategoryThumb} = item
-                return {
-                    id: idCategory,
-                    name: strCategory,
-                    description: strCategoryDescription,
-                    imgSrc: strCategoryThumb,
-                    count: 0
+                if (item?.idCategory) {
+                    const { idCategory, strCategory, strCategoryDescription, strCategoryThumb } = item
+                    return {
+                        id: idCategory,
+                        name: strCategory,
+                        description: strCategoryDescription,
+                        imgSrc: strCategoryThumb,
+                        count: 0
+                    }
+                } else {
+                    return item
                 }
             })
             console.log(state.list)

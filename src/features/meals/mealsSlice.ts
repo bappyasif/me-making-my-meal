@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { fetchMealDetails } from "../../data_fetching"
 import { addDataIntoCollection } from "../../firebase/utils"
+// import { useConfirmUserAuth } from "../../hooks/forComponents"
 
 export type IAMType = {
     text: string
@@ -76,6 +77,9 @@ const mealsSlice = createSlice({
                 state.mealsViewed.push({...action.payload, count: 0})
             }
 
+            // const { ready } = useConfirmUserAuth()
+
+            // ready && addDataIntoCollection("4M", {meals: [...state.mealsViewed]}, "meals")
             addDataIntoCollection("4M", {meals: [...state.mealsViewed]}, "meals")
         }
     },

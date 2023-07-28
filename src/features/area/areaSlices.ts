@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit"
 import { fetchCuisineMeals, fetchCuisines } from "../../data_fetching"
 import { MealItemType } from "../category/categorySlice"
 import { addDataIntoCollection } from "../../firebase/utils"
+// import { useConfirmUserAuth } from "../../hooks/forComponents"
 
 type AreaType = {
     American: number,
@@ -99,17 +100,27 @@ const areaSlice = createSlice({
                 return item
             })
 
+            // const { ready } = useConfirmUserAuth()
+
+            // ready && addDataIntoCollection("4M", {cuisines: [...state.list]}, "cuisines")
+
             addDataIntoCollection("4M", {cuisines: [...state.list]}, "cuisines")
         }
     },
     extraReducers: builder => {
         builder.addCase(fetchCuisines.fulfilled, (state, action) => {
             console.log(action.payload.meals)
-            state.list = action.payload.meals.map((item: any) => {
-                const { strArea } = item;
-                return {
-                    name: strArea,
-                    count: 0
+            state.list = action.payload.meals?.map((item: any) => {
+                
+                if(item?.strArea) {
+                    const { strArea } = item;
+                    return {
+                        name: strArea,
+                        count: 0
+                    }
+                } else {
+                    console.log(item, "IETEMIETEN")
+                    return item
                 }
             })
         }),
