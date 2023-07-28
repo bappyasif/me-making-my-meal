@@ -9,11 +9,21 @@ export const MostPopularMeals = () => {
 
     const mealsViewed = useAppSelector(state => state.meal.mealsViewed);
 
-    // console.log(mealsViewed, "mealsViewed!!")
+    const whenManyItemsViewed = () => {
+        // it needs to be done from "reducer" function as this effects "immutable" data, and it needs to be handled from deignated reducer function instead
+        // let sorted = mealsViewed.sort((a,b) => a.count > b.count ? 1 : a.count === b.count ? 0 : -1 )
+        
+        const topFour = mealsViewed.slice(0,4)
+        // setMeals(topFour)
+        console.log(topFour, "MANYYY")
+        setMeals(topFour)
+    }
 
     const readyView = () => {
         if (mealsViewed.length > 0 && mealsViewed.length < 4) {
             setMeals(mealsViewed)
+        } else {
+            whenManyItemsViewed()
         }
     }
 

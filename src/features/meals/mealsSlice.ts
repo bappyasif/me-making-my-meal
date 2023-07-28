@@ -74,8 +74,11 @@ const mealsSlice = createSlice({
                     return item
                 })
             } else {
-                state.mealsViewed.push({ ...action.payload, count: 0 })
+                state.mealsViewed.push({ ...action.payload, count: 1 })
             }
+
+            // kepping it sorted so that data retrival from components gets easier with highest counts
+            state.mealsViewed = state.mealsViewed.sort((a,b) => a.count < b.count ? 1 : a.count === b.count ? 0 : -1 )
 
             // const { ready } = useConfirmUserAuth()
 
@@ -117,7 +120,8 @@ const mealsSlice = createSlice({
             console.log(action.payload, "meal details")
         }),
         builder.addCase(fetchViewedMealsList.fulfilled, (state, action) => {
-            state.mealsViewed = action.payload?.meals
+            // inserting dat from firbase sorted to access highest counted meals easier
+            state.mealsViewed = action.payload?.meals.sort((a:any,b:any) => a.count < b.count ? 1 : a.count === b.count ? 0 : -1 ) || []
         })
     }
 })
