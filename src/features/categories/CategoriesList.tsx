@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useAppDispatch } from "../../hooks"
-import { useToGetCategories } from "../../hooks/forComponents"
+import { useConfirmUserAuth, useToGetCategories } from "../../hooks/forComponents"
 import { CategoryItemType, increaseCategoryItemCount } from "./categoriesSlice";
 import { useTranslation } from "react-i18next";
 
@@ -17,7 +17,7 @@ export const CategoriesList = () => {
         categories?.map((item) => <RenderCategoryMeal count={item.count} id={item.id} imgSrc={item.imgSrc} name={item.name} key={item.id + item.name} />)
     )
 
-    const {t} = useTranslation()
+    const { t } = useTranslation()
 
     return (
         <div className="flex flex-col gap-6">
@@ -32,16 +32,24 @@ const RenderCategoryMeal = ({ ...item }: CategoryItemType) => {
 
     const dispatch = useAppDispatch();
 
+    const { ready } = useConfirmUserAuth()
+
     const handleClicked = (itemId: string) => {
         dispatch(increaseCategoryItemCount(itemId))
+        console.log(ready, "READY!!")
     }
-    
-    const {t} = useTranslation()
+
+    const { t } = useTranslation()
 
     return (
         <div key={id} className="w-96 h-96 aspect-square flex flex-col gap-4" onClick={() => handleClicked(`${id}`)}>
             <h2 className="text-center text-4xl">
-                <Link to={`/categories/${name}`}>{t(`${name}`)} - {count}</Link>
+                <Link 
+                    to={`/categories/${name}`}
+                    style={{
+                        pointerEvents: !ready ? "none" : "auto"
+                    }}
+                >{t(`${name}`)} - {count}</Link>
                 {/* <div>{name} - {count}</div> */}
             </h2>
             <img src={`${imgSrc}`} alt={`${name}`} />
@@ -56,7 +64,7 @@ export const FirstEightList = () => {
         categories?.map((item, idx) => idx < 8 && <RenderCategoryMeal id={item.id} imgSrc={item.imgSrc} name={item.name} key={item.id + item.name} count={item.count} />)
     )
 
-    const {t} = useTranslation()
+    const { t } = useTranslation()
 
     return (
         <div className="flex flex-col gap-8 w-5/6 mx-auto">

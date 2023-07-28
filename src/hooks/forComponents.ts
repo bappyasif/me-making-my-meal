@@ -5,6 +5,7 @@ import { fetchCategories, fetchCuisines, fetchIngredients } from "../data_fetchi
 import { CategoriesType, CategoryItemType } from "../features/categories/categoriesSlice";
 import { CuisineNameType, CuisinesListType } from "../features/area/areaSlices";
 import { IngredientsListType, IngredientsType, InitIngredientStateType } from "../features/ingredients/ingredientSlice";
+import { annoymousAuth } from "../firebase/utils";
 
 export const useToGetCategories = () => {
     const list = useAppSelector(state => state.categories.list);
@@ -198,4 +199,25 @@ export const useToGetAnRandomMeal = () => {
     const mealThumb = useAppSelector(state => state.randomMeal.mealThumb)
 
     return { category, cuisine, mealId, mealName, mealThumb }
+}
+
+export const useConfirmUserAuth = () => {
+    const [ready, setReady] = useState(false)
+
+    const checkAuth = () => {
+        annoymousAuth().then(user => {
+            if (user?.user) {
+                console.log(user.user, "USER!!!!")
+                setReady(true)
+            } else {
+                setReady(false)
+            }
+        })
+    }
+
+    useEffect(() => {
+        checkAuth()
+    }, [])
+
+    return { ready }
 }

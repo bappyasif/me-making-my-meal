@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { fetchMealDetails } from "../../data_fetching"
+import { addDataIntoCollection } from "../../firebase/utils"
 
 export type IAMType = {
     text: string
@@ -74,6 +75,8 @@ const mealsSlice = createSlice({
             } else {
                 state.mealsViewed.push({...action.payload, count: 0})
             }
+
+            addDataIntoCollection("4M", {meals: [...state.mealsViewed]}, "meals")
         }
     },
     extraReducers: builder => {

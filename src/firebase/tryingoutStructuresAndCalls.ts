@@ -1,10 +1,6 @@
 import { getAuth, onAuthStateChanged, signInAnonymously } from "firebase/auth";
 import firebaseApp from "./init";
 import { addDoc, collection, doc, getDocs, getFirestore, setDoc } from "firebase/firestore";
-import { CategoryItemType } from "../features/categories/categoriesSlice";
-import { CuisineNameType } from "../features/area/areaSlices";
-import { IngredientsType } from "../features/ingredients/ingredientSlice";
-import { ViewedMealType } from "../features/meals/mealsSlice";
 
 export const auth = getAuth(firebaseApp);
 export const db = getFirestore(firebaseApp);
@@ -22,28 +18,52 @@ export const checkUserAuthStatus = () => {
 
 // authenticate annonymously
 export const annoymousAuth = () => {
-    return signInAnonymously(auth).then((user) => {
-        return user
-        // if(user.user) {
-        //     return user
-        // } else {
-        //     return false
-        // }
+    signInAnonymously(auth).then((user) => {
+        console.log("authenticated", user.user)
+        readingFirestoreConnectivity().then(data => {
+            console.log(data, "collection data!!")
+        })
+        addIntoDbCollection()
+        // addDataIntoCollection("test2", {
+        //     name: "Los Angeles",
+        //     state: "CA",
+        //     // state: ["CA"],
+        //     country: "USA"
+        // })
+
+        // addDataIntoCollection("test2", {
+        //     ingredients: [{name: "Los Angeles",
+        //     state: "CA",
+        //     // state: ["CA"],
+        //     country: "USA"}]
+        // })
+
+        addDataIntoCollection("test2", {
+            categories: [{name: "Los Angeles22",
+            state: "CA22",
+            // state: ["CA"],
+            country: "USA"}]
+        }, "categories")
+
+        addDataIntoCollection("test2", {
+            ingredients: [{name: "Los Angeles2222",
+            state: "CA2222",
+            // state: ["CA"],
+            country: "USA"}]
+        }, "ingredients")
+
+        readingDataFromFirestore("test2").then(data => {
+            const categories = data.filter(item => Object.keys(item)[0] === "categories")
+            console.log(data, "DATA!!", categories)
+        })
     })
 }
 
-// type DataPropsType = {
-//     ingredients?: PropsType[],
-//     categories?: PropsType[],
-//     cuisines?: PropsType[],
-//     meals?: PropsType[],
-// }
-
 type DataPropsType = {
-    ingredients?: IngredientsType[],
-    categories?: CategoryItemType[],
-    cuisines?: CuisineNameType[],
-    meals?: ViewedMealType[],
+    ingredients?: PropsType[],
+    categories?: PropsType[],
+    cuisines?: PropsType[],
+    meals?: PropsType[],
 }
 
 type PropsType = {

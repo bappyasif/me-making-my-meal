@@ -10,16 +10,17 @@ import { CategoriesList } from "./features/categories/CategoriesList"
 import { CuisinesList } from "./features/area/CuisinesList"
 import { IngredientsList } from "./features/ingredients/IngredientsList"
 import { PopularMeals } from "./pages/PopularMeals"
-import { annoymousAuth, checkUserAuthStatus, readingFirestoreConnectivity } from "./firebase/utils"
 import { useEffect } from "react"
+import { annoymousAuth, checkUserAuthStatus } from "./firebase/utils"
 // import { CategoryViewPage } from "./pages/CategoryViewPage"
 
 function App() {
+  
   useEffect(() => {
     checkUserAuthStatus()
-    annoymousAuth()
-    // testingFirestoreConnectivity()
+    // annoymousAuth()
   }, [])
+
   return (
     <>
       <div className="flex flex-col gap-11 items-center justify-between min-h-full">

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { increment } from "../features/slices";
+// import { increment } from "../features/slices";
 import { useAppDispatch, useAppSelector } from "../hooks"
 import { useToGetCategories } from "../hooks/forComponents";
 import { fetchCategories } from "../data_fetching";

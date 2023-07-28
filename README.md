@@ -48,6 +48,9 @@ api: https://www.themealdb.com/
     * stack in use
     * copyrights
     * get in touch 
+* firebase:
+    * for each increment function firebase will make stores value
+    * for rendering firebase will fetch those related data from there
 
 # React + TypeScript + Vite
 

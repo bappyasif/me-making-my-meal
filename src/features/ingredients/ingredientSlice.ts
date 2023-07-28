@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchIngredients, fetchMealsByIngredient } from "../../data_fetching";
 import { MealItemType } from "../category/categorySlice";
+import { addDataIntoCollection } from "../../firebase/utils";
 
 export type IngredientsType = {
     // [index: string]: number;
@@ -37,6 +38,8 @@ const ingredientSlices = createSlice({
                 return item
             })
             // console.log(state.list, "after increase!!")
+
+            addDataIntoCollection("4M", {ingredients: [...state.list]}, "ingredients")
         }
     },
     extraReducers: builder => {

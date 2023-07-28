@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { fetchCategories, fetchFilterByCategory } from "../../data_fetching";
+import { addDataIntoCollection } from "../../firebase/utils";
 
 // type CategoryState = {
 //     Beef: number,
@@ -79,6 +80,8 @@ const categorySlice = createSlice({
                 }
                 return item
             })
+
+            addDataIntoCollection("4M", {categories: [...state.list]}, "categories")
             // state.list = state.list.map((item: CategoryItemType) => {
             //     const key = Object.keys(item)[0]
             //     if (item[key] === action.payload) {

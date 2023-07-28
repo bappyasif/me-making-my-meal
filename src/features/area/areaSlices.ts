@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { fetchCuisineMeals, fetchCuisines } from "../../data_fetching"
 import { MealItemType } from "../category/categorySlice"
+import { addDataIntoCollection } from "../../firebase/utils"
 
 type AreaType = {
     American: number,
@@ -97,6 +98,8 @@ const areaSlice = createSlice({
                 }
                 return item
             })
+
+            addDataIntoCollection("4M", {cuisines: [...state.list]}, "cuisines")
         }
     },
     extraReducers: builder => {
