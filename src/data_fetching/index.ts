@@ -14,7 +14,7 @@ const AREA_URL = "https://www.themealdb.com/api/json/v1/1/list.php?a=list"
 // })
 
 export const fetchCategories = createAsyncThunk("fetchCategories", async () => {
-    const {filteredData} = await useToFetchDataFromFirebase("categories")
+    const { filteredData } = await useToFetchDataFromFirebase("categories")
 
     if (filteredData?.length) {
         return { categories: filteredData[0].categories }
@@ -40,7 +40,7 @@ export const fetchCuisines = createAsyncThunk("meals/ferchCuisines", async () =>
     // const onlyCuisines = fbResp.filter(item => Object.keys(item)[0] === "cuisines")
     // console.log(onlyCuisines[0].cuisines, "FIREBASE CUISINES")
 
-    const {filteredData} = await useToFetchDataFromFirebase("cuisines")
+    const { filteredData } = await useToFetchDataFromFirebase("cuisines")
 
     if (filteredData?.length) {
         return { meals: filteredData[0].cuisines }
@@ -65,6 +65,14 @@ export const fetchMealDetails = createAsyncThunk("fetchMealById", async (mealId:
     return response.json()
 })
 
+export const fetchViewedMealsList = createAsyncThunk("fetchViwedMeals", async () => {
+    const { filteredData } = await useToFetchDataFromFirebase("meals")
+
+    if (filteredData?.length) {
+        return { meals: filteredData[0].meals }
+    }
+})
+
 export const fetchCuisineMeals = createAsyncThunk("fetchCuisineMeals", async (cuisineName: string) => {
     const CUISINE_MEALS_URL = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${cuisineName}`
 
@@ -79,7 +87,7 @@ export const fetchCuisineMeals = createAsyncThunk("fetchCuisineMeals", async (cu
 // });
 
 export const fetchIngredients = createAsyncThunk("fetchIngredients", async () => {
-    const {filteredData} = await useToFetchDataFromFirebase("ingredients")
+    const { filteredData } = await useToFetchDataFromFirebase("ingredients")
 
     if (filteredData?.length) {
         return { meals: filteredData[0].ingredients }

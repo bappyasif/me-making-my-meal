@@ -9,6 +9,8 @@ export const MostPopularMeals = () => {
 
     const mealsViewed = useAppSelector(state => state.meal.mealsViewed);
 
+    // console.log(mealsViewed, "mealsViewed!!")
+
     const readyView = () => {
         if (mealsViewed.length > 0 && mealsViewed.length < 4) {
             setMeals(mealsViewed)
@@ -21,7 +23,7 @@ export const MostPopularMeals = () => {
 
     useEffect(() => {
         readyView()
-    }, [])
+    }, [mealsViewed])
 
     const {t} = useTranslation()
 

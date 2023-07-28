@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { fetchMealDetails } from "../../data_fetching"
+import { fetchMealDetails, fetchViewedMealsList } from "../../data_fetching"
 import { addDataIntoCollection } from "../../firebase/utils"
 // import { useConfirmUserAuth } from "../../hooks/forComponents"
 
@@ -62,25 +62,25 @@ const mealsSlice = createSlice({
     name: "meals",
     reducers: {
         increaseMealCount: (state, action) => {
-            const {id, name, imgSrc} = action.payload;
+            const { id, name, imgSrc } = action.payload;
 
             const foundItem = state.mealsViewed.findIndex(item => item.id === action.payload.id)
-            
-            if(foundItem !== -1) {
+
+            if (foundItem !== -1) {
                 state.mealsViewed = state.mealsViewed.map(item => {
-                    if(item.id === id) {
+                    if (item.id === id) {
                         item.count = item.count ? item.count + 1 : 1
                     }
                     return item
                 })
             } else {
-                state.mealsViewed.push({...action.payload, count: 0})
+                state.mealsViewed.push({ ...action.payload, count: 0 })
             }
 
             // const { ready } = useConfirmUserAuth()
 
             // ready && addDataIntoCollection("4M", {meals: [...state.mealsViewed]}, "meals")
-            addDataIntoCollection("4M", {meals: [...state.mealsViewed]}, "meals")
+            addDataIntoCollection("4M", { meals: [...state.mealsViewed] }, "meals")
         }
     },
     extraReducers: builder => {
@@ -111,14 +111,13 @@ const mealsSlice = createSlice({
                 state.meal = meal
                 state.ingredients = ingredients
                 state.measures = measures
-                // return {
-                //     meal,
-                //     ingredients,
-                //     measures,
-                //     count: 0
-                // }
             })
+
+            // state.mealsViewed = action.payload?.mealsViewed
             console.log(action.payload, "meal details")
+        }),
+        builder.addCase(fetchViewedMealsList.fulfilled, (state, action) => {
+            state.mealsViewed = action.payload?.meals
         })
     }
 })
