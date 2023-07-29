@@ -8,6 +8,8 @@ import { increaseCountForIngredient } from "../ingredients/ingredientSlice";
 import { TranslateMealsDetails } from "./TranslateMealsDetails";
 import { useTranslation } from "react-i18next";
 import { RenderIngredientsAndMeasurements } from "./TranslateIngredientsAndMeasurements";
+import { FacebookShareButton, TwitterIcon, TwitterShareButton } from "react-share";
+import { Share, ShareableOptions } from "../../utils/shareInSocialMedia";
 
 export const MealDetails = () => {
     // const { mealId } = useParams()
@@ -57,6 +59,10 @@ export const RenderMealBasicInfo = () => {
             <h1>{mealName}</h1>
 
             <a target="_blank" href={mealSource}>{t("Visit Source Website")}</a>
+
+            {/* <Share description={mealName} /> */}
+
+            <ShareableOptions category={category} mealName={mealName} img={mealThumb} />
 
             <div className="mx-auto">
                 <img className="aspect-square h-96" src={mealThumb} alt={mealName} />
