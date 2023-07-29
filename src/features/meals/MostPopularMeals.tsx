@@ -28,7 +28,7 @@ export const MostPopularMeals = () => {
     }
 
     const content = (
-        meals.map(item => <Link to={`/meals/${item.id}`}>{item.name}</Link>)
+        meals.map(item => <Link key={item.name} to={`/meals/${item.id}`}>{item.name}</Link>)
     )
 
     useEffect(() => {
