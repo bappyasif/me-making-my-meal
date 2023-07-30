@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "."
-import { useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { fetchCategories, fetchCuisines, fetchIngredients } from "../data_fetching";
-import { CategoriesType, CategoryItemType } from "../features/categories/categoriesSlice";
-import { CuisineNameType, CuisinesListType } from "../features/area/areaSlices";
+import { CategoriesType, CategoryItemType, increaseCategoryItemCount } from "../features/categories/categoriesSlice";
+import { CuisineNameType, CuisinesListType, inCreaseCountForCuisine } from "../features/area/areaSlices";
 import { IngredientsListType, IngredientsType, InitIngredientStateType } from "../features/ingredients/ingredientSlice";
 import { annoymousAuth, readingDataFromFirestore } from "../firebase/utils";
 
 export const useToGetCategories = () => {
     const list = useAppSelector(state => state.categories.list);
-    console.log(list, "catgories!!")
+    // console.log(list, "catgories!!")
     const dispatch = useAppDispatch();
     // return {categories: categories}
     useEffect(() => {
@@ -174,7 +174,7 @@ export const useToGetFourPopularItems = (list: (CategoryItemType | CuisineNameTy
         const currItem = items[rnd]
         const checkExists = names.findIndex(name => name === currItem.name)
         if (checkExists === -1 && currItem.name) {
-            console.log("adding name", currItem.name, currItem)
+            // console.log("adding name", currItem.name, currItem)
             setNames(prev => [...prev, currItem.name])
         }
     }
@@ -186,9 +186,9 @@ export const useToGetFourPopularItems = (list: (CategoryItemType | CuisineNameTy
         // names.length > 0 && names.length < 4 && removeDuplicate()
     }, [highestCount, names])
 
-    console.log(names, "names!!!!", highestOnly, lesserCountsItems.length)
+    // console.log(names, "names!!!!", highestOnly, lesserCountsItems.length)
 
-    return { names: removeDuplicates() }
+    return { names: removeDuplicates().slice(0,4) }
 }
 
 export const useToGetAnRandomMeal = () => {
@@ -207,7 +207,7 @@ export const useConfirmUserAuth = () => {
     const checkAuth = () => {
         annoymousAuth().then(user => {
             if (user?.user) {
-                console.log(user.user, "USER!!!!")
+                // console.log(user.user, "USER!!!!")
                 setReady(true)
             } else {
                 setReady(false)
@@ -228,3 +228,27 @@ export const useToFetchDataFromFirebase = async (documentName: string) => {
 
     return { filteredData }
 }
+
+export const useToIncreaseCategoryAndCuisineCounts = (category: string, cuisine:string) => {
+    const dispatch = useAppDispatch()
+
+    const { ready } = useConfirmUserAuth()
+
+    const navigate = useNavigate()
+
+    const handleCategoryClick = () => {
+        ready && dispatch(increaseCategoryItemCount(category))
+        navigate(`/categories/${category}`)
+    }
+
+    const handleCuisineClick = () => {
+        ready && dispatch(inCreaseCountForCuisine(cuisine))
+        navigate(`/cuisines/${cuisine}`)
+    }
+
+    return {handleCategoryClick, handleCuisineClick}
+}
+
+// export const useToIncreaseCategoriesCounts = (name: string) => {
+
+// }

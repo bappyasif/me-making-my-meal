@@ -119,7 +119,7 @@ const areaSlice = createSlice({
                         count: 0
                     }
                 } else {
-                    console.log(item, "IETEMIETEN")
+                    // console.log(item, "IETEMIETEN")
                     return item
                 }
             })
@@ -134,7 +134,7 @@ const areaSlice = createSlice({
 
                 return mealItem
             })
-            console.log(action.payload, "meals cuisines")
+            // console.log(action.payload, "meals cuisines")
         })
     }
 });

@@ -34,7 +34,7 @@ const ingredientSlices = createSlice({
             state.list = state.list.map(item => {
                 if (item.name === action.payload) {
                     item.count += 1
-                    console.log("count incremented", action.payload, item.name)
+                    // console.log("count incremented", action.payload, item.name)
                 }
                 return item
             })
@@ -60,7 +60,7 @@ const ingredientSlices = createSlice({
                 }
                 return item
             })
-            console.log(action.payload, "payload ingredients!!")
+            // console.log(action.payload, "payload ingredients!!")
         }),
             builder.addCase(fetchMealsByIngredient.fulfilled, (state, action) => {
                 state.meals = action.payload.meals.map((item: any) => {
@@ -70,7 +70,7 @@ const ingredientSlices = createSlice({
                         mealImg: item.strMealThumb
                     }
                 })
-                console.log(action.payload, "ingredient meals")
+                // console.log(action.payload, "ingredient meals")
             })
     }
 });

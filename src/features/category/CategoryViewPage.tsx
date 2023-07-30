@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom"
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { fetchFilterByCategory } from "../../data_fetching";
 import { MealItemType } from "./categorySlice";
-import { useToDispatchFetching } from "../../hooks/forComponents";
+import { useConfirmUserAuth, useToDispatchFetching } from "../../hooks/forComponents";
 import { useTranslation } from "react-i18next";
 import { increaseMealCount } from "../meals/mealsSlice";
 // import { fetchFilterByCategory } from "../data_fetching";
@@ -46,10 +46,13 @@ const CategoryMeals = () => {
 
 export const RenderMeal = ({ ...item }: MealItemType) => {
     const { id, mealImg, mealName } = item;
+    
     const dispatch = useAppDispatch();
 
+    const { ready } = useConfirmUserAuth()
+
     const clickHandler = () => {
-        dispatch(increaseMealCount({id, name: mealName, imgSrc: mealImg}))
+        ready && dispatch(increaseMealCount({id, name: mealName, imgSrc: mealImg}))
         // console.log("DISPATCHED!!", {mealId:id, mealName, mealThumb: mealImg})
     }
 

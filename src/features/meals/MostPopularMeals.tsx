@@ -15,7 +15,7 @@ export const MostPopularMeals = () => {
         
         const topFour = mealsViewed.slice(0,4)
         // setMeals(topFour)
-        console.log(topFour, "MANYYY")
+        // console.log(topFour, "MANYYY")
         setMeals(topFour)
     }
 

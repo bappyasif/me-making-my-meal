@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom"
 import { fetchOneRandomMeal } from "../../data_fetching"
-import { useToDispatchFetching, useToGetAnRandomMeal } from "../../hooks/forComponents"
+import { useToDispatchFetching, useToGetAnRandomMeal, useToIncreaseCategoryAndCuisineCounts } from "../../hooks/forComponents"
 import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 
@@ -18,11 +18,13 @@ export const RandomMeal = () => {
         return () => clearTimeout(timer)
     }, [])
 
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
 
-    const handleCategoryClick = () => navigate(`/categories/${category}`)
+    // const handleCategoryClick = () => navigate(`/categories/${category}`)
 
-    const handleCuisineClick = () => navigate(`/cuisines/${cuisine}`)
+    // const handleCuisineClick = () => navigate(`/cuisines/${cuisine}`)
+
+    const { handleCategoryClick, handleCuisineClick } = useToIncreaseCategoryAndCuisineCounts(category, cuisine)
 
     const content = (
         wait

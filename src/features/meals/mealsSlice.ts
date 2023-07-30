@@ -62,7 +62,7 @@ const mealsSlice = createSlice({
     name: "meals",
     reducers: {
         increaseMealCount: (state, action) => {
-            const { id, name, imgSrc } = action.payload;
+            const { id } = action.payload;
 
             const foundItem = state.mealsViewed.findIndex(item => item.id === action.payload.id)
 
@@ -103,21 +103,21 @@ const mealsSlice = createSlice({
                 let ingredients = []
                 let measures = []
                 for (let key in item) {
-                    console.log(["Ingredient"].includes(key), ["Measure"].includes(key))
+                    // console.log(["Ingredient"].includes(key), ["Measure"].includes(key))
                     if (key.includes("Ingredient") && item[key]) {
                         ingredients.push({ text: item[key] })
                     } else if (key.includes("Measure") && item[key]) {
                         measures.push({ text: item[key] })
                     }
                 }
-                console.log(meal, "ITEM", ingredients, measures)
+                // console.log(meal, "ITEM", ingredients, measures)
                 state.meal = meal
                 state.ingredients = ingredients
                 state.measures = measures
             })
 
             // state.mealsViewed = action.payload?.mealsViewed
-            console.log(action.payload, "meal details")
+            // console.log(action.payload, "meal details")
         }),
         builder.addCase(fetchViewedMealsList.fulfilled, (state, action) => {
             // inserting dat from firbase sorted to access highest counted meals easier

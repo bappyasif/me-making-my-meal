@@ -23,7 +23,7 @@ const categoryMealsSlice = createSlice({
     },
     extraReducers: builder => {
         builder.addCase(fetchFilterByCategory.fulfilled, (state, action) => {
-            console.log(action.payload, "")
+            // console.log(action.payload, "")
             state.meals = action.payload.meals.map((item:any) => {
                 return {
                     id: item.idMeal,

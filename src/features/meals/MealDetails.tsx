@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "../../hooks"
 import { fetchMealDetails } from "../../data_fetching";
 import { useEffect } from "react";
 import { IAMType } from "./mealsSlice";
-import { useToDispatchFetching } from "../../hooks/forComponents";
+import { useConfirmUserAuth, useToDispatchFetching, useToIncreaseCategoryAndCuisineCounts } from "../../hooks/forComponents";
 import { increaseCountForIngredient } from "../ingredients/ingredientSlice";
 import { TranslateMealsDetails } from "./TranslateMealsDetails";
 import { useTranslation } from "react-i18next";
@@ -11,6 +11,8 @@ import { RenderIngredientsAndMeasurements } from "./TranslateIngredientsAndMeasu
 import { FacebookShareButton, TwitterIcon, TwitterShareButton } from "react-share";
 import { Share, ShareableOptions } from "../../utils/shareInSocialMedia";
 import { Helmet } from "react-helmet"
+import { increaseCategoryItemCount } from "../categories/categoriesSlice";
+import { inCreaseCountForCuisine } from "../area/areaSlices";
 // import testImg from "../../assets/react.svg"
 
 export const MealDetails = () => {
@@ -46,11 +48,23 @@ export const RenderMealBasicInfo = () => {
 
     // const renderIAMT = ()
 
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
 
-    const handleCategoryClick = () => navigate(`/categories/${category}`)
+    // const dispatch = useAppDispatch()
 
-    const handleCuisineClick = () => navigate(`/cuisines/${cuisine}`)
+    // const { ready } = useConfirmUserAuth()
+
+    // const handleCategoryClick = (itemName:string) => {
+    //     ready && dispatch(increaseCategoryItemCount(itemName))
+    //     navigate(`/categories/${category}`)
+    // }
+
+    // const handleCuisineClick = (name:string) => {
+    //     ready && dispatch(inCreaseCountForCuisine(name))
+    //     navigate(`/cuisines/${cuisine}`)
+    // }
+
+    const { handleCategoryClick, handleCuisineClick } = useToIncreaseCategoryAndCuisineCounts(category, cuisine)
 
     const renderTags = mealTags?.split(",").map(name => <span key={name}>{name}</span>)
 
@@ -73,6 +87,8 @@ export const RenderMealBasicInfo = () => {
                 <p className="flex gap-4">
                     <button onClick={handleCategoryClick}>{t(`${category}`)}</button>
                     <button onClick={handleCuisineClick}>{t(`${cuisine}`)}</button>
+                    {/* <button onClick={() => handleCategoryClick(category)}>{t(`${category}`)}</button>
+                    <button onClick={() => handleCuisineClick(cuisine)}>{t(`${cuisine}`)}</button> */}
                 </p>
                 {/* <p className="flex gap-4">{renderTags}</p> */}
             </div>
@@ -120,7 +136,7 @@ const RenderIngredientsAndMeasures = () => {
     const measures = useAppSelector(state => state.meal.measures);
     const ingredients = useAppSelector(state => state.meal.ingredients)
 
-    console.log(measures, ingredients);
+    // console.log(measures, ingredients);
 
     const dispatch = useAppDispatch();
 

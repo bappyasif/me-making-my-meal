@@ -32,27 +32,30 @@ const RenderCategoryMeal = ({ ...item }: CategoryItemType) => {
 
     const dispatch = useAppDispatch();
 
-    // const { ready } = useConfirmUserAuth()
+    const { ready } = useConfirmUserAuth()
 
-    const handleClicked = (itemId: string) => {
-        dispatch(increaseCategoryItemCount(itemId))
+    const handleClicked = (itemName: string) => {
+        ready && dispatch(increaseCategoryItemCount(itemName))
         // console.log(ready, "READY!!")
     }
 
     const { t } = useTranslation()
 
     return (
-        <div key={id} className="w-96 h-96 aspect-square flex flex-col gap-4" onClick={() => handleClicked(`${id}`)}>
+        <div key={id} className="w-96 h-96 aspect-square flex flex-col gap-4" onClick={() => handleClicked(`${name}`)}>
             <h2 className="text-center text-4xl">
                 <Link 
                     to={`/categories/${name}`}
                     // style={{
                     //     pointerEvents: !ready ? "none" : "auto"
                     // }}
-                >{t(`${name}`)} - {count}</Link>
+                >
+                    <h2>{t(`${name}`)} - {count}</h2>
+                    <img src={`${imgSrc}`} alt={`${name}`} />
+                </Link>
                 {/* <div>{name} - {count}</div> */}
             </h2>
-            <img src={`${imgSrc}`} alt={`${name}`} />
+            {/* <img src={`${imgSrc}`} alt={`${name}`} /> */}
         </div>
     )
 }

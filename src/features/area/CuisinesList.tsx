@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom"
 import { useAppDispatch } from "../../hooks"
-import { useToGetCuisines } from "../../hooks/forComponents"
+import { useConfirmUserAuth, useToGetCuisines } from "../../hooks/forComponents"
 import { inCreaseCountForCuisine } from "./areaSlices"
 import { useTranslation } from "react-i18next"
 
@@ -48,8 +48,10 @@ const RenderCuisinesList = ({ fullList }: RenderType) => {
 
   const navigate = useNavigate()
 
+  const { ready } = useConfirmUserAuth()
+
   const handleClick = (name: string) => {
-    dispatch(inCreaseCountForCuisine(name))
+    ready && dispatch(inCreaseCountForCuisine(name))
     navigate(`/cuisines/${name}`)
   }
 

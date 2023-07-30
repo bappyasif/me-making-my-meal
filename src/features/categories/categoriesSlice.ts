@@ -75,7 +75,7 @@ const categorySlice = createSlice({
     reducers: {
         increaseCategoryItemCount: (state, action) => {
             state.list = state.list.map((item) => {
-                if (item.id === action.payload) {
+                if (item.name === action.payload) {
                     item.count = item.count ? item.count + 1 : 1
                     // item.count += 1
                 }
@@ -109,7 +109,7 @@ const categorySlice = createSlice({
                     return item
                 }
             })
-            console.log(state.list)
+            // console.log(state.list)
         })
         // builder.addCase(fetchFilterByCategory.fulfilled, (state, action) => {
         //     console.log(action.payload, "category meals")

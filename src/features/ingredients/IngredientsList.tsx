@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom"
 import { fetchIngredients } from "../../data_fetching"
 import { useAppDispatch, useAppSelector } from "../../hooks"
-import { useToDispatchFetching, useToGetIngredients } from "../../hooks/forComponents"
+import { useConfirmUserAuth, useToDispatchFetching, useToGetIngredients } from "../../hooks/forComponents"
 import { increaseCountForIngredient } from "./ingredientSlice"
 
 export const IngredientsList = () => {
@@ -36,8 +36,10 @@ const RenderList = () => {
   
   const dispatch = useAppDispatch();
 
+  const { ready } = useConfirmUserAuth()
+
   const handleClick = (ingredientName: string) => {
-    dispatch(increaseCountForIngredient(ingredientName))
+    ready && dispatch(increaseCountForIngredient(ingredientName))
     // navigate(`/ingredients/${ingredientName}`)
   }
 
