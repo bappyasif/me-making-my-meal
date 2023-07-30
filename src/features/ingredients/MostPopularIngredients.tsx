@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import { useAppSelector } from "../../hooks"
-import { useToGetFourPopularItems, useToGetFourRandomItems } from "../../hooks/forComponents"
+import { useToGetFourPopularItems, useToGetFourRandomItems, useToIncreaseCountsFromMostLikedItems } from "../../hooks/forComponents"
 import { useTranslation } from "react-i18next"
 
 export const MostPopularIngredients = () => {
@@ -10,10 +10,12 @@ export const MostPopularIngredients = () => {
     // figure it out how!!
     const {names} = useToGetFourPopularItems(ingredients)
 
+    const {handleClick} = useToIncreaseCountsFromMostLikedItems("ingredients")
+
     const renderContent = (
         names.map(name => {
             return (
-                <Link key={name} to={`/ingredients/${name || "Lime"}`}>{name || "Lime"}</Link>
+                <Link onClick={() => handleClick(name)} key={name} to={`/ingredients/${name || "Lime"}`}>{name || "Lime"}</Link>
             )
         })
     )

@@ -4,8 +4,9 @@ import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { fetchCategories, fetchCuisines, fetchIngredients } from "../data_fetching";
 import { CategoriesType, CategoryItemType, increaseCategoryItemCount } from "../features/categories/categoriesSlice";
 import { CuisineNameType, CuisinesListType, inCreaseCountForCuisine } from "../features/area/areaSlices";
-import { IngredientsListType, IngredientsType, InitIngredientStateType } from "../features/ingredients/ingredientSlice";
+import { IngredientsListType, IngredientsType, InitIngredientStateType, increaseCountForIngredient } from "../features/ingredients/ingredientSlice";
 import { annoymousAuth, readingDataFromFirestore } from "../firebase/utils";
+import { increaseMealCount } from "../features/meals/mealsSlice";
 
 export const useToGetCategories = () => {
     const list = useAppSelector(state => state.categories.list);
@@ -249,6 +250,29 @@ export const useToIncreaseCategoryAndCuisineCounts = (category: string, cuisine:
     return {handleCategoryClick, handleCuisineClick}
 }
 
-// export const useToIncreaseCategoriesCounts = (name: string) => {
+export const useToIncreaseCountsFromMostLikedItems = (type: string) => {
+    const dispatch = useAppDispatch();
 
-// }
+//   const navigate = useNavigate()
+
+  const { ready } = useConfirmUserAuth()
+
+  const handleClick = (name: string) => {
+    ready && type === "cuisines" && dispatch(inCreaseCountForCuisine(name))
+    // type === "cuisines" && navigate(`/cuisines/${name}`)
+
+    ready && type === "categories" && dispatch(increaseCategoryItemCount(name))
+    // type === "categories" && navigate(`/categories/${name}`)
+
+    ready && type === "ingredients" && dispatch(increaseCountForIngredient(name))
+    // type === "ingredients" && navigate(`/ingredients/${name}`)
+
+    // ready && type === "mostViewed" && dispatch(increaseMealCount(name))
+    // // type === "mostViewed" && navigate(`/ingredients/${name}`)
+    // ready && type === "mostViewed" && console.log(name, "MEALNAME")
+  }
+
+  return {
+    handleClick
+  }
+}

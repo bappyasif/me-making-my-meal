@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react"
-import { ViewedMealType } from "./mealsSlice"
-import { useAppSelector } from "../../hooks"
+import { ViewedMealType, increaseMealCount } from "./mealsSlice"
+import { useAppDispatch, useAppSelector } from "../../hooks"
 import { Link } from "react-router-dom"
 import { useTranslation } from "react-i18next"
+import { useConfirmUserAuth, useToIncreaseCountsFromMostLikedItems } from "../../hooks/forComponents"
 
 export const MostPopularMeals = () => {
     const [meals, setMeals] = useState<ViewedMealType[]>([])
@@ -27,8 +28,17 @@ export const MostPopularMeals = () => {
         }
     }
 
+    // const {handleClick} = useToIncreaseCountsFromMostLikedItems("mostViewed")
+    const { ready } = useConfirmUserAuth()
+
+    const dispatch = useAppDispatch()
+    
+    const handleClick = (item: ViewedMealType) => {
+        ready && dispatch(increaseMealCount(item))
+    }
+
     const content = (
-        meals.map(item => <Link key={item.name} to={`/meals/${item.id}`}>{item.name}</Link>)
+        meals.map(item => <Link onClick={() => handleClick(item)} key={item.name} to={`/meals/${item.id}`}>{item.name}</Link>)
     )
 
     useEffect(() => {
