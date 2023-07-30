@@ -1,10 +1,11 @@
 import { getAuth, onAuthStateChanged, signInAnonymously } from "firebase/auth";
 import firebaseApp from "./init";
-import { addDoc, collection, doc, getDocs, getFirestore, setDoc } from "firebase/firestore";
+import { DocumentReference, addDoc, collection, doc, getDocs, getFirestore, increment, setDoc, updateDoc } from "firebase/firestore";
 import { CategoryItemType } from "../features/categories/categoriesSlice";
 import { CuisineNameType } from "../features/area/areaSlices";
 import { IngredientsType } from "../features/ingredients/ingredientSlice";
 import { ViewedMealType } from "../features/meals/mealsSlice";
+import firebase from "firebase/compat/app";
 
 export const auth = getAuth(firebaseApp);
 export const db = getFirestore(firebaseApp);
@@ -59,6 +60,30 @@ export const addDataIntoCollection = (collName: string, data: DataPropsType, pat
 //     addDoc(collection(db, collName), data).then(() => console.log("DATA SAVED!!"))
 // }
 
+export const addDataIntoDocumentSubCollection = async (docName:string, subCollectionName:string, subDocName:string, data:any) => {
+    // let db = firebase.firestore();
+    // DocumentReference categoryRef = db.collection
+    const baseCollection = collection(db, "4M")
+    // const BeefSubCollection = collection(categoryCollection, "Beef");
+    // const BeefSubCollection = collection(baseCollection, "foodCategories", "Beef")
+
+    // const BeefSubCollection = collection(baseCollection, "foodCategories", "category", "Beef")
+
+    // const BeefSubCollection = collection(baseCollection, "foodCategories",  "category")
+
+    const refSubCollection = collection(baseCollection, docName, subCollectionName)
+    
+    // await addDoc(BeefSubCollection, {tets: "test"})
+    // await setDoc(doc(refSubCollection, "Beef"), {test: "test"})
+    await setDoc(doc(refSubCollection, subDocName), data)
+}
+
+export const updateSingleRecordInFirebaseCollection = async () => {
+    const category = doc(db, "4M", "categories")
+    console.log(category)
+    // await updateDoc(category, {name: "Beef", count: increment(1)})
+}
+
 // Add a new document in collection "test"
 export const addIntoDbCollection = () => {
     const data = {
@@ -68,6 +93,15 @@ export const addIntoDbCollection = () => {
     }
     setDoc(doc(db, "test", "newEntry"), data)
         .then(() => console.log("data saved!!"))
+}
+
+// reading data from firestore subcollection
+export const readingDataFromFirestoreSubCollection = async (docName: string, subCollectionName:string) => {
+    const baseCollection = collection(db, "4M");
+    const refSubCollection = collection(baseCollection, docName, subCollectionName)
+    const collectionSnapshot = await getDocs(refSubCollection);
+    const testDocs = collectionSnapshot.docs.map(doc => doc.data())
+    return testDocs
 }
 
 // reading data from firestrore

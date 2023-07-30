@@ -1,7 +1,9 @@
 import { useTranslation } from "react-i18next";
-import { useAppSelector } from "../../hooks";
+import { useAppDispatch, useAppSelector } from "../../hooks";
 import { useToGetFourPopularItems, useToGetFourRandomItems, useToIncreaseCountsFromMostLikedItems } from "../../hooks/forComponents";
 import { Link } from "react-router-dom";
+import { useEffect } from "react";
+import { fetchCategoriesFromFirebase } from "../../data_fetching";
 
 export const MostPopularCategory = () => {
   const categories = useAppSelector(state => state.categories.list)
@@ -16,6 +18,12 @@ export const MostPopularCategory = () => {
       <Link onClick={() => handleClick(name)} key={name} to={`/categories/${name || "Beef"}`}>{name || "Beef"}</Link>
     ))
   )
+
+  const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    dispatch(fetchCategoriesFromFirebase())
+  }, [])
 
   // console.log(names, "names!!")
 

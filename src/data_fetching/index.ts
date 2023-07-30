@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { useAppSelector } from "../hooks";
-import { readingDataFromFirestore } from "../firebase/utils";
+import { readingDataFromFirestore, readingDataFromFirestoreSubCollection } from "../firebase/utils";
 import { useToFetchDataFromFirebase } from "../hooks/forComponents";
 
 const CATEGORIES_URL = "https://www.themealdb.com/api/json/v1/1/categories.php"
@@ -13,8 +13,41 @@ const AREA_URL = "https://www.themealdb.com/api/json/v1/1/list.php?a=list"
 //     return response.json()
 // })
 
-export const fetchCategories = createAsyncThunk("fetchCategories", async () => {
+// export const fetchCategories = createAsyncThunk("fetchCategories", async () => {
+//     const { filteredData } = await useToFetchDataFromFirebase("categories")
+
+//     if (filteredData?.length) {
+//         return { categories: filteredData[0].categories }
+//     } else {
+//         const response = await fetch(CATEGORIES_URL);
+//         return response.json()
+//     }
+// })
+// export const fetchCategories = createAsyncThunk("fetchCategories", async () => {
+//     const { filteredData } = await useToFetchDataFromFirebase("categories")
+    
+//     const subCollData = await readingDataFromFirestoreSubCollection("Categories", "Category")
+
+//     const response = await fetch(CATEGORIES_URL);
+
+//     console.log(subCollData, await response.json())
+
+//     if (filteredData?.length) {
+//         return { categories: filteredData[0].categories }
+//     } else {
+//         const response = await fetch(CATEGORIES_URL);
+//         return response.json()
+//     }
+// })
+export const fetchCategoriesFromAPI = createAsyncThunk("fetchCategories", async () => {
     const { filteredData } = await useToFetchDataFromFirebase("categories")
+    
+    const subCollData = await readingDataFromFirestoreSubCollection("Categories", "Category")
+
+    const response = await fetch(CATEGORIES_URL);
+    return response.json()
+
+    console.log(subCollData, await response.json())
 
     if (filteredData?.length) {
         return { categories: filteredData[0].categories }
@@ -22,6 +55,13 @@ export const fetchCategories = createAsyncThunk("fetchCategories", async () => {
         const response = await fetch(CATEGORIES_URL);
         return response.json()
     }
+})
+
+export const fetchCategoriesFromFirebase = createAsyncThunk("fetchCategoriesFromFirebase", async () => {
+    
+    const subCollData = await readingDataFromFirestoreSubCollection("Categories", "Category")
+
+    return { categories: subCollData }
 })
 
 // export const fetchCuisines = createAsyncThunk("meals/ferchCuisines", async () => {

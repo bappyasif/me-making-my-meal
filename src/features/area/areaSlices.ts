@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { fetchCuisineMeals, fetchCuisines } from "../../data_fetching"
 import { MealItemType } from "../category/categorySlice"
-import { addDataIntoCollection } from "../../firebase/utils"
+import { addDataIntoCollection, addDataIntoDocumentSubCollection } from "../../firebase/utils"
 // import { useConfirmUserAuth } from "../../hooks/forComponents"
 
 type AreaType = {
@@ -96,6 +96,7 @@ const areaSlice = createSlice({
             state.list = state.list.map(item => {
                 if (item.name === action.payload) {
                     item.count += 1;
+                    addDataIntoDocumentSubCollection("Cuisines", "Cuisine", item.name, item)
                 }
                 return item
             })
@@ -104,7 +105,7 @@ const areaSlice = createSlice({
 
             // ready && addDataIntoCollection("4M", {cuisines: [...state.list]}, "cuisines")
 
-            addDataIntoCollection("4M", {cuisines: [...state.list]}, "cuisines")
+            // addDataIntoCollection("4M", {cuisines: [...state.list]}, "cuisines")
         }
     },
     extraReducers: builder => {

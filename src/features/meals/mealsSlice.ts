@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { fetchMealDetails, fetchViewedMealsList } from "../../data_fetching"
-import { addDataIntoCollection } from "../../firebase/utils"
+import { addDataIntoCollection, addDataIntoDocumentSubCollection } from "../../firebase/utils"
 // import { useConfirmUserAuth } from "../../hooks/forComponents"
 
 export type IAMType = {
@@ -62,7 +62,7 @@ const mealsSlice = createSlice({
     name: "meals",
     reducers: {
         increaseMealCount: (state, action) => {
-            const { id } = action.payload;
+            const { id, name } = action.payload;
 
             const foundItem = state.mealsViewed.findIndex(item => item.id === action.payload.id)
 
@@ -70,11 +70,13 @@ const mealsSlice = createSlice({
                 state.mealsViewed = state.mealsViewed.map(item => {
                     if (item.id === id) {
                         item.count = item.count ? item.count + 1 : 1
+                        addDataIntoDocumentSubCollection("Meals", "Meal", item.name, item)
                     }
                     return item
                 })
             } else {
                 state.mealsViewed.push({ ...action.payload, count: 1 })
+                addDataIntoDocumentSubCollection("Meals", "Meal", name, action.payload)
             }
 
             // kepping it sorted so that data retrival from components gets easier with highest counts
@@ -83,7 +85,7 @@ const mealsSlice = createSlice({
             // const { ready } = useConfirmUserAuth()
 
             // ready && addDataIntoCollection("4M", {meals: [...state.mealsViewed]}, "meals")
-            addDataIntoCollection("4M", { meals: [...state.mealsViewed] }, "meals")
+            // addDataIntoCollection("4M", { meals: [...state.mealsViewed] }, "meals")
         }
     },
     extraReducers: builder => {

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { fetchCategories, fetchFilterByCategory } from "../../data_fetching";
-import { addDataIntoCollection } from "../../firebase/utils";
+import { fetchCategoriesFromAPI, fetchCategoriesFromFirebase, fetchFilterByCategory } from "../../data_fetching";
+import { addDataIntoCollection, addDataIntoDocumentSubCollection, updateSingleRecordInFirebaseCollection } from "../../firebase/utils";
 // import { useConfirmUserAuth } from "../../hooks/forComponents";
 
 // type CategoryState = {
@@ -78,6 +78,7 @@ const categorySlice = createSlice({
                 if (item.name === action.payload) {
                     item.count = item.count ? item.count + 1 : 1
                     // item.count += 1
+                    addDataIntoDocumentSubCollection("Categories", "Category", item.name, item)
                 }
                 return item
             })
@@ -86,7 +87,10 @@ const categorySlice = createSlice({
 
             // ready && addDataIntoCollection("4M", {categories: [...state.list]}, "categories")
 
-            addDataIntoCollection("4M", { categories: [...state.list] }, "categories")
+            // addDataIntoCollection("4M", { categories: [...state.list] }, "categories")
+
+            // updateSingleRecordInFirebaseCollection()
+            // addDataIntoDocumentSubCollection()
         },
 
         // handleViewCategory: (state, action) => {
@@ -94,7 +98,7 @@ const categorySlice = createSlice({
         // }
     },
     extraReducers: builder => {
-        builder.addCase(fetchCategories.fulfilled, (state, action) => {
+        builder.addCase(fetchCategoriesFromAPI.fulfilled, (state, action) => {
             state.list = action.payload.categories.map((item: any) => {
                 if (item?.idCategory) {
                     const { idCategory, strCategory, strCategoryDescription, strCategoryThumb } = item
@@ -110,6 +114,19 @@ const categorySlice = createSlice({
                 }
             })
             // console.log(state.list)
+        }),
+        builder.addCase(fetchCategoriesFromFirebase.fulfilled, (state, action) => {
+            const {categories} = action.payload;
+            state.list = state.list.map(item => {
+                const chk = categories.findIndex(category => category.name === item.name)
+                console.log(chk, "CHECK!!")
+                if(chk !== -1) {
+                    item = categories[chk] as CategoryItemType
+                    console.log(item, "CHANGED!!")
+                }
+                return item
+            })
+            console.log(categories, "FIREBASE")
         })
         // builder.addCase(fetchFilterByCategory.fulfilled, (state, action) => {
         //     console.log(action.payload, "category meals")

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "."
 import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { fetchCategories, fetchCuisines, fetchIngredients } from "../data_fetching";
+import { fetchCategoriesFromAPI, fetchCuisines, fetchIngredients } from "../data_fetching";
 import { CategoriesType, CategoryItemType, increaseCategoryItemCount } from "../features/categories/categoriesSlice";
 import { CuisineNameType, CuisinesListType, inCreaseCountForCuisine } from "../features/area/areaSlices";
 import { IngredientsListType, IngredientsType, InitIngredientStateType, increaseCountForIngredient } from "../features/ingredients/ingredientSlice";
-import { annoymousAuth, readingDataFromFirestore } from "../firebase/utils";
+import { annoymousAuth, readingDataFromFirestore, readingDataFromFirestoreSubCollection } from "../firebase/utils";
 import { increaseMealCount } from "../features/meals/mealsSlice";
 
 export const useToGetCategories = () => {
@@ -14,7 +14,7 @@ export const useToGetCategories = () => {
     const dispatch = useAppDispatch();
     // return {categories: categories}
     useEffect(() => {
-        list.length ? null : dispatch(fetchCategories())
+        list.length ? null : dispatch(fetchCategoriesFromAPI())
     }, [])
 
     return list
@@ -223,9 +223,18 @@ export const useConfirmUserAuth = () => {
     return { ready }
 }
 
+// export const useToFetchDataFromFirebase = async (documentName: string) => {
+//     const fbResp = await readingDataFromFirestore("4M")
+//     const filteredData = fbResp.filter(item => Object.keys(item)[0] === documentName)
+
+//     return { filteredData }
+// }
 export const useToFetchDataFromFirebase = async (documentName: string) => {
     const fbResp = await readingDataFromFirestore("4M")
     const filteredData = fbResp.filter(item => Object.keys(item)[0] === documentName)
+
+    // const subCollData = await readingDataFromFirestoreSubCollection("Categories", "Category")
+    // console.log(subCollData)
 
     return { filteredData }
 }
