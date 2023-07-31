@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "."
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { fetchCategoriesFromAPI, fetchCuisines, fetchIngredients } from "../data_fetching";
 import { CategoriesType, CategoryItemType, increaseCategoryItemCount } from "../features/categories/categoriesSlice";
 import { CuisineNameType, CuisinesListType, inCreaseCountForCuisine } from "../features/area/areaSlices";
-import { IngredientsListType, IngredientsType, InitIngredientStateType, increaseCountForIngredient } from "../features/ingredients/ingredientSlice";
-import { annoymousAuth, readingDataFromFirestore, readingDataFromFirestoreSubCollection } from "../firebase/utils";
-import { increaseMealCount } from "../features/meals/mealsSlice";
+import { IngredientsType, increaseCountForIngredient } from "../features/ingredients/ingredientSlice";
+import { annoymousAuth, readingDataFromFirestore } from "../firebase/utils";
 
 export const useToGetCategories = () => {
     const list = useAppSelector(state => state.categories.list);
@@ -145,6 +144,53 @@ export const useToGetFourRandomItems = (categories: (CategoryItemType | CuisineN
     return { names }
 }
 
+// export const useToGetFourPopularItems = (list: (CategoryItemType | CuisineNameType | IngredientsType)[]) => {
+//     const [names, setNames] = useState<string[]>([]);
+
+//     const { highestCount } = useToGetHighestCount({ data: list })
+
+//     const removeDuplicates = () => {
+//         const filtered = names.filter(function (item, pos) {
+//             return names.indexOf(item) == pos;
+//         })
+
+//         return filtered
+
+//         // setNames(filtered)
+//     }
+
+//     const highestOnly = list.filter(item => item.count >= highestCount);
+
+//     const lesserCountsItems = list.filter(item => item.count < highestCount)
+
+//     const whenFewerHighestItems = () => {
+//         highestOnly.forEach(item => {
+//             setNames(prev => [...prev, item.name])
+//         })
+//     }
+
+//     const allHighestToList = (items: (CategoryItemType | CuisineNameType | IngredientsType)[]) => {
+//         const rnd = Math.floor(Math.random() * items.length)
+//         const currItem = items[rnd]
+//         const checkExists = names.findIndex(name => name === currItem.name)
+//         if (checkExists === -1 && currItem.name) {
+//             console.log("adding name", currItem.name, currItem)
+//             setNames(prev => [...prev, currItem.name])
+//         }
+//     }
+
+//     useEffect(() => {
+//         highestCount !== undefined && names.length < 4 && highestOnly.length > 5 && allHighestToList(highestOnly)
+//         highestCount !== undefined && names.length < 4 && highestOnly.length < 5 && whenFewerHighestItems()
+//         highestOnly.length < 4 && lesserCountsItems.length && names.length < 5 && allHighestToList(lesserCountsItems)
+//         // names.length > 0 && names.length < 4 && removeDuplicate()
+//     }, [highestCount, names, lesserCountsItems])
+
+//     // console.log(names, "names!!!!", highestOnly, lesserCountsItems.length)
+
+//     return { names: removeDuplicates().slice(0,4) }
+// }
+
 export const useToGetFourPopularItems = (list: (CategoryItemType | CuisineNameType | IngredientsType)[]) => {
     const [names, setNames] = useState<string[]>([]);
 
@@ -162,32 +208,42 @@ export const useToGetFourPopularItems = (list: (CategoryItemType | CuisineNameTy
 
     const highestOnly = list.filter(item => item.count >= highestCount);
 
-    const lesserCountsItems = list.filter(item => item.count < highestCount)
+    const notZerosButLessThanHighest = list.filter(item => item.count > 0 && item.count < highestCount).sort((a,b) => a.count < b.count ? -1 : 1)
 
-    const whenFewerHighestItems = () => {
-        highestOnly.forEach(item => {
-            setNames(prev => [...prev, item.name])
+    const addAllFromHighest = () => {
+        highestOnly.forEach((item) => {
+            if(names.length < 4) {
+                setNames(prev => [...prev, item.name])
+            }
         })
     }
 
-    const allHighestToList = (items: (CategoryItemType | CuisineNameType | IngredientsType)[]) => {
-        const rnd = Math.floor(Math.random() * items.length)
-        const currItem = items[rnd]
-        const checkExists = names.findIndex(name => name === currItem.name)
-        if (checkExists === -1 && currItem.name) {
-            // console.log("adding name", currItem.name, currItem)
-            setNames(prev => [...prev, currItem.name])
-        }
+    const addHasCountsItems = () => {
+        notZerosButLessThanHighest.forEach(item => {
+            if(names.length < 4) {
+                setNames(prev => [...prev, item.name])
+            }
+        })
+    }
+
+    const needFewMoreItemToFill = () => {
+        // console.log("FILL IT!!")
+        const zeroCountsItems = list.filter(item => item.count === 0)
+        zeroCountsItems.forEach(item => {
+            const rnd = Math.random()
+            if(names.length < 4 && rnd > .6) {
+                setNames(prev => [...prev, item.name])
+            }
+        })
     }
 
     useEffect(() => {
-        highestCount !== undefined && names.length < 4 && highestOnly.length > 5 && allHighestToList(highestOnly)
-        highestCount !== undefined && names.length < 4 && highestOnly.length < 5 && whenFewerHighestItems()
-        highestOnly.length < 4 && lesserCountsItems.length && names.length < 5 && allHighestToList(lesserCountsItems)
-        // names.length > 0 && names.length < 4 && removeDuplicate()
-    }, [highestCount, names])
+        highestOnly.length && highestOnly.length < 4 && addAllFromHighest()
+        notZerosButLessThanHighest.length && addHasCountsItems()
+        highestOnly.length && highestOnly.length < 4 && names.length < 4 && needFewMoreItemToFill()
+    }, [highestOnly, notZerosButLessThanHighest, highestCount])
 
-    // console.log(names, "names!!!!", highestOnly, lesserCountsItems.length)
+    // console.log(highestOnly, notZerosButLessThanHighest)
 
     return { names: removeDuplicates().slice(0,4) }
 }
