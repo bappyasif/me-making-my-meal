@@ -9,7 +9,7 @@ export const Search = () => {
     const [name, setName] = useState<string>("Categories");
 
     return (
-        <div className="w-fit">
+        <div className="flex flex-col">
             {/* <p>Search</p> */}
             <ChooseSearchDomainOption name={name} setName={setName} />
             <SearchView name={name} />
@@ -34,21 +34,13 @@ const SearchView = ({ name }: { name: string }) => {
         items = useAppSelector(state => state.meal.mealsViewed)
     }
 
-    // const renderOptions = items?.map(item => <option></option>)
-
     const handleChange = (evt: ChangeEvent<HTMLInputElement>) => setText(evt.target.value)
 
     const filterMatches = () => {
-        // const filtered = items.map(item => {
-        //     // console.log(text, item.name, text.includes(item.name), item.name.toLowerCase().includes(text))
-        //     return item.name.toLowerCase().includes(text) ? item.name : null
-        // }).filter(item => item)
         const filtered = items.filter(item => {
-            // console.log(text, item.name, text.includes(item.name), item.name.toLowerCase().includes(text))
-            // return item.name.toLowerCase().includes(text) ? item : null
             return item.name.includes(text) ? item : null
         })
-        console.log(filtered, "FILTYERED")
+        // console.log(filtered, "FILTYERED")
         setPartialMatch(filtered)
     }
 
@@ -64,9 +56,9 @@ const SearchView = ({ name }: { name: string }) => {
     }, [text])
 
     return (
-        <div className="absolute w-96">
+        <div className="w-96 xxs:text-xl md:text-2xl">
             {/* Items - {items.length} */}
-            <input className="w-full text-xl" type="text" value={text} onChange={handleChange} placeholder="type here to search" />
+            <input className="w-full text-xl text-blue-900" type="text" value={text} onChange={handleChange} placeholder="type here to search" />
             {
                 partialMatch.length
                     ?
@@ -89,19 +81,19 @@ const ChooseSearchDomainOption = ({ name, setName }: { name: string, setName: Di
             <fieldset key={optName} className="flex gap-2 items-center w-36" onClick={() => handleClick(optName)}>
                 <input type="radio" name="option" id="option"
                     defaultChecked={optName === name} value={name} />
-                <label htmlFor={optName}>{t(`${optName}`)}</label>
+                <label className="" htmlFor={optName}>{t(`${optName}`)}</label>
             </fieldset>
         )
     })
 
     const content = (
-        <div className="flex gap-x-6 w-96 flex-wrap text-xl">
+        <div className="flex gap-x-6 xxs:w-full sm:w-96 flex-wrap text-xl">
             {renderOptions}
         </div>
     )
 
     return (
-        <div>
+        <div className="">
             <h2 className="text-2xl">{t("Select Search Type")}</h2>
             {/* <h3>{name}</h3> */}
             {content}

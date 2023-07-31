@@ -7,7 +7,7 @@ export const Header = () => {
     return (
         <div className="w-full flex flex-col items-center gap-y-4">
             <RenderNavs />
-            <div className="flex gap-6 justify-around">
+            <div className="flex xxs:flex-col sm:flex-row xxs:items-center sm:items-start gap-6 justify-around">
                 <LanguageSelection />
                 <Search />
             </div>
@@ -34,7 +34,8 @@ const LanguageSelection = () => {
     // change the language
     const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
         setLang(e.target.value);
-        let loc = "http://localhost:5173/";
+        // let loc = "http://localhost:5173/";
+        let loc = import.meta.env.VITE_I18N_LOC_URL;
         window.location.replace(loc + "?lng=" + e.target.value);
     }
 
@@ -44,10 +45,10 @@ const LanguageSelection = () => {
         <div className="flex gap-4 h-fit">
             {/* <h1>{t('welcome')}</h1> */}
 
-            <label className="text-2xl">{t('Choose')}</label>
-            <select className="text-2xl bg-slate-600" value={lang} onChange={handleChange}>
+            <label className="xxs:text-xl md:text-2xl">{t('Choose')}</label>
+            <select className="xxs:text-xl md:text-2xl bg-slate-600" value={lang} onChange={handleChange}>
                 {languages.map(item => {
-                    return (<option key={item.value}
+                    return (<option className="xxs:text-xl md:text-2xl" key={item.value}
                         value={item.value}>{item.text}</option>);
                 })}
             </select>
@@ -58,7 +59,7 @@ const LanguageSelection = () => {
 const RenderNavs = () => {
     const { t } = useTranslation()
     return (
-        <div className="flex gap-x-16 justify-center text-4xl px-4">
+        <div className="flex gap-x-16 justify-center xxs:text-xl md:text-4xl px-4">
             <Link to={"/"}>{t("Home")}</Link>
             <Link to={"/cuisines"}>{t('Cuisines')}</Link>
             <Link to={"/categories"}>{t("Categories")}</Link>
