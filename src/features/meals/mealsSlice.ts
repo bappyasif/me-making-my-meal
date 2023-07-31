@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { fetchMealDetails, fetchViewedMealsList } from "../../data_fetching"
+import { fetchMealDetails, fetchViewedMealsFromFirebase } from "../../data_fetching"
 import { addDataIntoCollection, addDataIntoDocumentSubCollection } from "../../firebase/utils"
 // import { useConfirmUserAuth } from "../../hooks/forComponents"
 
@@ -121,9 +121,14 @@ const mealsSlice = createSlice({
             // state.mealsViewed = action.payload?.mealsViewed
             // console.log(action.payload, "meal details")
         }),
-        builder.addCase(fetchViewedMealsList.fulfilled, (state, action) => {
+        // builder.addCase(fetchViewedMealsList.fulfilled, (state, action) => {
+        //     // inserting dat from firbase sorted to access highest counted meals easier
+        //     state.mealsViewed = action.payload?.meals.sort((a:any,b:any) => a.count < b.count ? 1 : a.count === b.count ? 0 : -1 ) || []
+        // })
+        builder.addCase(fetchViewedMealsFromFirebase.fulfilled, (state, action) => {
+            const {meals} = action.payload
             // inserting dat from firbase sorted to access highest counted meals easier
-            state.mealsViewed = action.payload?.meals.sort((a:any,b:any) => a.count < b.count ? 1 : a.count === b.count ? 0 : -1 ) || []
+            state.mealsViewed = meals.sort((a:any,b:any) => a.count < b.count ? 1 : a.count === b.count ? 0 : -1 ) as any || []
         })
     }
 })

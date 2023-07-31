@@ -25,7 +25,7 @@ const AREA_URL = "https://www.themealdb.com/api/json/v1/1/list.php?a=list"
 // })
 // export const fetchCategories = createAsyncThunk("fetchCategories", async () => {
 //     const { filteredData } = await useToFetchDataFromFirebase("categories")
-    
+
 //     const subCollData = await readingDataFromFirestoreSubCollection("Categories", "Category")
 
 //     const response = await fetch(CATEGORIES_URL);
@@ -41,7 +41,7 @@ const AREA_URL = "https://www.themealdb.com/api/json/v1/1/list.php?a=list"
 // })
 export const fetchCategoriesFromAPI = createAsyncThunk("fetchCategories", async () => {
     const { filteredData } = await useToFetchDataFromFirebase("categories")
-    
+
     const subCollData = await readingDataFromFirestoreSubCollection("Categories", "Category")
 
     const response = await fetch(CATEGORIES_URL);
@@ -58,11 +58,18 @@ export const fetchCategoriesFromAPI = createAsyncThunk("fetchCategories", async 
 })
 
 export const fetchCategoriesFromFirebase = createAsyncThunk("fetchCategoriesFromFirebase", async () => {
-    
+
     const subCollData = await readingDataFromFirestoreSubCollection("Categories", "Category")
 
     return { categories: subCollData }
 })
+
+// export const fetchDataFromFirebase = createAsyncThunk("fetchDataFromFirebase", async (docName:string, subCollName:string) => {
+
+//     const subCollData = await readingDataFromFirestoreSubCollection(docName, subCollName)
+
+//     return { categories: subCollData }
+// })
 
 // export const fetchCuisines = createAsyncThunk("meals/ferchCuisines", async () => {
 //     const fbResp = await readingDataFromFirestore("4M")
@@ -80,14 +87,15 @@ export const fetchCuisines = createAsyncThunk("meals/ferchCuisines", async () =>
     // const onlyCuisines = fbResp.filter(item => Object.keys(item)[0] === "cuisines")
     // console.log(onlyCuisines[0].cuisines, "FIREBASE CUISINES")
 
-    const { filteredData } = await useToFetchDataFromFirebase("cuisines")
+    const response = await fetch(AREA_URL);
+    return response.json()
+})
 
-    if (filteredData?.length) {
-        return { meals: filteredData[0].cuisines }
-    } else {
-        const response = await fetch(AREA_URL);
-        return response.json()
-    }
+export const fetchCuisinesFromFirebase = createAsyncThunk("fetchCuisinesFromFirebase", async () => {
+
+    const subCollData = await readingDataFromFirestoreSubCollection("Cuisines", "Cuisine")
+
+    return { cuisines: subCollData }
 })
 
 export const fetchFilterByCategory = createAsyncThunk("fetchMealsByCategory", async (category: string) => {
@@ -105,12 +113,19 @@ export const fetchMealDetails = createAsyncThunk("fetchMealById", async (mealId:
     return response.json()
 })
 
-export const fetchViewedMealsList = createAsyncThunk("fetchViwedMeals", async () => {
-    const { filteredData } = await useToFetchDataFromFirebase("meals")
+// export const fetchViewedMealsList = createAsyncThunk("fetchViwedMeals", async () => {
+//     const { filteredData } = await useToFetchDataFromFirebase("meals")
 
-    if (filteredData?.length) {
-        return { meals: filteredData[0].meals }
-    }
+//     if (filteredData?.length) {
+//         return { meals: filteredData[0].meals }
+//     }
+// })
+
+export const fetchViewedMealsFromFirebase = createAsyncThunk("fetchViewedMealsFromFirebase", async () => {
+
+    const subCollData = await readingDataFromFirestoreSubCollection("Meals", "Meal")
+
+    return { meals: subCollData }
 })
 
 export const fetchCuisineMeals = createAsyncThunk("fetchCuisineMeals", async (cuisineName: string) => {
@@ -120,23 +135,30 @@ export const fetchCuisineMeals = createAsyncThunk("fetchCuisineMeals", async (cu
     return response.json()
 })
 
+export const fetchIngredients = createAsyncThunk("fetchIngredients", async () => {
+    const INGREDIENTS_URL = "https://www.themealdb.com/api/json/v1/1/list.php?i=list"
+    const response = await fetch(INGREDIENTS_URL);
+    return response.json()
+});
+
 // export const fetchIngredients = createAsyncThunk("fetchIngredients", async () => {
-//     const INGREDIENTS_URL = "https://www.themealdb.com/api/json/v1/1/list.php?i=list"
-//     const response = await fetch(INGREDIENTS_URL);
-//     return response.json()
+//     const { filteredData } = await useToFetchDataFromFirebase("ingredients")
+
+//     if (filteredData?.length) {
+//         return { meals: filteredData[0].ingredients }
+//     } else {
+//         const INGREDIENTS_URL = "https://www.themealdb.com/api/json/v1/1/list.php?i=list"
+//         const response = await fetch(INGREDIENTS_URL);
+//         return response.json()
+//     }
 // });
 
-export const fetchIngredients = createAsyncThunk("fetchIngredients", async () => {
-    const { filteredData } = await useToFetchDataFromFirebase("ingredients")
+export const fetchIngredientsFromFirebase = createAsyncThunk("fetchIngredientsFromFirebase", async () => {
 
-    if (filteredData?.length) {
-        return { meals: filteredData[0].ingredients }
-    } else {
-        const INGREDIENTS_URL = "https://www.themealdb.com/api/json/v1/1/list.php?i=list"
-        const response = await fetch(INGREDIENTS_URL);
-        return response.json()
-    }
-});
+    const subCollData = await readingDataFromFirestoreSubCollection("Ingredients", "Ingredient")
+
+    return { ingredients: subCollData }
+})
 
 export const fetchMealsByIngredient = createAsyncThunk("fetchMealsByIngredient", async (name: string) => {
     const INGREDIENT_URL = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${name}`

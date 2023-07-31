@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchIngredients, fetchMealsByIngredient } from "../../data_fetching";
+import { fetchIngredients, fetchIngredientsFromFirebase, fetchMealsByIngredient } from "../../data_fetching";
 import { MealItemType } from "../category/categorySlice";
 import { addDataIntoCollection, addDataIntoDocumentSubCollection } from "../../firebase/utils";
 // import { useConfirmUserAuth } from "../../hooks/forComponents";
@@ -49,14 +49,14 @@ const ingredientSlices = createSlice({
     extraReducers: builder => {
         builder.addCase(fetchIngredients.fulfilled, (state, action) => {
             state.list = action.payload.meals.map((item: any) => {
-                if(item.idIngredient) {
+                if (item.idIngredient) {
                     const ingredient: IngredientsType = {
                         id: item.idIngredient,
                         name: item.strIngredient,
                         description: item.strDescription,
                         count: 0
                     }
-    
+
                     return ingredient
                 }
                 return item
@@ -72,6 +72,19 @@ const ingredientSlices = createSlice({
                     }
                 })
                 // console.log(action.payload, "ingredient meals")
+            }),
+            builder.addCase(fetchIngredientsFromFirebase.fulfilled, (state, action) => {
+                const { ingredients } = action.payload
+
+                state.list = state.list.map(item => {
+                    const chk = ingredients.findIndex(ingredient => ingredient.name === item.name)
+                    console.log(chk, "CHECK!!")
+                    if (chk !== -1) {
+                        item = ingredients[chk] as IngredientsType
+                        console.log(item, "CHANGED!!")
+                    }
+                    return item
+                })
             })
     }
 });

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { fetchCuisineMeals, fetchCuisines } from "../../data_fetching"
+import { fetchCuisineMeals, fetchCuisines, fetchCuisinesFromFirebase } from "../../data_fetching"
 import { MealItemType } from "../category/categorySlice"
 import { addDataIntoCollection, addDataIntoDocumentSubCollection } from "../../firebase/utils"
 // import { useConfirmUserAuth } from "../../hooks/forComponents"
@@ -136,6 +136,19 @@ const areaSlice = createSlice({
                 return mealItem
             })
             // console.log(action.payload, "meals cuisines")
+        }),
+        builder.addCase(fetchCuisinesFromFirebase.fulfilled, (state, action) => {
+            const {cuisines} = action.payload
+
+            state.list = state.list.map(item => {
+                const chk = cuisines.findIndex(cuisine => cuisine.name === item.name)
+                console.log(chk, "CHECK!!")
+                if(chk !== -1) {
+                    item = cuisines[chk] as CuisineNameType
+                    console.log(item, "CHANGED!!")
+                }
+                return item
+            })
         })
     }
 });

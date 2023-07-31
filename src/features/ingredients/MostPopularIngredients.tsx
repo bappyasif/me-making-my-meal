@@ -1,16 +1,18 @@
 import { Link } from "react-router-dom"
-import { useAppSelector } from "../../hooks"
+import { useAppDispatch, useAppSelector } from "../../hooks"
 import { useToGetFourPopularItems, useToGetFourRandomItems, useToIncreaseCountsFromMostLikedItems } from "../../hooks/forComponents"
 import { useTranslation } from "react-i18next"
+import { fetchIngredientsFromFirebase } from "../../data_fetching"
+import { useEffect } from "react"
 
 export const MostPopularIngredients = () => {
     const ingredients = useAppSelector(state => state.ingredient.list)
     // console.log(ingredients, "|INGREDIENTSSSS")
     // const {names} = useToGetFourRandomItems(ingredients)
     // figure it out how!!
-    const {names} = useToGetFourPopularItems(ingredients)
+    const { names } = useToGetFourPopularItems(ingredients)
 
-    const {handleClick} = useToIncreaseCountsFromMostLikedItems("ingredients")
+    const { handleClick } = useToIncreaseCountsFromMostLikedItems("ingredients")
 
     const renderContent = (
         names.map(name => {
@@ -20,7 +22,13 @@ export const MostPopularIngredients = () => {
         })
     )
 
-    const {t} = useTranslation()
+    const dispatch = useAppDispatch()
+
+    useEffect(() => {
+        dispatch(fetchIngredientsFromFirebase())
+    }, [])
+
+    const { t } = useTranslation()
 
     return (
         <div>

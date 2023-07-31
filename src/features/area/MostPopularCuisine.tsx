@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom"
 import { useToGetCuisines, useToGetFourPopularItems, useToGetFourRandomItems, useToIncreaseCountsFromMostLikedItems } from "../../hooks/forComponents"
 import { useTranslation } from "react-i18next"
+import { fetchCuisinesFromFirebase } from "../../data_fetching"
+import { useEffect } from "react"
+import { useAppDispatch } from "../../hooks"
 
 export const MostPopularCuisine = () => {
     const cuisines = useToGetCuisines()
@@ -17,6 +20,12 @@ export const MostPopularCuisine = () => {
             )
         })
     )
+
+    const dispatch = useAppDispatch()
+
+  useEffect(() => {
+    dispatch(fetchCuisinesFromFirebase())
+  }, [])
 
     const { t } = useTranslation()
 
