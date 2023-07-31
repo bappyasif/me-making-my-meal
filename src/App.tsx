@@ -10,15 +10,17 @@ import { CategoriesList } from "./features/categories/CategoriesList"
 import { CuisinesList } from "./features/area/CuisinesList"
 import { IngredientsList } from "./features/ingredients/IngredientsList"
 import { PopularMeals } from "./pages/PopularMeals"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { annoymousAuth, checkUserAuthStatus } from "./firebase/utils"
+import { useAppDispatch, useAppSelector } from "./hooks"
+import { fetchCategoriesFromAPI, fetchCategoriesFromFirebase } from "./data_fetching"
 // import { CategoryViewPage } from "./pages/CategoryViewPage"
 
-function App() {
-  
+function App() {  
   useEffect(() => {
     checkUserAuthStatus()
     // annoymousAuth()
+    // onFo()
   }, [])
 
   return (

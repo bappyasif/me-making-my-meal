@@ -21,11 +21,11 @@ export const MostPopularCuisine = () => {
         })
     )
 
-    const dispatch = useAppDispatch()
+//     const dispatch = useAppDispatch()
 
-  useEffect(() => {
-    dispatch(fetchCuisinesFromFirebase())
-  }, [])
+//   useEffect(() => {
+//     // dispatch(fetchCuisinesFromFirebase())
+//   }, [])
 
     const { t } = useTranslation()
 

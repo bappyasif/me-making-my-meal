@@ -22,11 +22,11 @@ export const MostPopularIngredients = () => {
         })
     )
 
-    const dispatch = useAppDispatch()
+    // const dispatch = useAppDispatch()
 
-    useEffect(() => {
-        dispatch(fetchIngredientsFromFirebase())
-    }, [])
+    // useEffect(() => {
+    //     // dispatch(fetchIngredientsFromFirebase())
+    // }, [])
 
     const { t } = useTranslation()
 

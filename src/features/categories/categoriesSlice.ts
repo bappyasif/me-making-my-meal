@@ -57,7 +57,8 @@ export type CategoriesType = {
 
 type initialStateForCategoriesType = {
     list: CategoryItemType[],
-    viewCategory: string
+    viewCategory: string,
+    // fffNow: boolean
 }
 
 // const initialStateForCategories: CategoriesType = {
@@ -66,7 +67,8 @@ type initialStateForCategoriesType = {
 
 const initialStateForCategories: initialStateForCategoriesType = {
     list: [],
-    viewCategory: ""
+    viewCategory: "",
+    // fffNow: false
 }
 
 const categorySlice = createSlice({
@@ -117,16 +119,25 @@ const categorySlice = createSlice({
         }),
         builder.addCase(fetchCategoriesFromFirebase.fulfilled, (state, action) => {
             const {categories} = action.payload;
+            // if(categories.length) {
+            //     // state.fffNow = true
+            // }
+            // if(state.list.length === 0 && categories.length) {
+            //     state.list = categories as CategoryItemType[]
+            // }
             state.list = state.list.map(item => {
                 const chk = categories.findIndex(category => category.name === item.name)
-                console.log(chk, "CHECK!!")
+                // console.log(chk, "CHECK!!")
                 if(chk !== -1) {
-                    item = categories[chk] as CategoryItemType
-                    console.log(item, "CHANGED!!")
+                    item.count = categories[chk].count
+                    // item = categories[chk] as CategoryItemType
+                    // console.log(item, "CHANGED!!")
+                    // state.fffNow = false
                 }
                 return item
             })
-            console.log(categories, "FIREBASE")
+            // state.list = [...new Set([...state.list, ...categories])] as CategoryItemType[]
+            // console.log(categories, "FIREBASE", state.list.length)
         })
         // builder.addCase(fetchFilterByCategory.fulfilled, (state, action) => {
         //     console.log(action.payload, "category meals")

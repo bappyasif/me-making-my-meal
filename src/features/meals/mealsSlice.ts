@@ -128,7 +128,7 @@ const mealsSlice = createSlice({
         builder.addCase(fetchViewedMealsFromFirebase.fulfilled, (state, action) => {
             const {meals} = action.payload
             // inserting dat from firbase sorted to access highest counted meals easier
-            state.mealsViewed = meals.sort((a:any,b:any) => a.count < b.count ? 1 : a.count === b.count ? 0 : -1 ) as any || []
+            state.mealsViewed = meals.sort((a:any,b:any) => a.count < b.count ? 1 : a.count === b.count ? 0 : -1 ) as ViewedMealType[] || []
         })
     }
 })

@@ -78,10 +78,11 @@ const ingredientSlices = createSlice({
 
                 state.list = state.list.map(item => {
                     const chk = ingredients.findIndex(ingredient => ingredient.name === item.name)
-                    console.log(chk, "CHECK!!")
+                    // console.log(chk, "CHECK!!")
                     if (chk !== -1) {
-                        item = ingredients[chk] as IngredientsType
-                        console.log(item, "CHANGED!!")
+                        item.count = ingredients[chk].count
+                        // item = ingredients[chk] as IngredientsType
+                        // console.log(item, "CHANGED!!")
                     }
                     return item
                 })

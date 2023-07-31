@@ -3,6 +3,8 @@ import { useAppDispatch } from "../../hooks"
 import { useConfirmUserAuth, useToGetCategories } from "../../hooks/forComponents"
 import { CategoryItemType, increaseCategoryItemCount } from "./categoriesSlice";
 import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
+import { fetchCategoriesFromFirebase } from "../../data_fetching";
 
 // type CategoryApiListType = {
 //     strCategory: string,
@@ -44,11 +46,11 @@ const RenderCategoryMeal = ({ ...item }: CategoryItemType) => {
     return (
         <div key={id} className="w-96 h-96 aspect-square flex flex-col gap-4" onClick={() => handleClicked(`${name}`)}>
             <h2 className="text-center text-4xl">
-                <Link 
+                <Link
                     to={`/categories/${name}`}
-                    // style={{
-                    //     pointerEvents: !ready ? "none" : "auto"
-                    // }}
+                // style={{
+                //     pointerEvents: !ready ? "none" : "auto"
+                // }}
                 >
                     <h2>{t(`${name}`)} - {count}</h2>
                     <img src={`${imgSrc}`} alt={`${name}`} />

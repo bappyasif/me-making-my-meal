@@ -8,8 +8,9 @@ import store from './app/store.ts'
 import { fetchCategoriesFromAPI, fetchCategoriesFromFirebase, fetchCuisines, fetchIngredients, fetchViewedMealsFromFirebase } from './data_fetching/index.ts'
 import "./i18n.ts"
 // import { IntlProvider } from 'react-intl'
-store.dispatch(fetchCuisines())
 store.dispatch(fetchCategoriesFromAPI())
+store.dispatch(fetchCuisines())
+// store.dispatch(fetchCategoriesFromAPI())
 // store.dispatch(fetchCategoriesFromFirebase())
 store.dispatch(fetchIngredients())
 // store.dispatch(fetchViewedMealsList())

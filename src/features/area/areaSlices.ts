@@ -142,10 +142,11 @@ const areaSlice = createSlice({
 
             state.list = state.list.map(item => {
                 const chk = cuisines.findIndex(cuisine => cuisine.name === item.name)
-                console.log(chk, "CHECK!!")
+                // console.log(chk, "CHECK!!")
                 if(chk !== -1) {
-                    item = cuisines[chk] as CuisineNameType
-                    console.log(item, "CHANGED!!")
+                    item.count = cuisines[chk].count
+                    // item = cuisines[chk] as CuisineNameType
+                    // console.log(item, "CHANGED!!")
                 }
                 return item
             })
