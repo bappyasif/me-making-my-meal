@@ -7,15 +7,15 @@ interface ShareProps {
 export function Share({ description }: ShareProps) {
     const url = window.location.href;
 
-    function ShareWebAPI() {
-        if (navigator.share) {
-            navigator.share({
-                title: description,
-                url: url
-            })
-                .catch(err => alert("Error Sharing: " + err))
-        }
-    }
+    // function ShareWebAPI() {
+    //     if (navigator.share) {
+    //         navigator.share({
+    //             title: description,
+    //             url: url
+    //         })
+    //             .catch(err => alert("Error Sharing: " + err))
+    //     }
+    // }
 
     return (
         <>

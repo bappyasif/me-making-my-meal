@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom"
 import { fetchOneRandomMeal } from "../../data_fetching"
 import { useToDispatchFetching, useToGetAnRandomMeal, useToIncreaseCategoryAndCuisineCounts } from "../../hooks/forComponents"
 import { useEffect, useState } from "react"
@@ -26,10 +25,6 @@ export const RandomMeal = () => {
             ? null
             :
             <div className="flex flex-col items-center">
-                {/* <Link to={`/meals/${mealId}`} className="text-2xl mx-auto">
-                    <p>{mealName}</p>
-                    <img className="aspect-square w-96 h-96" src={mealThumb} alt={mealName} />
-                </Link> */}
                 <RenderMeal id={mealId} mealImg={mealThumb} mealName={mealName} />
                 <div className="self-start">
                     <button onClick={handleCategoryClick}>{t(`${category}`)}</button>

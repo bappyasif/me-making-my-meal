@@ -15,7 +15,7 @@ export const RenderIngredientsAndMeasurements = () => {
     const [translatedMeasurements, setTranslatedMeasurements] = useState<IAMType[]>([])
 
     const [translate, setTranslate] = useState(false)
-    const [translateMeasurements, setTranslateMeasurements] = useState(false)
+    // const [translateMeasurements, setTranslateMeasurements] = useState(false)
 
     console.log(measures, ingredients);
 
@@ -119,6 +119,11 @@ export const RenderIngredientsAndMeasurements = () => {
     )
 
     // console.log(translatedIngredients, translatedMeasurements, "what what!!", measures.map(item => item.text).join("*"), ingredients.map(item => item.text).join("*"))
+
+    useEffect(() => {
+        setTranslatedIngredients([])
+        setTranslatedMeasurements([])
+    }, [])
 
     return (
         <div className="flex flex-col items-center gap-y-8">

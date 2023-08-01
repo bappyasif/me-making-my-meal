@@ -56,13 +56,13 @@ const SearchView = ({ name }: { name: string }) => {
     }, [text])
 
     return (
-        <div className="xxs:w-full sm:w-96 xxs:text-xl md:text-2xl">
+        <div className="xxs:w-full sm:w-96 xxs:text-xl md:text-2xl relative">
             {/* Items - {items.length} */}
             <input className="w-full text-xl text-blue-900" type="text" value={text} onChange={handleChange} placeholder="type here to search" />
             {
                 partialMatch.length
                     ?
-                    <div className="flex flex-col gap-y-4 bg-slate-800 text-slate-400 h-60 overflow-y-scroll scroll-smooth">{renderPartials()}</div>
+                    <div className="absolute w-full flex flex-col gap-y-4 bg-slate-800 text-slate-400 h-60 overflow-y-scroll scroll-smooth">{renderPartials()}</div>
                     : null
             }
         </div>

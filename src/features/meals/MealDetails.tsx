@@ -1,72 +1,36 @@
-import { Link, useNavigate, useParams } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { useAppDispatch, useAppSelector } from "../../hooks"
 import { fetchMealDetails } from "../../data_fetching";
-import { useEffect } from "react";
-import { IAMType } from "./mealsSlice";
-import { useConfirmUserAuth, useToDispatchFetching, useToIncreaseCategoryAndCuisineCounts } from "../../hooks/forComponents";
+import { useToDispatchFetching, useToIncreaseCategoryAndCuisineCounts } from "../../hooks/forComponents";
 import { increaseCountForIngredient } from "../ingredients/ingredientSlice";
 import { TranslateMealsDetails } from "./TranslateMealsDetails";
 import { useTranslation } from "react-i18next";
-import { RenderIngredientsAndMeasurements } from "./TranslateIngredientsAndMeasurements";
-import { FacebookShareButton, TwitterIcon, TwitterShareButton } from "react-share";
-import { Share, ShareableOptions } from "../../utils/shareInSocialMedia";
+import { ShareableOptions } from "../../utils/shareInSocialMedia";
 import { Helmet } from "react-helmet"
-import { increaseCategoryItemCount } from "../categories/categoriesSlice";
-import { inCreaseCountForCuisine } from "../area/areaSlices";
-// import testImg from "../../assets/react.svg"
 
 export const MealDetails = () => {
-    // const { mealId } = useParams()
-    // const dispatch = useAppDispatch();
-
-    // useEffect(() => {
-    //     dispatch(fetchMealDetails(mealId || ""))
-    // }, [mealId])
-
     useToDispatchFetching(fetchMealDetails)
 
     return (
         <div>
-            {/* <h1>MealDetails</h1> */}
-            {/* {measures.length} -- {ingredients.length} */}
-            <RenderMealBasicInfo
-            // ingredients={ingredients} measures={measures} 
-            />
+            <RenderMealBasicInfo />
         </div>
     )
 }
 
-type IAMT = {
-    measures: IAMType[],
-    ingredients: IAMType[]
-}
+// type IAMT = {
+//     measures: IAMType[],
+//     ingredients: IAMType[]
+// }
 
 export const RenderMealBasicInfo = () => {
     const meal = useAppSelector(state => state.meal.meal)
 
-    const { category, cuisine, instructions, mealId, mealName, mealSource, mealTags, mealThumb, mealTube } = meal
-
-    // const renderIAMT = ()
-
-    // const navigate = useNavigate()
-
-    // const dispatch = useAppDispatch()
-
-    // const { ready } = useConfirmUserAuth()
-
-    // const handleCategoryClick = (itemName:string) => {
-    //     ready && dispatch(increaseCategoryItemCount(itemName))
-    //     navigate(`/categories/${category}`)
-    // }
-
-    // const handleCuisineClick = (name:string) => {
-    //     ready && dispatch(inCreaseCountForCuisine(name))
-    //     navigate(`/cuisines/${cuisine}`)
-    // }
+    const { category, cuisine, instructions, mealId, mealName, mealSource, mealThumb, mealTube } = meal
 
     const { handleCategoryClick, handleCuisineClick } = useToIncreaseCategoryAndCuisineCounts(category, cuisine)
 
-    const renderTags = mealTags?.split(",").map(name => <span key={name}>{name}</span>)
+    // const renderTags = mealTags?.split(",").map(name => <span key={name}>{name}</span>)
 
     const { t } = useTranslation()
 
@@ -87,10 +51,7 @@ export const RenderMealBasicInfo = () => {
                 <p className="flex gap-4">
                     <button onClick={handleCategoryClick}>{t(`${category}`)}</button>
                     <button onClick={handleCuisineClick}>{t(`${cuisine}`)}</button>
-                    {/* <button onClick={() => handleCategoryClick(category)}>{t(`${category}`)}</button>
-                    <button onClick={() => handleCuisineClick(cuisine)}>{t(`${cuisine}`)}</button> */}
                 </p>
-                {/* <p className="flex gap-4">{renderTags}</p> */}
             </div>
 
             {/* <RenderIngredientsAndMeasurements /> */}
@@ -157,11 +118,11 @@ const RenderIngredientsAndMeasures = () => {
 
     const { t } = useTranslation()
 
-    const btnElement = (
-        <>
-            <button>{t("Translate Me")}</button>
-        </>
-    )
+    // const btnElement = (
+    //     <>
+    //         <button>{t("Translate Me")}</button>
+    //     </>
+    // )
 
     return (
         <div className="flex flex-col items-center gap-y-8">

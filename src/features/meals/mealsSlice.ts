@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { fetchMealDetails, fetchViewedMealsFromFirebase } from "../../data_fetching"
-import { addDataIntoCollection, addDataIntoDocumentSubCollection } from "../../firebase/utils"
+import { addDataIntoDocumentSubCollection } from "../../firebase/utils"
 // import { useConfirmUserAuth } from "../../hooks/forComponents"
 
 export type IAMType = {

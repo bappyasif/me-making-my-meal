@@ -22,7 +22,7 @@ function App() {
 
   return (
     <>
-      <div className="flex flex-col gap-11 items-center justify-between min-h-full">
+      <div className="flex flex-col gap-11 items-center justify-between min-h-full w-5/6 mx-auto">
         <Header />
         <Routes>
           <Route index element={<HomePage />} />

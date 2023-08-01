@@ -1,11 +1,10 @@
 import { getAuth, onAuthStateChanged, signInAnonymously } from "firebase/auth";
 import firebaseApp from "./init";
-import { DocumentReference, addDoc, collection, doc, getDocs, getFirestore, increment, setDoc, updateDoc } from "firebase/firestore";
+import { collection, doc, getDocs, getFirestore, setDoc } from "firebase/firestore";
 import { CategoryItemType } from "../features/categories/categoriesSlice";
 import { CuisineNameType } from "../features/area/areaSlices";
 import { IngredientsType } from "../features/ingredients/ingredientSlice";
 import { ViewedMealType } from "../features/meals/mealsSlice";
-import firebase from "firebase/compat/app";
 
 export const auth = getAuth(firebaseApp);
 export const db = getFirestore(firebaseApp);
@@ -47,10 +46,10 @@ type DataPropsType = {
     meals?: ViewedMealType[],
 }
 
-type PropsType = {
-    // [key: string]?: string[],
-    [key: string]: string,
-}
+// type PropsType = {
+//     // [key: string]?: string[],
+//     [key: string]: string,
+// }
 
 // add a new document into a collection
 export const addDataIntoCollection = (collName: string, data: DataPropsType, pathName: string) => {

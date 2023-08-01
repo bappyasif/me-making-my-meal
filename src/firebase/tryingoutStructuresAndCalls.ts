@@ -1,6 +1,6 @@
 import { getAuth, onAuthStateChanged, signInAnonymously } from "firebase/auth";
 import firebaseApp from "./init";
-import { addDoc, collection, doc, getDocs, getFirestore, setDoc } from "firebase/firestore";
+import { collection, doc, getDocs, getFirestore, setDoc } from "firebase/firestore";
 
 export const auth = getAuth(firebaseApp);
 export const db = getFirestore(firebaseApp);

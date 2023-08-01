@@ -20,7 +20,7 @@ export const MostPopularCuisine = () => {
     )
 
     return (
-        <div className="">
+        <div className="xxs:w-full lg:w-1/2">
             <h2 className="xxs:text-xl md:text-2xl lg:text-4xl text-center">{t("Most Popular Cuisines")}</h2>
 
             <div className="flex gap-x-4 gap-y-2 xxs:text-xl md:text-2xl flex-wrap justify-center">{renderContent}</div>

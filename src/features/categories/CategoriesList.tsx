@@ -58,7 +58,7 @@ export const FirstEightList = () => {
     const { t } = useTranslation()
 
     return (
-        <div className="flex flex-col gap-y-8 xxs:w-full lg:w-5/6 mx-auto">
+        <div className="flex flex-col gap-y-8 w-full mx-auto">
             <div className="flex justify-between">
                 <h2 className="xxs:text-xl md:text-2xl lg:text-4xl">{t(`Meal Categories`)}</h2>
                 <Link className="xxs:text-xl md:text-2xl" to={"/categories"}>{t("See All")}</Link>

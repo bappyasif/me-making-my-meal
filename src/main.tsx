@@ -5,7 +5,7 @@ import './index.css'
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import { Provider } from "react-redux"
 import store from './app/store.ts'
-import { fetchCategoriesFromAPI, fetchCategoriesFromFirebase, fetchCuisines, fetchIngredients, fetchViewedMealsFromFirebase } from './data_fetching/index.ts'
+import { fetchCategoriesFromAPI, fetchCuisines, fetchIngredients, fetchViewedMealsFromFirebase } from './data_fetching/index.ts'
 import "./i18n.ts"
 // import { IntlProvider } from 'react-intl'
 store.dispatch(fetchCategoriesFromAPI())

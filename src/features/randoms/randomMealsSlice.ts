@@ -1,7 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { MealInfoType, forMealInitState } from "../meals/mealsSlice";
 import { fetchOneRandomMeal } from "../../data_fetching";
-// import { MealsType } from "../meals/mealsSlice";
 
 type MealType = {
     category: string,
