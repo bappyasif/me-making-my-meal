@@ -22,7 +22,7 @@ export const CategoriesList = () => {
 }
 
 const RenderCategoryMeal = ({ ...item }: CategoryItemType) => {
-    const { id, imgSrc, name, count } = item
+    const { id, imgSrc, name } = item
 
     const dispatch = useAppDispatch();
 
@@ -35,12 +35,12 @@ const RenderCategoryMeal = ({ ...item }: CategoryItemType) => {
     const { t } = useTranslation()
 
     return (
-        <div key={id} className="xxs:w-36 sm:w-48 md:w-60 xxs:h-fit lg:w-96 lg:h-96 aspect-square flex flex-col gap-4" onClick={() => handleClicked(`${name}`)}>
+        <div key={id} className="xxs:w-36 sm:w-48 md:w-60 xxs:h-fit lg:w-96 lg:h-fit aspect-auto flex flex-col gap-4" onClick={() => handleClicked(`${name}`)}>
             <h2 className="text-center xxs:text-xl md:text-2xl lg:text-4xl">
                 <Link
                     to={`/categories/${name}`}
                 >
-                    <h2>{t(`${name}`)} - {count}</h2>
+                    <h2>{t(`${name}`)}</h2>
                     <img src={`${imgSrc}`} alt={`${name}`} />
                 </Link>
             </h2>
@@ -63,7 +63,7 @@ export const FirstEightList = () => {
                 <h2 className="xxs:text-xl md:text-2xl lg:text-4xl">{t(`Meal Categories`)}</h2>
                 <Link className="xxs:text-xl md:text-2xl" to={"/categories"}>{t("See All")}</Link>
             </div>
-            <div className="flex gap-x-4 gap-y-2 justify-around flex-wrap w-full">{renderCategories}</div>
+            <div className="flex gap-x-4 gap-y-6 justify-around flex-wrap w-full">{renderCategories}</div>
         </div>
     )
 }

@@ -78,7 +78,7 @@ const ChooseSearchDomainOption = ({ name, setName }: { name: string, setName: Di
 
     const renderOptions = options.map(optName => {
         return (
-            <fieldset key={optName} className="flex gap-2 items-center xxs:w-fit sm:w-36" onClick={() => handleClick(optName)}>
+            <fieldset key={optName} className="flex gap-2 items-center xxs:w-full" onClick={() => handleClick(optName)}>
                 <input type="radio" name="option" id={optName}
                     defaultChecked={optName === name} value={name} />
                 <label className="" htmlFor={optName}>{t(`${optName}`)}</label>
@@ -87,7 +87,7 @@ const ChooseSearchDomainOption = ({ name, setName }: { name: string, setName: Di
     })
 
     const content = (
-        <div className="flex gap-x-6 xxs:w-full sm:w-96 flex-wrap xxs:text-lg md:text-xl">
+        <div className="flex gap-x-6 xxs:w-full sm:w-96 flex-wrap xxs:text-lg md:text-xl xxs:justify-around lg:justify-start">
             {renderOptions}
         </div>
     )

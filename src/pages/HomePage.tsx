@@ -39,7 +39,7 @@ export const HomePage = () => {
         <MostPopularCuisine />
       </div>
       <RandomMeal />
-      <div className="flex xxs:flex-col xxs:gap-y-6 md:gap-x-6 md:flex-row justify-around items-center">
+      <div className="flex xxs:flex-col xxs:gap-y-6 md:gap-x-6 md:flex-row justify-around xxs:items-center md:items-start">
         <MostPopularIngredients />
         <MostPopularMeals />
       </div>

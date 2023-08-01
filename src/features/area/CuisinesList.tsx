@@ -62,7 +62,7 @@ const RenderCuisinesList = ({ fullList }: RenderType) => {
       return (
         (!fullList && idx < 12) || (fullList)
           ?
-          <button onClick={() => handleClick(name)} key={name} className="xxs:text-xl md:text-2xl xxs:w-36 sm:w-48 md:w-60 lg:w-80 h-fit flex flex-col items-center gap-y-4">{t(`${name}`)} {item.count}</button>
+          <button onClick={() => handleClick(name)} key={name} className="xxs:text-xl md:text-2xl xxs:w-36 sm:w-48 md:w-60 lg:w-80 h-fit flex flex-col items-center gap-y-4">{t(`${name}`)}</button>
           : null
       )
     })

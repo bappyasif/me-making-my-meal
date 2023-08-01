@@ -10,11 +10,8 @@ import { CategoriesList } from "./features/categories/CategoriesList"
 import { CuisinesList } from "./features/area/CuisinesList"
 import { IngredientsList } from "./features/ingredients/IngredientsList"
 import { PopularMeals } from "./pages/PopularMeals"
-import { useEffect, useState } from "react"
-import { annoymousAuth, checkUserAuthStatus } from "./firebase/utils"
-import { useAppDispatch, useAppSelector } from "./hooks"
-import { fetchCategoriesFromAPI, fetchCategoriesFromFirebase } from "./data_fetching"
-// import { CategoryViewPage } from "./pages/CategoryViewPage"
+import { useEffect } from "react"
+import { checkUserAuthStatus } from "./firebase/utils"
 
 function App() {  
   useEffect(() => {
@@ -31,14 +28,11 @@ function App() {
           <Route index element={<HomePage />} />
           <Route path="/categories">
             <Route index element={<CategoriesList />} />
-            {/* <Route path=":categoryId" element={"category view"} /> */}
-            {/* <Route path=":categoryName" element={<CategoryViewPage />} /> */}
             <Route path=":name" element={<CategoryViewPage />} />
           </Route>
           <Route path="/cuisines">
             <Route index element={<CuisinesList />} />
             <Route path=":name" element={<CuisineMeals />} />
-            {/* <Route path=":cuisineName/meals" element={<CuisineMeals />} /> */}
           </Route>
           <Route path="/ingredients">
             <Route index element={<IngredientsList />} />

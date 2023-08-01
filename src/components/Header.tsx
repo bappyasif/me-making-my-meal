@@ -43,10 +43,10 @@ const LanguageSelection = () => {
         <div className="flex xxs:flex-col md:flex-row xxs:items-center gap-y-1 gap-x-4 h-fit">
 
             <label className="xxs:text-xl md:text-2xl w-fit">{t('Choose')}</label>
-            <select className="xxs:text-xl md:text-2xl bg-slate-600 xxs:w-44 sm:w-36 h-fit" value={lang} onChange={handleChange}>
+            <select className="xxs:text-xl md:text-2xl bg-slate-600 xxs:w-48 h-fit" value={lang} onChange={handleChange}>
                 {languages.map(item => {
                     return (<option className="xxs:text-xl md:text-2xl" key={item.value}
-                        value={item.value}>{item.text}</option>);
+                        value={item.value}>{t(`${item.text}`)}</option>);
                 })}
             </select>
         </div>
@@ -56,12 +56,12 @@ const LanguageSelection = () => {
 const RenderNavs = () => {
     const { t } = useTranslation()
     return (
-        <div className="flex xxs:gap-x-8 lg:gap-x-16 justify-center xxs:text-xl md:text-4xl px-4 flex-wrap">
-            <Link to={"/"}>{t("Home")}</Link>
-            <Link to={"/cuisines"}>{t('Cuisines')}</Link>
-            <Link to={"/categories"}>{t("Categories")}</Link>
-            <Link to={"/ingredients"}>{t("Ingredients")}</Link>
-            <Link to={"/popularMeals"}>{t("Popular Meals")}</Link>
+        <div className="flex xxs:gap-x-8 lg:gap-x-8 gap-y-2 xxs:justify-evenly lg:justify-center xxs:text-xl md:text-4xl flex-wrap my-0.5">
+            <Link className="xxs:px-1 lg:px-4 xxs:py-0.5 lg:py-2 font-bold bg-stone-950" to={"/"}>{t("Home")}</Link>
+            <Link className="xxs:px-1 lg:px-4 xxs:py-0.5 lg:py-2 font-bold bg-stone-950" to={"/cuisines"}>{t('Cuisines')}</Link>
+            <Link className="xxs:px-1 lg:px-4 xxs:py-0.5 lg:py-2 font-bold bg-stone-950" to={"/categories"}>{t("Categories")}</Link>
+            <Link className="xxs:px-1 lg:px-4 xxs:py-0.5 lg:py-2 font-bold bg-stone-950" to={"/ingredients"}>{t("Ingredients")}</Link>
+            <Link className="xxs:px-1 lg:px-4 xxs:py-0.5 lg:py-2 font-bold bg-stone-950" to={"/popularMeals"}>{t("Popular Meals")}</Link>
         </div>
     )
 }
