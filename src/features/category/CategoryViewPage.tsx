@@ -61,10 +61,10 @@ export const RenderMeal = ({ ...item }: MealItemType) => {
     // console.log("meals viewed....", mealsViewed)
 
     return (
-        <Link className="text-2xl mx-auto" onClick={clickHandler} to={`/meals/${id}`} key={id}>
+        <Link className="xxs:text-xl md:text-2xl mx-auto" onClick={clickHandler} to={`/meals/${id}`} key={id}>
             <div>
                 <h2>{mealName}</h2>
-                <img className="aspect-square w-96 h-96" src={mealImg} alt={mealName} />
+                <img className="aspect-square xxs:w-64 sm:w-96 md:w-60 xxs:h-fit sm:h-60 lg:w-96 lg:h-96" src={mealImg} alt={mealName} />
             </div>
         </Link>
     )

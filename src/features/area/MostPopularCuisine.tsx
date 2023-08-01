@@ -9,22 +9,21 @@ export const MostPopularCuisine = () => {
 
     const {handleClick} = useToIncreaseCountsFromMostLikedItems("cuisines")
 
+    const {t} = useTranslation()
+
     const renderContent = (
         names.map(name => {
             return (
-                <Link onClick={() => handleClick(name)} key={name} to={`/cuisines/${name || "Thai"}`}>{name || "Thai"}</Link>
+                <Link onClick={() => handleClick(name)} key={name} to={`/cuisines/${name || "Thai"}`}>{t(`${name}`) || "Thai"}</Link>
             )
         })
     )
 
-
-    const { t } = useTranslation()
-
     return (
-        <div>
-            <h2 className="text-4xl">{t("Most Popular Cuisines")}</h2>
+        <div className="">
+            <h2 className="xxs:text-xl md:text-2xl lg:text-4xl text-center">{t("Most Popular Cuisines")}</h2>
 
-            <div className="flex gap-4 text-2xl">{renderContent}</div>
+            <div className="flex gap-4 xxs:text-xl md:text-2xl flex-wrap">{renderContent}</div>
         </div>
     )
 }

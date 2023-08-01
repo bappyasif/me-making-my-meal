@@ -9,7 +9,7 @@ export const Search = () => {
     const [name, setName] = useState<string>("Categories");
 
     return (
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-y-2">
             {/* <p>Search</p> */}
             <ChooseSearchDomainOption name={name} setName={setName} />
             <SearchView name={name} />
@@ -56,7 +56,7 @@ const SearchView = ({ name }: { name: string }) => {
     }, [text])
 
     return (
-        <div className="w-96 xxs:text-xl md:text-2xl">
+        <div className="xxs:w-full sm:w-96 xxs:text-xl md:text-2xl">
             {/* Items - {items.length} */}
             <input className="w-full text-xl text-blue-900" type="text" value={text} onChange={handleChange} placeholder="type here to search" />
             {
@@ -78,8 +78,8 @@ const ChooseSearchDomainOption = ({ name, setName }: { name: string, setName: Di
 
     const renderOptions = options.map(optName => {
         return (
-            <fieldset key={optName} className="flex gap-2 items-center w-36" onClick={() => handleClick(optName)}>
-                <input type="radio" name="option" id="option"
+            <fieldset key={optName} className="flex gap-2 items-center xxs:w-fit sm:w-36" onClick={() => handleClick(optName)}>
+                <input type="radio" name="option" id={optName}
                     defaultChecked={optName === name} value={name} />
                 <label className="" htmlFor={optName}>{t(`${optName}`)}</label>
             </fieldset>
@@ -87,14 +87,14 @@ const ChooseSearchDomainOption = ({ name, setName }: { name: string, setName: Di
     })
 
     const content = (
-        <div className="flex gap-x-6 xxs:w-full sm:w-96 flex-wrap text-xl">
+        <div className="flex gap-x-6 xxs:w-full sm:w-96 flex-wrap xxs:text-lg md:text-xl">
             {renderOptions}
         </div>
     )
 
     return (
         <div className="">
-            <h2 className="text-2xl">{t("Select Search Type")}</h2>
+            <h2 className="xxs:text-xl md:text-2xl xxs:text-center md:text-start">{t("Select Search Type")}</h2>
             {/* <h3>{name}</h3> */}
             {content}
         </div>

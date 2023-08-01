@@ -1,11 +1,7 @@
 import { useEffect, useState } from "react";
-// import { increment } from "../features/slices";
 import { useAppDispatch, useAppSelector } from "../hooks"
-import { useToGetCategories } from "../hooks/forComponents";
-// import { fetchCategories } from "../data_fetching";
-import { CategoriesList, FirstEightList } from "../features/categories/CategoriesList";
-import { CuisinesList, FirstNineCuisines } from "../features/area/CuisinesList";
-import { IngredientsList } from "../features/ingredients/IngredientsList";
+import { FirstEightList } from "../features/categories/CategoriesList";
+import { FirstNineCuisines } from "../features/area/CuisinesList";
 import { RandomMeal } from "../features/randoms/RandomMeal";
 import { MostPopularCategory } from "../features/categories/MostPopularCategory";
 import { MostPopularCuisine } from "../features/area/MostPopularCuisine";
@@ -37,24 +33,18 @@ export const HomePage = () => {
   }, [])
 
   return (
-    <div className="flex flex-col gap-16">
-      {/* <h1>Home</h1> */}
-      {/* <CategoriesList /> */}
-      <div className="flex justify-around">
+    <div className="flex flex-col gap-y-16">
+      <div className="flex xxs:flex-col xxs:gap-y-6 md:gap-x-6 md:flex-row justify-around items-center">
         <MostPopularCategory />
         <MostPopularCuisine />
-        {/* <MostPopularIngredients /> */}
       </div>
       <RandomMeal />
-      <div className="flex justify-around">
+      <div className="flex xxs:flex-col xxs:gap-y-6 md:gap-x-6 md:flex-row justify-around items-center">
         <MostPopularIngredients />
         <MostPopularMeals />
       </div>
       <FirstEightList />
       <FirstNineCuisines />
-      {/* <CuisinesList /> */}
-      {/* <IngredientsList /> */}
-      {/* <button onClick={() => dispatch(increment())}>Increment</button> */}
     </div>
   )
 }

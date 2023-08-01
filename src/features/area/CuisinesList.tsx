@@ -5,7 +5,7 @@ import { inCreaseCountForCuisine } from "./areaSlices"
 import { useTranslation } from "react-i18next"
 
 export const CuisinesList = () => {
-  const {t} = useTranslation()
+  const { t } = useTranslation()
 
   return (
     <div className="flex flex-col gap-6">
@@ -21,16 +21,15 @@ export const FirstNineCuisines = () => {
 
   // const handleClick = () => navigate("/cuisines")
 
-  const {t} = useTranslation()
+  const { t } = useTranslation()
 
   return (
-    <div className="flex flex-col gap-8 w-5/6 mx-auto">
+    <div className="flex flex-col gap-y-8 xxs:w-full lg:w-5/6 mx-auto">
       <div className="flex justify-between">
-        <h2 className="text-4xl">{t("Meal Cuisines")}</h2>
+        <h2 className="xxs:text-xl md:text-2xl lg:text-4xl">{t("Meal Cuisines")}</h2>
         {/* <Link className="text-2xl" to={"/cuisines"}>{t("See All Available Cuisines")}</Link> */}
-        <Link className="text-2xl" to={"/cuisines"}>{t("See All")}</Link>
+        <Link className="xxs:text-xl md:text-2xl" to={"/cuisines"}>{t("See All")}</Link>
       </div>
-      <h2></h2>
       <RenderCuisinesList fullList={false} />
       {/* <button onClick={handleClick}>See All</button> */}
     </div>
@@ -55,7 +54,7 @@ const RenderCuisinesList = ({ fullList }: RenderType) => {
     navigate(`/cuisines/${name}`)
   }
 
-  const {t} = useTranslation()
+  const { t } = useTranslation()
 
   const renderCuisines = (
     cuisines.map((item, idx) => {
@@ -63,7 +62,7 @@ const RenderCuisinesList = ({ fullList }: RenderType) => {
       return (
         (!fullList && idx < 12) || (fullList)
           ?
-          <button onClick={() => handleClick(name)} key={name} className="w-80 text-4xl">{t(`${name}`)} {item.count}</button>
+          <button onClick={() => handleClick(name)} key={name} className="xxs:text-xl md:text-2xl xxs:w-36 sm:w-48 md:w-60 lg:w-80 h-fit flex flex-col items-center gap-y-4">{t(`${name}`)} {item.count}</button>
           : null
       )
     })

@@ -3,7 +3,7 @@ import { ViewedMealType, increaseMealCount } from "./mealsSlice"
 import { useAppDispatch, useAppSelector } from "../../hooks"
 import { Link } from "react-router-dom"
 import { useTranslation } from "react-i18next"
-import { useConfirmUserAuth, useToIncreaseCountsFromMostLikedItems } from "../../hooks/forComponents"
+import { useConfirmUserAuth } from "../../hooks/forComponents"
 
 export const MostPopularMeals = () => {
     const [meals, setMeals] = useState<ViewedMealType[]>([])
@@ -15,8 +15,7 @@ export const MostPopularMeals = () => {
         // let sorted = mealsViewed.sort((a,b) => a.count > b.count ? 1 : a.count === b.count ? 0 : -1 )
         
         const topFour = mealsViewed.slice(0,4)
-        // setMeals(topFour)
-        // console.log(topFour, "MANYYY")
+
         setMeals(topFour)
     }
 
@@ -49,9 +48,8 @@ export const MostPopularMeals = () => {
 
     return (
         <div>
-            <h2 className="text-4xl">{t("Most Popular Meals")}</h2>
-            {/* <div className="flex gap-4 text-2xl">{content}</div> */}
-            <div className="flex gap-4 text-2xl">{meals.length ? content : <h2>No Items Been Viewed Yet....</h2>}</div>
+            <h2 className="xxs:text-xl md:text-2xl lg:text-4xl text-center">{t("Most Popular Meals")}</h2>
+            <div className="flex gap-4 xxs:text-xl md:text-2xl flex-wrap justify-center">{meals.length ? content : <h2>No Items Been Viewed Yet....</h2>}</div>
         </div>
     )
 }

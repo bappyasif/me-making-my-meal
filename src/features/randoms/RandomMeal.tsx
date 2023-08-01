@@ -40,7 +40,7 @@ export const RandomMeal = () => {
 
     return (
         <div className="flex flex-col items-center">
-            <h1>{t("Randomly Selected Food")}</h1>
+            <h2 className="xxs:text-xl md:text-2xl lg:text-4xl">{t("Randomly Selected Food")}</h2>
             {content}
         </div>
     )

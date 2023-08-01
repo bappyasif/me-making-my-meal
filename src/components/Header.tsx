@@ -5,9 +5,9 @@ import { Search } from "./Search"
 
 export const Header = () => {
     return (
-        <div className="w-full flex flex-col items-center gap-y-4">
+        <div className="w-full flex flex-col items-center gap-y-8">
             <RenderNavs />
-            <div className="flex xxs:flex-col sm:flex-row xxs:items-center sm:items-start gap-6 justify-around">
+            <div className="flex xxs:flex-col md:flex-row xxs:items-center md:items-start xxs:gap-y-8 md:gap-x-8 justify-around">
                 <LanguageSelection />
                 <Search />
             </div>
@@ -39,14 +39,11 @@ const LanguageSelection = () => {
         window.location.replace(loc + "?lng=" + e.target.value);
     }
 
-    // console.log(t, "!!!!!!!")
-
     return (
-        <div className="flex gap-4 h-fit">
-            {/* <h1>{t('welcome')}</h1> */}
+        <div className="flex xxs:flex-col md:flex-row xxs:items-center gap-y-1 gap-x-4 h-fit">
 
-            <label className="xxs:text-xl md:text-2xl">{t('Choose')}</label>
-            <select className="xxs:text-xl md:text-2xl bg-slate-600" value={lang} onChange={handleChange}>
+            <label className="xxs:text-xl md:text-2xl w-fit">{t('Choose')}</label>
+            <select className="xxs:text-xl md:text-2xl bg-slate-600 xxs:w-44 sm:w-36 h-fit" value={lang} onChange={handleChange}>
                 {languages.map(item => {
                     return (<option className="xxs:text-xl md:text-2xl" key={item.value}
                         value={item.value}>{item.text}</option>);
@@ -59,7 +56,7 @@ const LanguageSelection = () => {
 const RenderNavs = () => {
     const { t } = useTranslation()
     return (
-        <div className="flex gap-x-16 justify-center xxs:text-xl md:text-4xl px-4">
+        <div className="flex xxs:gap-x-8 lg:gap-x-16 justify-center xxs:text-xl md:text-4xl px-4 flex-wrap">
             <Link to={"/"}>{t("Home")}</Link>
             <Link to={"/cuisines"}>{t('Cuisines')}</Link>
             <Link to={"/categories"}>{t("Categories")}</Link>
