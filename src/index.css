@@ -24,7 +24,8 @@ a {
   text-decoration: inherit;
 }
 
-a.nav-item {
+a.nav-item,
+p.nav-item {
   background-color: #393E56;
   color: #C1B8C8;
 }

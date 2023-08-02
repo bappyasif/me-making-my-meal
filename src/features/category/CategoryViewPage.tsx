@@ -63,8 +63,8 @@ export const RenderMeal = ({ ...item }: MealItemType) => {
     return (
         <Link className="xxs:text-xl md:text-2xl mx-auto" onClick={clickHandler} to={`/meals/${id}`} key={id}>
             <div>
-                <h2 className="text-center bg-slate-600 px-4 text-slate-200 hover:text-slate-400">{mealName}</h2>
-                <img className="aspect-square xxs:w-64 sm:w-96 md:w-60 xxs:h-fit sm:h-60 lg:w-96 lg:h-96" src={mealImg} alt={mealName} />
+                <h2 className="text-center bg-slate-600 px-4 text-slate-200 hover:text-slate-400 xxs:w-64 sm:w-96">{mealName}</h2>
+                <img className="aspect-square xxs:w-64 sm:w-96 md:w-60 xxs:h-fit sm:h-60 lg:w-full lg:h-96" src={mealImg} alt={mealName} />
             </div>
         </Link>
     )

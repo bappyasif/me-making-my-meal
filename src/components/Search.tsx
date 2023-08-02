@@ -94,7 +94,7 @@ const ChooseSearchDomainOption = ({ name, setName }: { name: string, setName: Di
 
     return (
         <div className="">
-            <h2 className="xxs:text-xl md:text-2xl xxs:text-center md:text-start">{t("Select Search Type")}</h2>
+            <h2 className="xxs:text-xl md:text-2xl text-start">{t("Select Search Type")}</h2>
             {/* <h3>{name}</h3> */}
             {content}
         </div>

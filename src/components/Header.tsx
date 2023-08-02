@@ -8,7 +8,7 @@ export const Header = () => {
         <div className="w-full flex flex-col items-center gap-y-8">
             <RenderNavs />
             <HamburgerMenu />
-            <div className="flex xxs:flex-col md:flex-row xxs:items-center md:items-start xxs:gap-y-8 md:gap-x-8 justify-around">
+            <div className="flex flex-col items-start xxs:gap-y-8 md:gap-x-8 justify-around">
                 <LanguageSelection />
                 <Search />
             </div>
@@ -41,7 +41,7 @@ const LanguageSelection = () => {
     }
 
     return (
-        <div className="flex xxs:flex-col md:flex-row xxs:items-center gap-y-1 gap-x-4 h-fit">
+        <div className="flex xxs:flex-col md:flex-row gap-y-1 gap-x-4 h-fit">
 
             <label className="xxs:text-xl md:text-2xl w-fit">{t('Choose')}</label>
             <select className="xxs:text-xl md:text-2xl bg-slate-600 xxs:w-48 h-fit" value={lang} onChange={handleChange}>
@@ -83,8 +83,8 @@ const HamburgerMenu = () => {
     const handleClose = () => setShow(false);
     
     return (
-        <div className="xxs:block lg:hidden self-end relative">
-            <p onClick={handleToggle}>Menu</p>
+        <div className="xxs:block lg:hidden self-end absolute">
+            <p className="hover:text-blue-200 nav-item px-2" onClick={handleToggle}>Menu</p>
             {
                 show
                 ? <div onClick={handleClose} className="absolute right-0 bg-gray-400 flex flex-col gap-y-2 w-max text-right">
