@@ -208,11 +208,11 @@ export const useToGetFourPopularItems = (list: (CategoryItemType | CuisineNameTy
 
     const highestOnly = list.filter(item => item.count >= highestCount);
 
-    const notZerosButLessThanHighest = list.filter(item => item.count > 0 && item.count < highestCount).sort((a,b) => a.count < b.count ? -1 : 1)
+    const notZerosButLessThanHighest = list.filter(item => item.count > 0 && item.count < highestCount).sort((a, b) => a.count < b.count ? -1 : 1)
 
     const addAllFromHighest = () => {
         highestOnly.forEach((item) => {
-            if(names.length < 4) {
+            if (names.length < 4) {
                 setNames(prev => [...prev, item.name])
             }
         })
@@ -220,7 +220,7 @@ export const useToGetFourPopularItems = (list: (CategoryItemType | CuisineNameTy
 
     const addHasCountsItems = () => {
         notZerosButLessThanHighest.forEach(item => {
-            if(names.length < 4) {
+            if (names.length < 4) {
                 setNames(prev => [...prev, item.name])
             }
         })
@@ -231,7 +231,7 @@ export const useToGetFourPopularItems = (list: (CategoryItemType | CuisineNameTy
         const zeroCountsItems = list.filter(item => item.count === 0)
         zeroCountsItems.forEach(item => {
             const rnd = Math.random()
-            if(names.length < 4 && rnd > .6) {
+            if (names.length < 4 && rnd > .6) {
                 setNames(prev => [...prev, item.name])
             }
         })
@@ -245,7 +245,7 @@ export const useToGetFourPopularItems = (list: (CategoryItemType | CuisineNameTy
 
     // console.log(highestOnly, notZerosButLessThanHighest)
 
-    return { names: removeDuplicates().slice(0,4) }
+    return { names: removeDuplicates().slice(0, 4) }
 }
 
 export const useToGetAnRandomMeal = () => {
@@ -295,7 +295,7 @@ export const useToFetchDataFromFirebase = async (documentName: string) => {
     return { filteredData }
 }
 
-export const useToIncreaseCategoryAndCuisineCounts = (category: string, cuisine:string) => {
+export const useToIncreaseCategoryAndCuisineCounts = (category: string, cuisine: string) => {
     const dispatch = useAppDispatch()
 
     const { ready } = useConfirmUserAuth()
@@ -312,32 +312,50 @@ export const useToIncreaseCategoryAndCuisineCounts = (category: string, cuisine:
         navigate(`/cuisines/${cuisine}`)
     }
 
-    return {handleCategoryClick, handleCuisineClick}
+    return { handleCategoryClick, handleCuisineClick }
 }
 
 export const useToIncreaseCountsFromMostLikedItems = (type: string) => {
     const dispatch = useAppDispatch();
 
-//   const navigate = useNavigate()
+    //   const navigate = useNavigate()
 
-  const { ready } = useConfirmUserAuth()
+    const { ready } = useConfirmUserAuth()
 
-  const handleClick = (name: string) => {
-    ready && type === "cuisines" && dispatch(inCreaseCountForCuisine(name))
-    // type === "cuisines" && navigate(`/cuisines/${name}`)
+    const handleClick = (name: string) => {
+        ready && type === "cuisines" && dispatch(inCreaseCountForCuisine(name))
+        // type === "cuisines" && navigate(`/cuisines/${name}`)
 
-    ready && type === "categories" && dispatch(increaseCategoryItemCount(name))
-    // type === "categories" && navigate(`/categories/${name}`)
+        ready && type === "categories" && dispatch(increaseCategoryItemCount(name))
+        // type === "categories" && navigate(`/categories/${name}`)
 
-    ready && type === "ingredients" && dispatch(increaseCountForIngredient(name))
-    // type === "ingredients" && navigate(`/ingredients/${name}`)
+        ready && type === "ingredients" && dispatch(increaseCountForIngredient(name))
+        // type === "ingredients" && navigate(`/ingredients/${name}`)
 
-    // ready && type === "mostViewed" && dispatch(increaseMealCount(name))
-    // // type === "mostViewed" && navigate(`/ingredients/${name}`)
-    // ready && type === "mostViewed" && console.log(name, "MEALNAME")
-  }
+        // ready && type === "mostViewed" && dispatch(increaseMealCount(name))
+        // // type === "mostViewed" && navigate(`/ingredients/${name}`)
+        // ready && type === "mostViewed" && console.log(name, "MEALNAME")
+    }
 
-  return {
-    handleClick
-  }
+    return {
+        handleClick
+    }
+}
+
+export const useToCheckIfUrlHasMealIdAsShallowRouting = () => {
+    const navigate = useNavigate();
+
+    const runOnce = () => {
+        const checkShallow = window.location.href?.split("?")[1]
+        const checkName = checkShallow?.split("=")[0]
+        const checkValue = checkShallow?.split("=")[1]
+
+        if (checkName === "mealId") {
+            navigate(`/meals/${checkValue}`)
+        }
+    }
+
+    useEffect(() => {
+        runOnce()
+    }, [])
 }

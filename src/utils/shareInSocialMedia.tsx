@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { FacebookIcon, FacebookShareButton, PinterestIcon, PinterestShareButton, TwitterIcon, TwitterShareButton } from "react-share";
 
 interface ShareProps {
@@ -63,11 +64,26 @@ export function Share({ description }: ShareProps) {
 }
 
 export const ShareableOptions = ({ mealName, category, img }: { mealName: string, category: string, img?: string }) => {
+    const [shareableUrl, setShareableUrl] = useState<string>("")
+
+    const modifyingUrl = () => {
+        const url = window.location.href;
+        const splits = url.split("meals/");
+        const hosturl = splits[0]
+        const mealId = splits[1]
+        // console.log(mealId, hosturl, hosturl+`?mealId=${mealId}`)
+        setShareableUrl(hosturl+`?mealId=${mealId}`)
+    }
+
+    useEffect(() => {
+        mealName && modifyingUrl()
+    }, [mealName])
+
     return (
         <div className="flex gap-4">
             <FacebookShareButton
                 // url={"https://peing.net/ja/"}
-                url={window.location.href}
+                url={shareableUrl}
                 quote={`View Recipe, Instruction and Video, to make ${mealName}`}
                 hashtag={mealName.split(" ").join("_")}
                 // description={"aiueo"}
@@ -79,14 +95,14 @@ export const ShareableOptions = ({ mealName, category, img }: { mealName: string
             <TwitterShareButton
                 title={`View Recipe, Instruction and Video, to make ${mealName}`}
                 // url={"https://peing.net/ja/"}
-                url={window.location.href}
+                url={shareableUrl}
                 hashtags={[mealName.split(" ").join("_"), category.split(" ").join("_")]}
             >
                 <TwitterIcon size={32} round={true} />
             </TwitterShareButton>
 
-            <PinterestShareButton 
-                url={window.location.href}
+            <PinterestShareButton
+                url={shareableUrl}
                 media={img || ""}
                 title={`Cook ${mealName}`}
                 description={`View Recipe, Instruction and Video, to make ${mealName}`}

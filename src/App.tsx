@@ -12,13 +12,18 @@ import { IngredientsList } from "./features/ingredients/IngredientsList"
 import { PopularMeals } from "./pages/PopularMeals"
 import { useEffect } from "react"
 import { checkUserAuthStatus } from "./firebase/utils"
+import { useToCheckIfUrlHasMealIdAsShallowRouting } from "./hooks/forComponents"
 
-function App() {  
+function App() {
+  useToCheckIfUrlHasMealIdAsShallowRouting()
+
   useEffect(() => {
     checkUserAuthStatus()
     // annoymousAuth()
     // onFo()
   }, [])
+
+  // console.log(window.location.pathname, window.location.href.split("?")[1].split("=")[1])
 
   return (
     <>

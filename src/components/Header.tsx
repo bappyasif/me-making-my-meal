@@ -35,7 +35,7 @@ const LanguageSelection = () => {
     const handleChange = (e: ChangeEvent<HTMLSelectElement>) => {
         setLang(e.target.value);
         // let loc = "http://localhost:5173/";
-        let loc = import.meta.env.VITE_I18N_LOC_URL;
+        let loc = import.meta.env.PROD ? import.meta.env.VITE_I18N_LOC_URL : "http://localhost:5173/";
         window.location.replace(loc + "?lng=" + e.target.value);
     }
 
