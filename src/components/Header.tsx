@@ -5,7 +5,7 @@ import { Search } from "./Search"
 
 export const Header = () => {
     return (
-        <div className="w-full flex flex-col items-center gap-y-8">
+        <div className="w-max flex flex-col items-center gap-y-8">
             <RenderNavs />
             <HamburgerMenu />
             <div className="flex flex-col items-start xxs:gap-y-8 md:gap-x-8 justify-around">

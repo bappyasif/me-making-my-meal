@@ -34,7 +34,7 @@ export const HomePage = () => {
 
   return (
     <div className="flex flex-col gap-y-16">
-      <div className="flex xxs:flex-col xxs:gap-y-6 md:gap-x-6 md:flex-row justify-around items-center">
+      <div className="flex xxs:flex-col xxs:gap-y-6 md:gap-x-6 md:flex-row justify-around xxs:items-center md:items-start">
         <MostPopularCategory />
         <MostPopularCuisine />
       </div>

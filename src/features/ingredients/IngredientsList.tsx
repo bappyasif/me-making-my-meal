@@ -9,16 +9,16 @@ export const IngredientsList = () => {
   // console.log(list, "ingredients!!")
 
   return (
-    <div>
-      <h1>IngredientsList -- {list.length}</h1>
-      <RenderList />
-    </div>
+    <div className="flex flex-col gap-y-8 w-max">
+        <h1>Total - {list.length} - Ingredients Found</h1>
+        <RenderList />
+      </div>
   )
 }
 
-const RenderList = () => {
+export const RenderList = () => {
   const list = useToGetIngredients()
-  
+
   const dispatch = useAppDispatch();
 
   const { ready } = useConfirmUserAuth()
@@ -30,12 +30,16 @@ const RenderList = () => {
   const content = (
     list.map(item => {
       return (
-        <div key={item.id} className="w-60">
-          <Link onClick={() => handleClick(item.name)} to={`/ingredients/${item.name}`}>{item.name}</Link>
+        <div key={item.id} className="h-20 bg-slate-600 px-2 flex justify-center items-center">
+          <Link className="text-slate-400 hover:text-blue-200" onClick={() => handleClick(item.name)} to={`/ingredients/${item.name}`}>{item.name}</Link>
         </div>
       )
     })
   )
 
-  return <div className="flex flex-wrap gap-8 justify-between text-2xl">{content}</div>
+  return (
+    <div className="grid xxs:1 sm:grid-cols-2 md:grid-cols-3 xxl:grid-cols-4 gap-4 text-2xl">
+      {content}
+    </div>
+  )
 }
