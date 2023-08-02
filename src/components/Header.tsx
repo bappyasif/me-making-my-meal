@@ -7,6 +7,7 @@ export const Header = () => {
     return (
         <div className="w-full flex flex-col items-center gap-y-8">
             <RenderNavs />
+            <HamburgerMenu />
             <div className="flex xxs:flex-col md:flex-row xxs:items-center md:items-start xxs:gap-y-8 md:gap-x-8 justify-around">
                 <LanguageSelection />
                 <Search />
@@ -54,14 +55,43 @@ const LanguageSelection = () => {
 }
 
 const RenderNavs = () => {
+    return (
+        <div className="xxs:hidden lg:flex xxs:gap-x-8 lg:gap-x-8 gap-y-2 xxs:justify-evenly lg:justify-center xxs:text-xl md:text-4xl flex-wrap my-0.5">
+            <AllNavs />
+        </div>
+    )
+}
+
+const AllNavs = () => {
     const { t } = useTranslation()
     return (
-        <div className="flex xxs:gap-x-8 lg:gap-x-8 gap-y-2 xxs:justify-evenly lg:justify-center xxs:text-xl md:text-4xl flex-wrap my-0.5">
-            <Link className="xxs:px-1 lg:px-4 xxs:py-0.5 lg:py-2 font-bold bg-stone-950" to={"/"}>{t("Home")}</Link>
-            <Link className="xxs:px-1 lg:px-4 xxs:py-0.5 lg:py-2 font-bold bg-stone-950" to={"/cuisines"}>{t('Cuisines')}</Link>
-            <Link className="xxs:px-1 lg:px-4 xxs:py-0.5 lg:py-2 font-bold bg-stone-950" to={"/categories"}>{t("Categories")}</Link>
-            <Link className="xxs:px-1 lg:px-4 xxs:py-0.5 lg:py-2 font-bold bg-stone-950" to={"/ingredients"}>{t("Ingredients")}</Link>
-            <Link className="xxs:px-1 lg:px-4 xxs:py-0.5 lg:py-2 font-bold bg-stone-950" to={"/popularMeals"}>{t("Popular Meals")}</Link>
+        <>
+            <Link className="xxs:w-full lg:w-max xxs:px-1 lg:px-4 xxs:py-0.5 lg:py-2 font-bold hover:text-blue-200 nav-item" to={"/"}>{t("Home")}</Link>
+            <Link className="xxs:w-full lg:w-max xxs:px-1 lg:px-4 xxs:py-0.5 lg:py-2 font-bold hover:text-blue-200 nav-item" to={"/cuisines"}>{t('Cuisines')}</Link>
+            <Link className="xxs:w-full lg:w-max xxs:px-1 lg:px-4 xxs:py-0.5 lg:py-2 font-bold hover:text-blue-200 nav-item" to={"/categories"}>{t("Categories")}</Link>
+            <Link className="xxs:w-full lg:w-max xxs:px-1 lg:px-4 xxs:py-0.5 lg:py-2 font-bold hover:text-blue-200 nav-item" to={"/ingredients"}>{t("Ingredients")}</Link>
+            <Link className="xxs:w-full lg:w-max xxs:px-1 lg:px-4 xxs:py-0.5 lg:py-2 font-bold hover:text-blue-200 nav-item" to={"/popularMeals"}>{t("Popular Meals")}</Link>
+        </>
+    )
+}
+
+const HamburgerMenu = () => {
+    const [show, setShow] = useState(false);
+
+    const handleToggle = () => setShow(prev => !prev);
+    
+    const handleClose = () => setShow(false);
+    
+    return (
+        <div className="xxs:block lg:hidden self-end relative">
+            <p onClick={handleToggle}>Menu</p>
+            {
+                show
+                ? <div onClick={handleClose} className="absolute right-0 bg-gray-400 flex flex-col gap-y-2 w-max text-right">
+                    <AllNavs />
+                </div>
+                : null
+            }
         </div>
     )
 }
