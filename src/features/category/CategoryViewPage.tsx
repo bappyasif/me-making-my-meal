@@ -6,20 +6,9 @@ import { MealItemType } from "./categorySlice";
 import { useConfirmUserAuth, useToDispatchFetching } from "../../hooks/forComponents";
 import { useTranslation } from "react-i18next";
 import { increaseMealCount } from "../meals/mealsSlice";
-// import { fetchFilterByCategory } from "../data_fetching";
 
 export const CategoryViewPage = () => {
-    // const { name } = useParams()
-
-    // const dispatch = useAppDispatch();
-
-    // console.log(meals, "MEALS")
     useToDispatchFetching(fetchFilterByCategory)
-
-    // useEffect(() => {
-    //     dispatch(fetchFilterByCategory(name || ""))
-    //     // dispatch(fetchFilterByCategory())
-    // }, [name])
 
     const { name } = useParams()
     const { t } = useTranslation()
@@ -40,7 +29,7 @@ const CategoryMeals = () => {
     )
 
     return (
-        <div className="flex flex-wrap gap-8">{renderMeals}</div>
+        <div className="grid xxs:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 xxl:grid-cols-4 gap-x-4 gap-y-4 w-max">{renderMeals}</div>
     )
 }
 
@@ -56,14 +45,10 @@ export const RenderMeal = ({ ...item }: MealItemType) => {
         // console.log("DISPATCHED!!", {mealId:id, mealName, mealThumb: mealImg})
     }
 
-    // const mealsViewed = useAppSelector(state => state.meal.mealsViewed);
-
-    // console.log("meals viewed....", mealsViewed)
-
     return (
         <Link className="mx-auto" onClick={clickHandler} to={`/meals/${id}`} key={id}>
             <h2 className="text-center bg-slate-600 px-4 text-slate-200 hover:text-slate-400 flex justify-center place-items-center h-12 xxs:w-64 sm:w-96">{mealName}</h2>
-            <img className="xxs:text-xl md:text-2xl xxs:w-64 sm:w-96 xl:w-full h-full xl:h-96" src={mealImg} alt={mealName} />
+            <img className="xxs:text-xl md:text-2xl xxs:w-64 sm:w-96 xl:w-full h-fit xl:h-96" src={mealImg} alt={mealName} />
         </Link>
     )
 }
