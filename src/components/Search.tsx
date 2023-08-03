@@ -56,9 +56,9 @@ const SearchView = ({ name }: { name: string }) => {
     }, [text])
 
     return (
-        <div className="xxs:w-full sm:w-96 xxs:text-xl md:text-2xl relative">
+        <div className="w-full xxs:text-xl md:text-2xl relative">
             {/* Items - {items.length} */}
-            <input className="w-full text-xl text-blue-900" type="text" value={text} onChange={handleChange} placeholder="type here to search" />
+            <input className="xxs:w-fit sm:w-full text-xl text-blue-900" type="text" value={text} onChange={handleChange} placeholder="type here to search" />
             {
                 partialMatch.length
                     ?
@@ -78,7 +78,7 @@ const ChooseSearchDomainOption = ({ name, setName }: { name: string, setName: Di
 
     const renderOptions = options.map(optName => {
         return (
-            <fieldset key={optName} className="flex gap-2 items-center xxs:w-full" onClick={() => handleClick(optName)}>
+            <fieldset key={optName} className="flex gap-2 items-center xxs:w-fit" onClick={() => handleClick(optName)}>
                 <input type="radio" name="option" id={optName}
                     defaultChecked={optName === name} value={name} />
                 <label className="" htmlFor={optName}>{t(`${optName}`)}</label>
@@ -87,7 +87,7 @@ const ChooseSearchDomainOption = ({ name, setName }: { name: string, setName: Di
     })
 
     const content = (
-        <div className="flex gap-x-6 xxs:w-full sm:w-96 flex-wrap xxs:text-lg md:text-xl xxs:justify-around lg:justify-start">
+        <div className="grid xxs:grid-cols-1 sm:grid-cols-2 gap-x-6 xxs:text-lg md:text-xl">
             {renderOptions}
         </div>
     )

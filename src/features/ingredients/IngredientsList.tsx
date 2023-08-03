@@ -10,7 +10,7 @@ export const IngredientsList = () => {
 
   return (
     <div className="flex flex-col gap-y-8">
-      <h1>Total - {list.length} - Ingredients Found</h1>
+      <h1 className="xxs:text-2xl md:text-4xl">Total - {list.length} - Ingredients Found</h1>
       <RenderList />
     </div>
   )
@@ -40,7 +40,7 @@ export const RenderList = () => {
   return (
     // <div className="flex flex-wrap justify-around gap-4">{content}</div>
 
-    <div className="grid xxs:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 xxl:grid-cols-5 gap-4 text-2xl">
+    <div className="grid xxs:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 xxl:grid-cols-5 gap-4 xxs:text-xl md:text-2xl">
       {content}
     </div>
   )

@@ -26,7 +26,7 @@ function App() {
   // console.log(window.location.pathname, window.location.href.split("?")[1].split("=")[1])
 
   return (
-    <div className="flex flex-col gap-11 items-center justify-between min-h-full w-5/6 mx-auto">
+    <div className="flex flex-col gap-11 items-center justify-between min-h-full xxs:w-full md:w-5/6 mx-auto">
       <Header />
       <Routes>
         <Route index element={<HomePage />} />
