@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom"
 import { useAppDispatch } from "../../hooks"
 import { useConfirmUserAuth, useToGetIngredients } from "../../hooks/forComponents"
-import { increaseCountForIngredient } from "./ingredientSlice"
+import { IngredientsType, increaseCountForIngredient } from "./ingredientSlice"
+import { useEffect, useState } from "react"
 
 export const IngredientsList = () => {
   const list = useToGetIngredients()
@@ -17,6 +18,9 @@ export const IngredientsList = () => {
 }
 
 export const RenderList = () => {
+  const [startsEnds, setStartsEnds] = useState<number[]>([0, 100])
+  const [showNow, setShowNow] = useState<IngredientsType[]>([])
+
   const list = useToGetIngredients()
 
   const dispatch = useAppDispatch();
@@ -27,8 +31,34 @@ export const RenderList = () => {
     ready && dispatch(increaseCountForIngredient(ingredientName))
   }
 
+  const handleNext = () => {
+    const newStart = startsEnds[1];
+    const newEnd = newStart + 100;
+    if (newStart < list.length) {
+      const readyList = list.slice(newStart, newEnd)
+      setShowNow(readyList)
+      setStartsEnds([newStart, newEnd])
+      // console.log(newStart, newEnd, "next block")
+    }
+  }
+
+  const handlePrev = () => {
+    const newStart = startsEnds[0] - 100;
+    const newEnd = startsEnds[0]
+    if (newStart >= 0) {
+      const readyList = list.slice(newStart, newEnd)
+      setShowNow(readyList)
+      setStartsEnds([newStart, newEnd])
+      // console.log(newStart, newEnd, "prev block")
+    }
+  }
+
+  useEffect(() => {
+    list && setShowNow(list.slice(0, 100))
+  }, [list])
+
   const content = (
-    list.map(item => {
+    showNow.map((item) => {
       return (
         <div key={item.id} className="h-20 bg-slate-600 px-2 flex justify-center items-center">
           <Link className="text-slate-400 hover:text-blue-200" onClick={() => handleClick(item.name)} to={`/ingredients/${item.name}`}>{item.name}</Link>
@@ -38,10 +68,20 @@ export const RenderList = () => {
   )
 
   return (
-    // <div className="flex flex-wrap justify-around gap-4">{content}</div>
+    <div className="flex flex-col gap-y-4 items-center">
+      <div className="grid xxs:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 xxl:grid-cols-5 gap-4 xxs:text-xl md:text-2xl">
+        {content}
+      </div>
+      <PrevAndNextButtons handleNext={handleNext} handlePrev={handlePrev} />
+    </div>
+  )
+}
 
-    <div className="grid xxs:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 xxl:grid-cols-5 gap-4 xxs:text-xl md:text-2xl">
-      {content}
+const PrevAndNextButtons = ({ handleNext, handlePrev }: { handleNext: () => void, handlePrev: () => void }) => {
+  return (
+    <div className="flex gap-4">
+      <button onClick={handlePrev}>Prev</button>
+      <button onClick={handleNext}>Next</button>
     </div>
   )
 }
