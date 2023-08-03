@@ -9,7 +9,7 @@ export const IngredientsList = () => {
   // console.log(list, "ingredients!!")
 
   return (
-    <div className="flex flex-col gap-y-8 w-max">
+    <div className="flex flex-col gap-y-8 w-full">
         <h1>Total - {list.length} - Ingredients Found</h1>
         <RenderList />
       </div>

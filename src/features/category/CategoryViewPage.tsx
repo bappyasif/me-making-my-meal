@@ -21,8 +21,8 @@ export const CategoryViewPage = () => {
     //     // dispatch(fetchFilterByCategory())
     // }, [name])
 
-    const {name} = useParams()
-    const {t} = useTranslation()
+    const { name } = useParams()
+    const { t } = useTranslation()
 
     return (
         <div>
@@ -46,26 +46,24 @@ const CategoryMeals = () => {
 
 export const RenderMeal = ({ ...item }: MealItemType) => {
     const { id, mealImg, mealName } = item;
-    
+
     const dispatch = useAppDispatch();
 
     const { ready } = useConfirmUserAuth()
 
     const clickHandler = () => {
-        ready && dispatch(increaseMealCount({id, name: mealName, imgSrc: mealImg}))
+        ready && dispatch(increaseMealCount({ id, name: mealName, imgSrc: mealImg }))
         // console.log("DISPATCHED!!", {mealId:id, mealName, mealThumb: mealImg})
     }
 
     // const mealsViewed = useAppSelector(state => state.meal.mealsViewed);
-    
+
     // console.log("meals viewed....", mealsViewed)
 
     return (
-        <Link className="xxs:text-xl md:text-2xl mx-auto" onClick={clickHandler} to={`/meals/${id}`} key={id}>
-            <div className="xxs:w-64 sm:w-96 xl:w-2/3 xxl:w-3/4 mx-auto">
-                <h2 className="text-center bg-slate-600 px-4 text-slate-200 hover:text-slate-400">{mealName}</h2>
-                <img className="w-full h-full" src={mealImg} alt={mealName} />
-            </div>
+        <Link className="mx-auto" onClick={clickHandler} to={`/meals/${id}`} key={id}>
+            <h2 className="text-center bg-slate-600 px-4 text-slate-200 hover:text-slate-400 flex justify-center place-items-center h-12 xxs:w-64 sm:w-96">{mealName}</h2>
+            <img className="xxs:text-xl md:text-2xl xxs:w-64 sm:w-96 xl:w-full h-full xl:h-96" src={mealImg} alt={mealName} />
         </Link>
     )
 }

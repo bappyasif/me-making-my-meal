@@ -1,8 +1,9 @@
 import { fetchOneRandomMeal } from "../../data_fetching"
-import { useToDispatchFetching, useToGetAnRandomMeal, useToIncreaseCategoryAndCuisineCounts } from "../../hooks/forComponents"
+import { useToDispatchFetching, useToGetAnRandomMeal } from "../../hooks/forComponents"
 import { useEffect, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { RenderMeal } from "../category/CategoryViewPage"
+import { CategoryAndCuisineButton } from "../meals/MealDetails"
 
 export const RandomMeal = () => {
     const [wait, setWait] = useState<boolean>(true)
@@ -18,18 +19,13 @@ export const RandomMeal = () => {
         return () => clearTimeout(timer)
     }, [])
 
-    const { handleCategoryClick, handleCuisineClick } = useToIncreaseCategoryAndCuisineCounts(category, cuisine)
-
     const content = (
         wait
             ? null
             :
-            <div className="flex flex-col items-center">
+            <div className="flex flex-col">
                 <RenderMeal id={mealId} mealImg={mealThumb} mealName={mealName} />
-                <div className="self-start">
-                    <button onClick={handleCategoryClick}>{t(`${category}`)}</button>
-                    <button onClick={handleCuisineClick}>{t(`${cuisine}`)}</button>
-                </div>
+                <CategoryAndCuisineButton category={category} cuisine={cuisine} />
             </div>
     )
 

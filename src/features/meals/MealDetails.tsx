@@ -11,11 +11,7 @@ import { Helmet } from "react-helmet"
 export const MealDetails = () => {
     useToDispatchFetching(fetchMealDetails)
 
-    return (
-        <div>
-            <RenderMealBasicInfo />
-        </div>
-    )
+    return <RenderMealBasicInfo />
 }
 
 // type IAMT = {
@@ -27,8 +23,6 @@ export const RenderMealBasicInfo = () => {
     const meal = useAppSelector(state => state.meal.meal)
 
     const { category, cuisine, instructions, mealId, mealName, mealSource, mealThumb, mealTube } = meal
-
-    const { handleCategoryClick, handleCuisineClick } = useToIncreaseCategoryAndCuisineCounts(category, cuisine)
 
     // const renderTags = mealTags?.split(",").map(name => <span key={name}>{name}</span>)
 
@@ -45,13 +39,10 @@ export const RenderMealBasicInfo = () => {
 
             <ShareableOptions category={category} mealName={mealName} img={mealThumb} />
 
-            <div className="mx-auto">
-                <img className="aspect-square h-96" src={mealThumb} alt={mealName} />
+            <div className="mx-auto xxs:text-xl md:text-2xl">
+                <img className="xxs:w-64 sm:w-96 xl:w-full" src={mealThumb} alt={mealName} />
 
-                <p className="flex gap-4">
-                    <button onClick={handleCategoryClick}>{t(`${category}`)}</button>
-                    <button onClick={handleCuisineClick}>{t(`${cuisine}`)}</button>
-                </p>
+                <CategoryAndCuisineButton category={category} cuisine={cuisine} />
             </div>
 
             {/* <RenderIngredientsAndMeasurements /> */}
@@ -90,6 +81,19 @@ export const RenderMealBasicInfo = () => {
 
             {content}
         </>
+    )
+}
+
+export const CategoryAndCuisineButton = ({category, cuisine}: {category:string, cuisine: string}) => {
+    const { handleCategoryClick, handleCuisineClick } = useToIncreaseCategoryAndCuisineCounts(category, cuisine)
+
+    const { t } = useTranslation()
+
+    return (
+        <p className="flex gap-4">
+            <button onClick={handleCategoryClick}>{t(`${category}`)}</button>
+            <button onClick={handleCuisineClick}>{t(`${cuisine}`)}</button>
+        </p>
     )
 }
 
