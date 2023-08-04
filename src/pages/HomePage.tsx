@@ -8,6 +8,7 @@ import { MostPopularCuisine } from "../features/area/MostPopularCuisine";
 import { MostPopularIngredients } from "../features/ingredients/MostPopularIngredients";
 import { MostPopularMeals } from "../features/meals/MostPopularMeals";
 import { fetchCategoriesFromFirebase, fetchCuisinesFromFirebase, fetchIngredientsFromFirebase } from "../data_fetching";
+// import { HeroImage } from "../components/SomeImages";
 
 export const HomePage = () => {
   // const count = useAppSelector(state => state.counter.count)
@@ -33,7 +34,8 @@ export const HomePage = () => {
   }, [])
 
   return (
-    <div className="flex flex-col gap-y-16">
+    <div className="flex flex-col gap-y-16 z-10">
+      {/* <HeroImage /> */}
       <div className="flex xxs:flex-col xxs:gap-y-6 md:gap-x-6 md:flex-row justify-around xxs:items-center md:items-start">
         <MostPopularCategory />
         <MostPopularCuisine />
