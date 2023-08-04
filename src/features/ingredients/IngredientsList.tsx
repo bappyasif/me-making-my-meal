@@ -60,8 +60,12 @@ export const RenderList = () => {
   const content = (
     showNow.map((item) => {
       return (
-        <div key={item.id} className="h-20 bg-slate-600 px-2 flex justify-center items-center">
-          <Link className="text-slate-400 hover:text-blue-200" onClick={() => handleClick(item.name)} to={`/ingredients/${item.name}`}>{item.name}</Link>
+        <div key={item.id} className="xxs:h-fit md:h-20 bg-slate-600 px-2 flex justify-center items-center text-center">
+          <Link className="text-slate-400 hover:text-blue-200 w-96" onClick={() => handleClick(item.name)} 
+          // to={`/ingredients/${item.name}`}
+          // to={`/ingredients/${item.name.split(" ").join("-")}`}
+          to={`/ingredients/${item.name.toLocaleLowerCase().split(" ").join("-")}`}
+          >{item.name}</Link>
         </div>
       )
     })

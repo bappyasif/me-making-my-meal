@@ -18,8 +18,15 @@ export const IngredientMeals = () => {
 
     const { name } = useParams()
 
+    // const normalizedSlug = name?.split("-").join(" ")
+    const normalizedSlug = name?.split("-").map(word => word[0].toUpperCase()+word.slice(1)).join(" ")
+
+    console.log(name, "slug!!", normalizedSlug)
+
     const list = useAppSelector(state => state.ingredient.list)
-    const ingredientDescription = list.find(item => item.name === name)?.description
+    
+    // const ingredientDescription = list.find(item => item.name === name)?.description
+    const ingredientDescription = list.find(item => item.name === normalizedSlug)?.description
 
     const {t} = useTranslation()
 
@@ -29,13 +36,14 @@ export const IngredientMeals = () => {
                 ingredientDescription
                     ?
                     <>
-                        <h1>{t("About")} : {t(`${name}`)}</h1>
+                        <h1>{t("About")} : {t(`${normalizedSlug}`)}</h1>
                         <p className="text-justify text-2xl">{ingredientDescription}</p>
                     </>
                     : null
             }
-            <h1>{t(`${name}`)} : {t("Meals Cooked With")}</h1>
-            <div className="flex flex-wrap gap-8">{renderMeals}</div>
+            <h1>{t(`${normalizedSlug}`)} : {t("Meals Cooked With")}</h1>
+            <div className="flex flex-wrap justify-between gap-8">{renderMeals}</div>
+            {/* <div className="grid xxs:grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 xxl:grid-cols-4 gap-4 xxs:text-xl md:text-2xl">{renderMeals}</div> */}
         </div>
     )
 }

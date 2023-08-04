@@ -58,7 +58,7 @@ const ingredientSlices = createSlice({
             // console.log(action.payload, "payload ingredients!!")
         }),
             builder.addCase(fetchMealsByIngredient.fulfilled, (state, action) => {
-                state.meals = action.payload.meals.map((item: any) => {
+                state.meals = action.payload?.meals.map((item: any) => {
                     return {
                         id: item.idMeal,
                         mealName: item.strMeal,

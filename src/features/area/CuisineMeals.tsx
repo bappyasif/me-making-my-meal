@@ -19,7 +19,7 @@ export const CuisineMeals = () => {
     
     return (
         <div>
-            <h1>{t(`${name}`)} {t("Meals List")} -- {meals.length}</h1>
+            <h1>{t(`${name}`)} {t("Meals List")} -- {meals.length} {t("Recipes Found")}</h1>
             <div className="flex flex-wrap gap-8">{renderMeals}</div>
         </div>
     )
