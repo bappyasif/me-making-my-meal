@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useAppDispatch } from "../../hooks"
-import { useConfirmUserAuth, useToGetCategories } from "../../hooks/forComponents"
+import { useConfirmUserAuth, useToCheckDataExistsOnFirebase, useToGetCategories } from "../../hooks/forComponents"
 import { CategoryItemType, increaseCategoryItemCount } from "./categoriesSlice";
 import { useTranslation } from "react-i18next";
 
@@ -28,8 +28,10 @@ const RenderCategoryMeal = ({ ...item }: CategoryItemType) => {
 
     const { ready } = useConfirmUserAuth()
 
+    const { found } = useToCheckDataExistsOnFirebase("Categories", "Category", name)
+
     const handleClicked = (itemName: string) => {
-        ready && dispatch(increaseCategoryItemCount(itemName))
+        ready && dispatch(increaseCategoryItemCount({name:itemName, update: found}))
     }
 
     const { t } = useTranslation()

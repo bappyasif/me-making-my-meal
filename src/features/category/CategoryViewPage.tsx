@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom"
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { fetchFilterByCategory } from "../../data_fetching";
 import { MealItemType } from "./categorySlice";
-import { useConfirmUserAuth, useToDispatchFetching } from "../../hooks/forComponents";
+import { useConfirmUserAuth, useToCheckDataExistsOnFirebase, useToDispatchFetching } from "../../hooks/forComponents";
 import { useTranslation } from "react-i18next";
 import { increaseMealCount } from "../meals/mealsSlice";
 
@@ -40,8 +40,19 @@ export const RenderMeal = ({ ...item }: MealItemType) => {
 
     const { ready } = useConfirmUserAuth()
 
+    const { found } = useToCheckDataExistsOnFirebase("Meals", "Meal", mealName)
+
     const clickHandler = () => {
-        ready && dispatch(increaseMealCount({ id, name: mealName, imgSrc: mealImg }))
+        // if(found) {
+        //     console.log("UPDATE")
+        // } else {
+        //     ready && dispatch(increaseMealCount({ id, name: mealName, imgSrc: mealImg, update: found }))
+        //     console.log("ADD TO FIREBASE", mealName)
+        // }
+        
+        ready && dispatch(increaseMealCount({ id, name: mealName, imgSrc: mealImg, update: found }))
+
+        // ready && dispatch(increaseMealCount({ id, name: mealName, imgSrc: mealImg }))
         // console.log("DISPATCHED!!", {mealId:id, mealName, mealThumb: mealImg})
     }
 

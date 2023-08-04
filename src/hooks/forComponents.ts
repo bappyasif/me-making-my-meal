@@ -5,7 +5,7 @@ import { fetchCategoriesFromAPI, fetchCuisines, fetchIngredients } from "../data
 import { CategoriesType, CategoryItemType, increaseCategoryItemCount } from "../features/categories/categoriesSlice";
 import { CuisineNameType, CuisinesListType, inCreaseCountForCuisine } from "../features/area/areaSlices";
 import { IngredientsType, increaseCountForIngredient } from "../features/ingredients/ingredientSlice";
-import { annoymousAuth, readingDataFromFirestore } from "../firebase/utils";
+import { annoymousAuth, readingDataFromFirestore, readingDataFromFirestoreSubDocument } from "../firebase/utils";
 
 export const useToGetCategories = () => {
     const list = useAppSelector(state => state.categories.list);
@@ -277,6 +277,31 @@ export const useConfirmUserAuth = () => {
     }, [])
 
     return { ready }
+}
+
+export const useToCheckDataExistsOnFirebase = (docName: string, subColl: string, subDoc: string) => {
+    // const found = await readingDataFromFirestoreSubDocument(docName, subColl, subDoc)
+
+    // return {found}
+
+    const [found, setFound] = useState(false)
+
+    const checkAuth = () => {
+        readingDataFromFirestoreSubDocument(docName, subColl, subDoc).then(data => {
+            if (data) {
+                // console.log(user.user, "USER!!!!")
+                setFound(true)
+            } else {
+                setFound(false)
+            }
+        })
+    }
+
+    useEffect(() => {
+        checkAuth()
+    }, [])
+
+    return { found }
 }
 
 // export const useToFetchDataFromFirebase = async (documentName: string) => {

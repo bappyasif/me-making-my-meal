@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { fetchCategoriesFromAPI, fetchCategoriesFromFirebase } from "../../data_fetching";
-import { addDataIntoDocumentSubCollection } from "../../firebase/utils";
+import { addDataIntoDocumentSubCollection, updateSinglePropertyInFirebaseSubCollectionDocument } from "../../firebase/utils";
 
 export type CategoryItemType = {
     // [index: string]: number
@@ -33,10 +33,20 @@ const categorySlice = createSlice({
     reducers: {
         increaseCategoryItemCount: (state, action) => {
             state.list = state.list.map((item) => {
-                if (item.name === action.payload) {
+                const {name, update} = action.payload;
+                if (item.name === name) {
                     item.count = item.count ? item.count + 1 : 1
                     // item.count += 1
-                    addDataIntoDocumentSubCollection("Categories", "Category", item.name, item)
+                    // addDataIntoDocumentSubCollection("Categories", "Category", item.name, item)
+
+                    if(update) {
+                        // update firebase subcollection document
+                        updateSinglePropertyInFirebaseSubCollectionDocument("Categories", "Category", item.name)
+                        // console.log("UPDATING FIREBASE")
+                    } else {
+                        // add to firebase subcollection
+                        addDataIntoDocumentSubCollection("Categories", "Category", item.name, item)
+                    }
                 }
                 return item
             })

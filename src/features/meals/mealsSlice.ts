@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { fetchMealDetails, fetchViewedMealsFromFirebase } from "../../data_fetching"
-import { addDataIntoDocumentSubCollection } from "../../firebase/utils"
+import { addDataIntoDocumentSubCollection, updateSinglePropertyInFirebaseSubCollectionDocument } from "../../firebase/utils"
 // import { useConfirmUserAuth } from "../../hooks/forComponents"
 
 export type IAMType = {
@@ -62,7 +62,7 @@ const mealsSlice = createSlice({
     name: "meals",
     reducers: {
         increaseMealCount: (state, action) => {
-            const { id, name } = action.payload;
+            const { id, name, update } = action.payload;
 
             const foundItem = state.mealsViewed.findIndex(item => item.id === action.payload.id)
 
@@ -70,7 +70,15 @@ const mealsSlice = createSlice({
                 state.mealsViewed = state.mealsViewed.map(item => {
                     if (item.id === id) {
                         item.count = item.count ? item.count + 1 : 1
-                        addDataIntoDocumentSubCollection("Meals", "Meal", item.name, item)
+                        if(update) {
+                            // update firebase subcollection document
+                            updateSinglePropertyInFirebaseSubCollectionDocument("Meals", "Meal", name)
+                            // console.log("UPDATING FIREBASE")
+                        } else {
+                            // add to firebase subcollection
+                            addDataIntoDocumentSubCollection("Meals", "Meal", item.name, item)
+                        }
+                        // addDataIntoDocumentSubCollection("Meals", "Meal", item.name, item)
                     }
                     return item
                 })
