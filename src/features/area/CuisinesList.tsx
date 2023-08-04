@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom"
 import { useAppDispatch } from "../../hooks"
-import { useConfirmUserAuth, useToGetCuisines } from "../../hooks/forComponents"
+import { useConfirmUserAuth, useToCheckDataExistsOnFirebase, useToGetCuisines } from "../../hooks/forComponents"
 import { inCreaseCountForCuisine } from "./areaSlices"
 import { useTranslation } from "react-i18next"
 
@@ -43,26 +43,13 @@ type RenderType = {
 const RenderCuisinesList = ({ fullList }: RenderType) => {
   const cuisines = useToGetCuisines()
 
-  const dispatch = useAppDispatch();
-
-  const navigate = useNavigate()
-
-  const { ready } = useConfirmUserAuth()
-
-  const handleClick = (name: string) => {
-    ready && dispatch(inCreaseCountForCuisine(name))
-    navigate(`/cuisines/${name}`)
-  }
-
-  const { t } = useTranslation()
-
   const renderCuisines = (
     cuisines.map((item, idx) => {
       const { name } = item;
       return (
         (!fullList && idx < 12) || (fullList)
           ?
-          <button onClick={() => handleClick(name)} key={name} className="xxs:text-xl md:text-2xl xxs:w-36 sm:w-48 md:w-60 lg:w-80 h-fit flex flex-col items-center gap-y-4">{t(`${name}`)}</button>
+          <RenderCuisine name={name} key={name} />
           : null
       )
     })
@@ -71,4 +58,23 @@ const RenderCuisinesList = ({ fullList }: RenderType) => {
   return (
     <div className="flex flex-wrap justify-around gap-4">{renderCuisines}</div>
   )
+}
+
+const RenderCuisine = ({name}: {name: string}) => {
+  const dispatch = useAppDispatch();
+
+  const navigate = useNavigate()
+
+  const { ready } = useConfirmUserAuth()
+
+  const { found } = useToCheckDataExistsOnFirebase("Cuisines", "Cuisine", name)
+
+  const handleClick = (name: string) => {
+    ready && dispatch(inCreaseCountForCuisine({name, update: found}))
+    navigate(`/cuisines/${name}`)
+  }
+
+  const { t } = useTranslation()
+
+  return <button onClick={() => handleClick(name)} key={name} className="xxs:text-xl md:text-2xl xxs:w-36 sm:w-48 md:w-60 lg:w-80 h-fit flex flex-col items-center gap-y-4">{t(`${name}`)}</button>
 }

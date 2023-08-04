@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { fetchIngredients, fetchIngredientsFromFirebase, fetchMealsByIngredient } from "../../data_fetching";
 import { MealItemType } from "../category/categorySlice";
-import { addDataIntoDocumentSubCollection } from "../../firebase/utils";
+import { addDataIntoDocumentSubCollection, updateSinglePropertyInFirebaseSubCollectionDocument } from "../../firebase/utils";
 
 export type IngredientsType = {
     // [index: string]: number;
@@ -30,11 +30,20 @@ const ingredientSlices = createSlice({
     name: "ingredients",
     reducers: {
         increaseCountForIngredient: (state, action) => {
+            const {name, update} = action.payload;
             state.list = state.list.map(item => {
-                if (item.name === action.payload) {
+                if (item.name === name) {
                     item.count += 1
                     // console.log("count incremented", action.payload, item.name)
-                    addDataIntoDocumentSubCollection("Ingredients", "Ingredient", item.name, item)
+                    // addDataIntoDocumentSubCollection("Ingredients", "Ingredient", item.name, item)
+                    if (update) {
+                        // update firebase subcollection document
+                        updateSinglePropertyInFirebaseSubCollectionDocument("Ingredients", "Ingredient", item.name)
+                        // console.log("UPDATING FIREBASE")
+                    } else {
+                        // add to firebase subcollection
+                        addDataIntoDocumentSubCollection("Ingredients", "Ingredient", item.name, item)
+                    }
                 }
                 return item
             })

@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit"
 import { fetchCuisineMeals, fetchCuisines, fetchCuisinesFromFirebase } from "../../data_fetching"
 import { MealItemType } from "../category/categorySlice"
-import { addDataIntoDocumentSubCollection } from "../../firebase/utils"
+import { addDataIntoDocumentSubCollection, updateSinglePropertyInFirebaseSubCollectionDocument } from "../../firebase/utils"
 
 export type CuisineNameType = {
     name: string,
@@ -30,10 +30,19 @@ const areaSlice = createSlice({
     name: "area",
     reducers: {
         inCreaseCountForCuisine: (state, action) => {
+            const { name, update } = action.payload
             state.list = state.list.map(item => {
-                if (item.name === action.payload) {
+                if (item.name === name) {
                     item.count += 1;
-                    addDataIntoDocumentSubCollection("Cuisines", "Cuisine", item.name, item)
+                    // addDataIntoDocumentSubCollection("Cuisines", "Cuisine", item.name, item)
+                    if (update) {
+                        // update firebase subcollection document
+                        updateSinglePropertyInFirebaseSubCollectionDocument("Cuisines", "Cuisine", name)
+                        // console.log("UPDATING FIREBASE")
+                    } else {
+                        // add to firebase subcollection
+                        addDataIntoDocumentSubCollection("Cuisines", "Cuisine", item.name, item)
+                    }
                 }
                 return item
             })
@@ -43,8 +52,8 @@ const areaSlice = createSlice({
         builder.addCase(fetchCuisines.fulfilled, (state, action) => {
             // console.log(action.payload.meals)
             state.list = action.payload.meals?.map((item: any) => {
-                
-                if(item?.strArea) {
+
+                if (item?.strArea) {
                     const { strArea } = item;
                     return {
                         name: strArea,
@@ -56,32 +65,32 @@ const areaSlice = createSlice({
                 }
             })
         }),
-        builder.addCase(fetchCuisineMeals.fulfilled, (state, action) => {
-            state.meals = action.payload.meals.map((item:any) => {
-                const mealItem : MealItemType = {
-                    id: item.idMeal,
-                    mealImg: item.strMealThumb,
-                    mealName: item.strMeal
-                }
+            builder.addCase(fetchCuisineMeals.fulfilled, (state, action) => {
+                state.meals = action.payload.meals.map((item: any) => {
+                    const mealItem: MealItemType = {
+                        id: item.idMeal,
+                        mealImg: item.strMealThumb,
+                        mealName: item.strMeal
+                    }
 
-                return mealItem
-            })
-            // console.log(action.payload, "meals cuisines")
-        }),
-        builder.addCase(fetchCuisinesFromFirebase.fulfilled, (state, action) => {
-            const {cuisines} = action.payload
+                    return mealItem
+                })
+                // console.log(action.payload, "meals cuisines")
+            }),
+            builder.addCase(fetchCuisinesFromFirebase.fulfilled, (state, action) => {
+                const { cuisines } = action.payload
 
-            state.list = state.list.map(item => {
-                const chk = cuisines.findIndex(cuisine => cuisine.name === item.name)
-                // console.log(chk, "CHECK!!")
-                if(chk !== -1) {
-                    item.count = cuisines[chk].count
-                    // item = cuisines[chk] as CuisineNameType
-                    // console.log(item, "CHANGED!!")
-                }
-                return item
+                state.list = state.list.map(item => {
+                    const chk = cuisines.findIndex(cuisine => cuisine.name === item.name)
+                    // console.log(chk, "CHECK!!")
+                    if (chk !== -1) {
+                        item.count = cuisines[chk].count
+                        // item = cuisines[chk] as CuisineNameType
+                        // console.log(item, "CHANGED!!")
+                    }
+                    return item
+                })
             })
-        })
     }
 });
 

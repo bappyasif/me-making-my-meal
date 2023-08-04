@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import { useAppDispatch } from "../../hooks"
-import { useConfirmUserAuth, useToGetIngredients } from "../../hooks/forComponents"
+import { useConfirmUserAuth, useToCheckDataExistsOnFirebase, useToGetIngredients } from "../../hooks/forComponents"
 import { IngredientsType, increaseCountForIngredient } from "./ingredientSlice"
 import { useEffect, useState } from "react"
 
@@ -22,14 +22,6 @@ export const RenderList = () => {
   const [showNow, setShowNow] = useState<IngredientsType[]>([])
 
   const list = useToGetIngredients()
-
-  const dispatch = useAppDispatch();
-
-  const { ready } = useConfirmUserAuth()
-
-  const handleClick = (ingredientName: string) => {
-    ready && dispatch(increaseCountForIngredient(ingredientName))
-  }
 
   const handleNext = () => {
     const newStart = startsEnds[1];
@@ -58,17 +50,7 @@ export const RenderList = () => {
   }, [list])
 
   const content = (
-    showNow.map((item) => {
-      return (
-        <div key={item.id} className="xxs:h-fit md:h-20 bg-slate-600 px-2 flex justify-center items-center text-center">
-          <Link className="text-slate-400 hover:text-blue-200 w-96" onClick={() => handleClick(item.name)} 
-          // to={`/ingredients/${item.name}`}
-          // to={`/ingredients/${item.name.split(" ").join("-")}`}
-          to={`/ingredients/${item.name.toLocaleLowerCase().split(" ").join("-")}`}
-          >{item.name}</Link>
-        </div>
-      )
-    })
+    showNow.map((item) => <RenderIngredient name={item.name} key={item.name} />)
   )
 
   return (
@@ -88,4 +70,24 @@ const PrevAndNextButtons = ({ handleNext, handlePrev }: { handleNext: () => void
       <button onClick={handleNext}>Next</button>
     </div>
   )
+}
+
+const RenderIngredient = ({name}: {name:string}) => {
+  const dispatch = useAppDispatch();
+
+  const { ready } = useConfirmUserAuth()
+
+  const { found } = useToCheckDataExistsOnFirebase("Ingredients", "Ingredient", name)
+
+  const handleClick = (ingredientName: string) => {
+    ready && dispatch(increaseCountForIngredient({name: ingredientName, update: found}))
+  }
+
+  return (
+    <div className="xxs:h-fit md:h-20 bg-slate-600 px-2 flex justify-center items-center text-center">
+      <Link className="text-slate-400 hover:text-blue-200 w-96" onClick={() => handleClick(name)} 
+      to={`/ingredients/${name.toLocaleLowerCase().split(" ").join("-")}`}
+      >{name}</Link>
+    </div>
+  ) 
 }
