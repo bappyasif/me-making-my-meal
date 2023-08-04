@@ -21,7 +21,7 @@ export const IngredientMeals = () => {
     // const normalizedSlug = name?.split("-").join(" ")
     const normalizedSlug = name?.split("-").map(word => word[0].toUpperCase()+word.slice(1)).join(" ")
 
-    console.log(name, "slug!!", normalizedSlug)
+    // console.log(name, "slug!!", normalizedSlug)
 
     const list = useAppSelector(state => state.ingredient.list)
     

@@ -12,11 +12,11 @@ export const PopularMeals = () => {
     const { t } = useTranslation()
 
     return (
-        <div className="flex flex-col gap-6 w-max">
+        <div className="flex flex-col gap-6">
             <h1>{t("Popular Meals")}</h1>
             {
                 mealsViewed.length
-                    ? <div className="grid xxs:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 xxl:grid-cols-4 gap-x-4 gap-y-4">{renderMeals()}</div>
+                    ? <div className="grid xxs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xxl:grid-cols-5 gap-x-4 gap-y-4">{renderMeals()}</div>
                     : <h2>No Meal Items been Viewed Yet....</h2>
             }
         </div>

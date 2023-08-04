@@ -22,7 +22,7 @@ export const CategoriesList = () => {
 }
 
 const RenderCategoryMeal = ({ ...item }: CategoryItemType) => {
-    const { id, imgSrc, name } = item
+    const { imgSrc, name } = item
 
     const dispatch = useAppDispatch();
 
@@ -35,16 +35,17 @@ const RenderCategoryMeal = ({ ...item }: CategoryItemType) => {
     const { t } = useTranslation()
 
     return (
-        <div key={id} className="xxs:w-36 sm:w-48 md:w-60 xxs:h-fit lg:w-96 lg:h-fit aspect-auto flex flex-col gap-4" onClick={() => handleClicked(`${name}`)}>
-            <h2 className="text-center xxs:text-xl md:text-2xl lg:text-4xl">
-                <Link
-                    to={`/categories/${name}`}
-                >
-                    <h2>{t(`${name}`)}</h2>
-                    <img src={`${imgSrc}`} alt={`${name}`} />
-                </Link>
-            </h2>
-        </div>
+        <h2
+            className="xxs:w-36 sm:w-48 md:w-60 xxs:h-fit lg:w-96 lg:h-fit aspect-auto flex flex-col gap-4 text-center xxs:text-xl md:text-2xl lg:text-4xl"
+            onClick={() => handleClicked(`${name}`)}
+        >
+            <Link
+                to={`/categories/${name}`}
+            >
+                <h2>{t(`${name}`)}</h2>
+                <img src={`${imgSrc}`} alt={`${name}`} />
+            </Link>
+        </h2>
     )
 }
 

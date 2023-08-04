@@ -29,7 +29,7 @@ const CategoryMeals = () => {
     )
 
     return (
-        <div className="grid xxs:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 xxl:grid-cols-4 gap-x-4 gap-y-4 w-max">{renderMeals}</div>
+        <div className="grid xxs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xxl:grid-cols-5 gap-x-4 gap-y-4">{renderMeals}</div>
     )
 }
 
@@ -46,9 +46,13 @@ export const RenderMeal = ({ ...item }: MealItemType) => {
     }
 
     return (
-        <Link className="mx-auto" onClick={clickHandler} to={`/meals/${id}`} key={id}>
-            <h2 className="text-center bg-slate-600 px-4 text-slate-200 hover:text-slate-400 flex justify-center place-items-center h-12 xxs:w-64 sm:w-96">{mealName}</h2>
-            <img className="xxs:text-xl md:text-2xl xxs:w-64 sm:w-96 xl:w-full h-fit xl:h-96" src={mealImg} alt={mealName} />
+        <Link
+            className="flex flex-col gap-x-4 text-center xxs:text-xl md:text-2xl lg:text-4xl w-fit"
+            onClick={clickHandler}
+            to={`/meals/${id}`}
+        >
+            <h2 className="text-center bg-slate-600 px-4 text-slate-200 hover:text-slate-400 flex justify-center place-items-center xxs:h-fit xxs:text-xl xl:text-2xl xxs:w-fit sm:w-full mx-auto">{mealName.length > 15 ? mealName.slice(0, 15) + "...." : mealName}</h2>
+            <img className="xxs:w-3/4 lg:w-96 h-fit mx-auto" src={`${mealImg}`} alt={`${mealName}`} />
         </Link>
     )
 }
