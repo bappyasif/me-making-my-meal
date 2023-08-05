@@ -52,7 +52,7 @@ export const RenderMeal = ({ ...item }: MealItemType) => {
             to={`/meals/${id}`}
         >
             <h2 className="text-center bg-slate-600 px-4 text-slate-200 hover:text-slate-400 flex justify-center place-items-center xxs:h-fit xxs:text-xl xl:text-2xl xxs:w-fit sm:w-full mx-auto">{mealName.length > 15 ? mealName.slice(0, 15) + "...." : mealName}</h2>
-            <img className="xxs:w-3/4 lg:w-96 h-fit mx-auto" src={`${mealImg}`} alt={`${mealName}`} />
+            <img className="xxs:w-96 h-fit mx-auto rounded-lg" src={`${mealImg}`} alt={`${mealName}`} />
         </Link>
     )
 }

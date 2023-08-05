@@ -15,7 +15,7 @@ export const TranslateMealsDetails = ({ qStr }: { qStr: string }) => {
     const beginTranslation = async () => {
         translateContent().then((data: any) => {
             // const formattedText = data.translatedText.split()
-            console.log(data, "DATATA", data.data.translatedText)
+            // console.log(data, "DATATA", data.data.translatedText)
             if (data.data?.translatedText) {
                 setTranslatedText(data.data.translatedText || "")
                 handleToggle()
@@ -39,12 +39,12 @@ export const TranslateMealsDetails = ({ qStr }: { qStr: string }) => {
     }
 
     const configureOptions = () => {
-        if (qStr.split("").length > 200) {
+        if (qStr.split("").length > 2000) {
             alert("please consider to use google transolator, using free tier translation service")
         } else {
             translateOptions.body = new URLSearchParams({
-                text: 'Hello, world!',
-                // text: qStr.split(".").join("*"),
+                // text: 'Hello, world!',
+                text: qStr.split(".").join("*"),
                 target_language: i18next.language,
                 source_language: 'en'
             })
@@ -64,7 +64,7 @@ export const TranslateMealsDetails = ({ qStr }: { qStr: string }) => {
 
     const renderInstructions = () => {
         if (translatedText.length && translateBack) {
-            return translatedText.split("*").map((text, idx) => text && <li key={idx}>{text}</li>)
+            return translatedText.split("*").map((text, idx) => text && <li className="w-full" key={idx}>{text}</li>)
         } else {
             return qStr.split(".").map((text, idx) => text && <li key={idx}>{text}</li>)
         }
@@ -95,12 +95,14 @@ export const TranslateMealsDetails = ({ qStr }: { qStr: string }) => {
             /> */}
 
             {/* <p className="text-2xl w-5/6">{translatedText || qStr}</p> */}
-            {/* <ul className="text-2xl w-5/6">{renderInstructions}</ul> */}
-            <ul className="text-2xl w-5/6 list-disc">{renderInstructions()}</ul>
+            {/* <ul className="text-2xl w-5/6">{renderInstructions()}</ul> */}
+            <ul className="flex gap-x-8 gap-y-2 flex-wrap w-3/4 list-disc xxs:text-xl md:text-2xl">{renderInstructions()}</ul>
+            {/* <ul className="text-2xl list-disc flex flex-wrap gap-x-8 gap-y-6 w-5/6">{renderInstructions()}</ul> */}
+            {/* <ul className="grid xxs:grid-cols-1 xxl:grid-cols-2 gap-4 xxs:text-xl md:text-2xl list-disc">{renderInstructions()}</ul> */}
         </div>
     )
 
-    console.log(translatedText, "TEXT!!!!")
+    // console.log(translatedText, "TEXT!!!!")
 
     // console.log(translatedText.split("।").length, qStr.split(".").join("[]"))
     // console.log(translatedText, "TRANSLKA", qStr.split(".").join("*"))

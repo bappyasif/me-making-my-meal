@@ -29,18 +29,18 @@ export const RenderMealBasicInfo = () => {
     const { t } = useTranslation()
 
     const content = (
-        <div key={mealId} className="flex flex-col items-center gap-y-8">
+        <div key={mealId} className="flex flex-col items-center gap-y-8 mx-auto">
 
             <h1>{mealName}</h1>
 
-            <a target="_blank" href={mealSource}>{t("Visit Source Website")}</a>
+            <a className="nav-item px-2" target="_blank" href={mealSource}>{t("Visit Source Website")}</a>
 
             {/* <Share description={mealName} /> */}
 
             <ShareableOptions category={category} mealName={mealName} img={mealThumb} />
 
             <div className="mx-auto xxs:text-xl md:text-2xl">
-                <img className="xxs:w-64 sm:w-96 xl:w-full" src={mealThumb} alt={mealName} />
+                <img className="xxs:w-64 sm:w-96 xl:w-full rounded-lg" src={mealThumb} alt={mealName} />
 
                 <CategoryAndCuisineButton category={category} cuisine={cuisine} />
             </div>
@@ -52,7 +52,7 @@ export const RenderMealBasicInfo = () => {
             <TranslateMealsDetails qStr={instructions} />
             {/* <TranslateMealsDetails qStr={instructions.split(".").join(" *")} /> */}
 
-            <iframe width="720" height="315"
+            <iframe className="xxs:w-5/6 lg:w-1/2 lg:h-96" width="720" height="315"
                 src={`${mealTube.replace("watch?v=", "embed/")}`}>
             </iframe>
         </div>
@@ -113,8 +113,8 @@ const RenderIngredientsAndMeasures = () => {
     const content = (
         ingredients.map((item, idx) => {
             return (
-                <div key={item.text + idx} className="flex gap-4 text-2xl w-96">
-                    <Link to={`/ingredients/${item.text}`} onClick={() => handleClick(item.text)}>{item.text}</Link> -- <span>{measures[idx].text}</span>
+                <div key={item.text + idx} className="flex justify-center gap-4 text-2xl w-96">
+                    <Link className="nav-item px-2 w-52 opacity-80" to={`/ingredients/${item.text}`} onClick={() => handleClick(item.text)}>{item.text}</Link> -- <span className="w-20">{measures[idx].text}</span>
                 </div>
             )
         })
@@ -129,12 +129,15 @@ const RenderIngredientsAndMeasures = () => {
     // )
 
     return (
-        <div className="flex flex-col items-center gap-y-8">
+        <div className="flex flex-col items-center gap-y-8 mx-auto">
             <div className="flex gap-4">
                 <h2 className="text-4xl">{t("Ingredients And Measurements")}</h2>
                 {/* {btnElement} */}
             </div>
-            <div className="flex gap-x-8 gap-y-4 flex-wrap justify-center w-5/6">
+            {/* <div className="flex gap-x-8 gap-y-4 flex-wrap justify-center">
+                {content}
+            </div> */}
+            <div className="grid xxs:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 xxl:grid-cols-4 gap-4 xxs:text-xl md:text-2xl">
                 {content}
             </div>
         </div>
