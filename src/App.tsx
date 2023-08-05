@@ -28,6 +28,7 @@ function App() {
 
   return (
     <div
+      className="flex flex-col gap-11"
       style={{
         backgroundImage: `url("${appBg}")`,
         objectFit: "fill",
@@ -66,8 +67,9 @@ function App() {
             <Route index element={<PopularMeals />} />
           </Route>
         </Routes>
-        <Footer />
+        {/* <Footer /> */}
       </div>
+      <Footer />
     </div>
   )
 }

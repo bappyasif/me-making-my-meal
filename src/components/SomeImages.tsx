@@ -1,4 +1,4 @@
-import headerBg from "../assets/header_bg.jpg"
+// import headerBg from "../assets/header_bg.jpg"
 
 export const HeaderImage = () => {
     return (
@@ -7,11 +7,14 @@ export const HeaderImage = () => {
             // className="absolute z-0 h-72 w-full rotate-180"
             className="absolute z-0 w-full"
             style={{
-                backgroundImage: `url("${headerBg}")`,
+                // backgroundImage: `url("${headerBg}")`,
                 // backgroundImage: `url("${heroTwoBg}")`,
                 // backgroundImage: `url("${appBg}")`,
+                // backgroundImage: `url("https://source.unsplash.com/random/?abstract,Cooking")`,
+                backgroundImage: `url("https://source.unsplash.com/random/?food,dishes,ingredients")`,
                 objectFit: "cover",
                 backgroundRepeat: "no-repeat",
+                backgroundSize: "100% 100%",
                 minHeight: "290px",
                 backgroundColor: "rgba(17,17,17,0.6)",
                 backgroundBlendMode: "darken"

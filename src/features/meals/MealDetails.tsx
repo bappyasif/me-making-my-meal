@@ -29,7 +29,7 @@ export const RenderMealBasicInfo = () => {
     const { t } = useTranslation()
 
     const content = (
-        <div key={mealId} className="flex flex-col items-center gap-y-8 mx-auto">
+        <div key={mealId} className="flex flex-col items-center gap-y-8 mx-auto z-10">
 
             <h1>{mealName}</h1>
 
