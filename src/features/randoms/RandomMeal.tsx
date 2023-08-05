@@ -23,7 +23,7 @@ export const RandomMeal = () => {
         wait
             ? null
             :
-            <div className="flex flex-col">
+            <div className="flex flex-col z-10">
                 <RenderMeal id={mealId} mealImg={mealThumb} mealName={mealName} />
                 <CategoryAndCuisineButton category={category} cuisine={cuisine} />
             </div>
@@ -31,7 +31,7 @@ export const RandomMeal = () => {
 
     return (
         <div className="flex flex-col items-center">
-            <h2 className="xxs:text-xl md:text-2xl lg:text-4xl">{t("Randomly Selected Food")}</h2>
+            <h2 className="xxs:text-xl md:text-2xl lg:text-4xl z-10">{t("Randomly Selected Food")}</h2>
             {content}
         </div>
     )

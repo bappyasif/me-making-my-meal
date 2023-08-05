@@ -1,5 +1,4 @@
 import { Link, useParams } from "react-router-dom"
-// import { useAppDispatch } from "../hooks"
 import { useAppDispatch, useAppSelector } from "../../hooks";
 import { fetchFilterByCategory } from "../../data_fetching";
 import { MealItemType } from "./categorySlice";
@@ -14,7 +13,7 @@ export const CategoryViewPage = () => {
     const { t } = useTranslation()
 
     return (
-        <div>
+        <div className="z-10">
             <h1>{t(`${name}`)} : {t("Meals List")}</h1>
             <CategoryMeals />
         </div>
@@ -42,23 +41,13 @@ export const RenderMeal = ({ ...item }: MealItemType) => {
 
     const { found } = useToCheckDataExistsOnFirebase("Meals", "Meal", mealName)
 
-    const clickHandler = () => {
-        // if(found) {
-        //     console.log("UPDATE")
-        // } else {
-        //     ready && dispatch(increaseMealCount({ id, name: mealName, imgSrc: mealImg, update: found }))
-        //     console.log("ADD TO FIREBASE", mealName)
-        // }
-        
+    const clickHandler = () => {        
         ready && dispatch(increaseMealCount({ id, name: mealName, imgSrc: mealImg, update: found }))
-
-        // ready && dispatch(increaseMealCount({ id, name: mealName, imgSrc: mealImg }))
-        // console.log("DISPATCHED!!", {mealId:id, mealName, mealThumb: mealImg})
     }
 
     return (
         <Link
-            className="flex flex-col gap-x-4 text-center xxs:text-xl md:text-2xl lg:text-4xl w-fit"
+            className="flex flex-col gap-x-4 text-center xxs:text-xl md:text-2xl lg:text-4xl w-fit opacity-80"
             onClick={clickHandler}
             to={`/meals/${id}`}
         >

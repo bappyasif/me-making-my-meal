@@ -13,8 +13,8 @@ import { useEffect } from "react"
 import { checkUserAuthStatus } from "./firebase/utils"
 import { useToCheckIfUrlHasMealIdAsShallowRouting } from "./hooks/forComponents"
 import { IngredientsList } from "./features/ingredients/IngredientsList"
-// import { HeaderImage } from "./components/SomeImages"
-
+import { HeaderImage } from "./components/SomeImages"
+import appBg from "./assets/app_bg.jpg"
 function App() {
   useToCheckIfUrlHasMealIdAsShallowRouting()
 
@@ -27,8 +27,19 @@ function App() {
   // console.log(window.location.pathname, window.location.href.split("?")[1].split("=")[1])
 
   return (
-    <>
-      {/* <HeaderImage /> */}
+    <div
+      style={{
+        backgroundImage: `url("${appBg}")`,
+        objectFit: "fill",
+        backgroundRepeat: "repeat",
+        backgroundSize: "100% 100%",
+        backgroundColor: "rgba(17,17,17,0.6)",
+        // backgroundColor: "burlywood",
+        backgroundBlendMode: "darken"
+      }}
+    >
+      <HeaderImage />
+      {/* <AppBackgroundImage /> */}
       <div
         className="flex flex-col gap-11 items-center justify-between min-h-full xxs:w-full md:w-5/6 mx-auto"
       >
@@ -57,7 +68,7 @@ function App() {
         </Routes>
         <Footer />
       </div>
-    </>
+    </div>
   )
 }
 

@@ -84,8 +84,8 @@ const RenderIngredient = ({name}: {name:string}) => {
   }
 
   return (
-    <div className="xxs:h-fit md:h-20 bg-slate-600 px-2 flex justify-center items-center text-center">
-      <Link className="text-slate-400 hover:text-blue-200 w-96" onClick={() => handleClick(name)} 
+    <div className="xxs:h-fit md:h-20 bg-slate-600 px-2 flex justify-center items-center text-center opacity-80">
+      <Link className="text-slate-200 hover:text-blue-200 w-96" onClick={() => handleClick(name)} 
       to={`/ingredients/${name.toLocaleLowerCase().split(" ").join("-")}`}
       >{name}</Link>
     </div>

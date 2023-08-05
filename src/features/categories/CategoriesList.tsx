@@ -14,7 +14,7 @@ export const CategoriesList = () => {
     const { t } = useTranslation()
 
     return (
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-6 z-10">
             <h2 className="text-6xl">{t("Categories")} {t("List")}</h2>
             <div className="flex gap-4 justify-around flex-wrap w-full">{renderCategories}</div>
         </div>
@@ -31,23 +31,20 @@ const RenderCategoryMeal = ({ ...item }: CategoryItemType) => {
     const { found } = useToCheckDataExistsOnFirebase("Categories", "Category", name)
 
     const handleClicked = (itemName: string) => {
-        ready && dispatch(increaseCategoryItemCount({name:itemName, update: found}))
+        ready && dispatch(increaseCategoryItemCount({ name: itemName, update: found }))
     }
 
     const { t } = useTranslation()
 
     return (
-        <h2
-            className="xxs:w-36 sm:w-48 md:w-60 xxs:h-fit lg:w-96 lg:h-fit aspect-auto flex flex-col gap-4 text-center xxs:text-xl md:text-2xl lg:text-4xl"
+        <Link
+            className="xxs:w-36 sm:w-48 md:w-60 xxs:h-fit lg:w-96 lg:h-fit aspect-auto flex flex-col gap-4 text-center xxs:text-xl md:text-2xl lg:text-4xl items-center"
+            to={`/categories/${name}`}
             onClick={() => handleClicked(`${name}`)}
         >
-            <Link
-                to={`/categories/${name}`}
-            >
-                <h2>{t(`${name}`)}</h2>
-                <img src={`${imgSrc}`} alt={`${name}`} />
-            </Link>
-        </h2>
+            <h2 className="category-item font-bold">{t(`${name}`)}</h2>
+            <img className="opacity-80" src={`${imgSrc}`} alt={`${name}`} />
+        </Link>
     )
 }
 

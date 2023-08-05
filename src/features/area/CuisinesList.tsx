@@ -25,7 +25,7 @@ export const FirstNineCuisines = () => {
 
   return (
     <div className="flex flex-col gap-y-8 w-full mx-auto">
-      <div className="flex justify-between">
+      <div className="flex justify-between z-10">
         <h2 className="xxs:text-xl md:text-2xl lg:text-4xl">{t("Meal Cuisines")}</h2>
         {/* <Link className="text-2xl" to={"/cuisines"}>{t("See All Available Cuisines")}</Link> */}
         <Link className="xxs:text-xl md:text-2xl" to={"/cuisines"}>{t("See All")}</Link>
@@ -56,7 +56,7 @@ const RenderCuisinesList = ({ fullList }: RenderType) => {
   )
 
   return (
-    <div className="flex flex-wrap justify-around gap-4">{renderCuisines}</div>
+    <div className="flex flex-wrap justify-around gap-4 z-10">{renderCuisines}</div>
   )
 }
 
@@ -76,5 +76,5 @@ const RenderCuisine = ({name}: {name: string}) => {
 
   const { t } = useTranslation()
 
-  return <button onClick={() => handleClick(name)} key={name} className="xxs:text-xl md:text-2xl xxs:w-36 sm:w-48 md:w-60 lg:w-80 h-fit flex flex-col items-center gap-y-4">{t(`${name}`)}</button>
+  return <button onClick={() => handleClick(name)} key={name} className="xxs:text-xl md:text-2xl xxs:w-36 sm:w-48 md:w-60 lg:w-80 h-fit flex flex-col items-center gap-y-4 opacity-80">{t(`${name}`)}</button>
 }
