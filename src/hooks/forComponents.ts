@@ -387,37 +387,44 @@ export const useToCheckIfUrlHasMealIdAsShallowRouting = () => {
     }, [])
 }
 
-export const useForNextAndPrevTraversal = (list: (IngredientsType | MealItemType|ViewedMealType)[], highestIdx:number) => {
+export const useForNextAndPrevTraversal = (list: (IngredientsType | MealItemType | ViewedMealType)[], highestIdx: number) => {
     const [startsEnds, setStartsEnds] = useState<number[]>([0, highestIdx])
-    const [showNow, setShowNow] = useState<(IngredientsType|MealItemType|ViewedMealType)[]>([])
+    const [showNow, setShowNow] = useState<(IngredientsType | MealItemType | ViewedMealType)[]>([])
+    const [disableBtn, setDisableBtn] = useState<string>("")
 
     const handleNext = () => {
         const newStart = startsEnds[1];
         const newEnd = newStart + highestIdx;
         if (newStart < list.length) {
-          const readyList = list.slice(newStart, newEnd)
-          setShowNow(readyList)
-          setStartsEnds([newStart, newEnd])
-          // console.log(newStart, newEnd, "next block")
-        }
-      }
-    
-      const handlePrev = () => {
+            const readyList = list.slice(newStart, newEnd)
+            setShowNow(readyList)
+            setStartsEnds([newStart, newEnd])
+            // console.log(newStart, newEnd, "next block")
+        } 
+    }
+
+    const handlePrev = () => {
         const newStart = startsEnds[0] - highestIdx;
         const newEnd = startsEnds[0]
         if (newStart >= 0) {
-          const readyList = list.slice(newStart, newEnd)
-          setShowNow(readyList)
-          setStartsEnds([newStart, newEnd])
-          // console.log(newStart, newEnd, "prev block")
-        }
-      }
+            const readyList = list.slice(newStart, newEnd)
+            setShowNow(readyList)
+            setStartsEnds([newStart, newEnd])
+            // console.log(newStart, newEnd, "prev block")
+        } 
+    }
 
-      useEffect(() => {
+    useEffect(() => {
+        startsEnds[0] === 0 && setDisableBtn("Prev")
+        startsEnds[0] >= list.length || startsEnds[1] >= list.length && setDisableBtn("Next")
+        startsEnds[0] > 0 && startsEnds[1] < list.length && setDisableBtn("")
+    }, [startsEnds])
+
+    useEffect(() => {
         list && setShowNow(list.slice(0, highestIdx))
-      }, [list])
-    
-      return {
-        showNow, setShowNow, handleNext, handlePrev, startsEnds
-      }
+    }, [list])
+
+    return {
+        showNow, disableBtn, handleNext, handlePrev, startsEnds
+    }
 }

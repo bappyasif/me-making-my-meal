@@ -12,7 +12,7 @@ export const CuisineMeals = () => {
 
     const meals = useAppSelector(state => state.cuisine.meals)
 
-    const { handleNext, handlePrev, showNow, startsEnds } = useForNextAndPrevTraversal(meals, 20)
+    const { handleNext, handlePrev, showNow, startsEnds, disableBtn } = useForNextAndPrevTraversal(meals, 20)
 
     const renderMeals = (
         (showNow as MealItemType[]).map(item => <RenderMeal id={item.id} mealImg={item.mealImg} mealName={item.mealName} key={item.id} />)
@@ -23,13 +23,14 @@ export const CuisineMeals = () => {
 
     const headingsContent = (
         <div className="flex justify-between gap-x-2 items-baseline w-full">
-            <h1 className="xxs:text-2xl md:text-4xl xl:text-6xl">{t(`${name}`)} {t("Meals List")} : {meals.length} {t("Recipes")} {t("Found")}</h1>
+            <h1 className="xxs:text-xl md:text-2xl xl:text-4xl">{meals.length} {t("Recipes")} {t("Found")}</h1>
             <h2 className="xxs:text-lg md:text-xl xl:text-2xl">{t("Currently Showing")} {startsEnds[0]} - {startsEnds[1] < meals.length ? startsEnds[1] : meals.length} </h2>
         </div>
     )
 
     return (
-        <div className="flex flex-col gap-y-4 items-center">
+        <div className="flex flex-col gap-y-4 items-center z-10">
+            <h1 className="xxs:text-2xl md:text-4xl xl:text-6xl">{t(`${name}`)} {t("Meals List")}</h1>
 
             {headingsContent}
 
@@ -37,7 +38,11 @@ export const CuisineMeals = () => {
                 {renderMeals}
             </div>
 
-            <PrevAndNextButtons handleNext={handleNext} handlePrev={handlePrev} />
+            {
+                meals.length > 20
+                ? <PrevAndNextButtons btnName={disableBtn} handleNext={handleNext} handlePrev={handlePrev} />
+                : null
+            }
         </div>
     )
 }

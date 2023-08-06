@@ -24,7 +24,7 @@ export const CategoryViewPage = () => {
 const CategoryMeals = () => {
     const meals = useAppSelector(state => state.category.meals)
 
-    const { handleNext, handlePrev, showNow, startsEnds } = useForNextAndPrevTraversal(meals, 15)
+    const { handleNext, handlePrev, showNow, startsEnds, disableBtn } = useForNextAndPrevTraversal(meals, 15)
 
     const renderMeals = (
         (showNow as MealItemType[]).map(item => <RenderMeal id={item.id} mealImg={item.mealImg} mealName={item.mealName} key={item.id} />)
@@ -45,7 +45,11 @@ const CategoryMeals = () => {
         <div className="flex flex-col gap-y-4 items-center">
             {headingsContent}
             <div className="grid xxs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xxl:grid-cols-5 gap-x-4 gap-y-4">{renderMeals}</div>
-            <PrevAndNextButtons handleNext={handleNext} handlePrev={handlePrev} />
+            {
+                meals.length > 15
+                ? <PrevAndNextButtons btnName={disableBtn} handleNext={handleNext} handlePrev={handlePrev} />
+                : null
+            }
         </div>
     )
 }

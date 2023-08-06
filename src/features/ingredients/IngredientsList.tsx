@@ -11,7 +11,7 @@ export const IngredientsList = () => {
 export const RenderList = () => {
   const list = useToGetIngredients()
 
-  const { handleNext, handlePrev, showNow, startsEnds } = useForNextAndPrevTraversal(list, 100)
+  const { handleNext, handlePrev, showNow, startsEnds, disableBtn } = useForNextAndPrevTraversal(list, 100)
 
   const content = (
     (showNow as IngredientsType[]).map((item) => <RenderIngredient name={item.name} key={item.name} />)
@@ -22,7 +22,11 @@ export const RenderList = () => {
       <div className="grid xxs:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 xxl:grid-cols-5 gap-4 xxs:text-xl md:text-2xl">
         {content}
       </div>
-      <PrevAndNextButtons handleNext={handleNext} handlePrev={handlePrev} />
+      {
+        list.length > 100
+          ? <PrevAndNextButtons btnName={disableBtn} handleNext={handleNext} handlePrev={handlePrev} />
+          : null
+      }
     </div>
   )
 
@@ -45,11 +49,11 @@ export const RenderList = () => {
   )
 }
 
-export const PrevAndNextButtons = ({ handleNext, handlePrev }: { handleNext: () => void, handlePrev: () => void }) => {
+export const PrevAndNextButtons = ({ handleNext, handlePrev, btnName }: { handleNext: () => void, handlePrev: () => void, btnName: string }) => {
   return (
     <div className="flex gap-4">
-      <button onClick={handlePrev}>Prev</button>
-      <button onClick={handleNext}>Next</button>
+      <button className={`${btnName === "Prev" ? "pointer-events-none bg-slate-600" : ""}`} disabled={btnName === "Prev"} onClick={handlePrev}>Prev</button>
+      <button className={`${btnName === "Next" ? "pointer-events-none bg-slate-600" : ""}`} disabled={btnName === "Next"} onClick={handleNext}>Next</button>
     </div>
   )
 }

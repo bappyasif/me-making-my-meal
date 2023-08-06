@@ -8,7 +8,7 @@ import { PrevAndNextButtons } from "../features/ingredients/IngredientsList";
 export const PopularMeals = () => {
     const mealsViewed = useAppSelector(state => state.meal.mealsViewed);
 
-    const { handleNext, handlePrev, showNow, startsEnds } = useForNextAndPrevTraversal(mealsViewed, 15)
+    const { handleNext, handlePrev, showNow, startsEnds, disableBtn } = useForNextAndPrevTraversal(mealsViewed, 15)
 
     const renderMeals = () => (
         (showNow as ViewedMealType[])?.map(item => <RenderMeal id={item.id} mealImg={item.imgSrc} mealName={item.name} key={item.id} />)
@@ -37,7 +37,11 @@ export const PopularMeals = () => {
                     : <h2>No Meal Items been Viewed Yet....</h2>
             }
 
-            <PrevAndNextButtons handleNext={handleNext} handlePrev={handlePrev} />
+            {
+                mealsViewed.length > 15
+                    ? <PrevAndNextButtons btnName={disableBtn} handleNext={handleNext} handlePrev={handlePrev} />
+                    : null
+            }
         </div>
     )
 }
