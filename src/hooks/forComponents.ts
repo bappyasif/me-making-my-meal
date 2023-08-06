@@ -6,6 +6,7 @@ import { CategoriesType, CategoryItemType, increaseCategoryItemCount } from "../
 import { CuisineNameType, CuisinesListType, inCreaseCountForCuisine } from "../features/area/areaSlices";
 import { IngredientsType, increaseCountForIngredient } from "../features/ingredients/ingredientSlice";
 import { annoymousAuth, readingDataFromFirestore, readingDataFromFirestoreSubDocument } from "../firebase/utils";
+import { MealItemType } from "../features/category/categorySlice";
 
 export const useToGetCategories = () => {
     const list = useAppSelector(state => state.categories.list);
@@ -383,4 +384,57 @@ export const useToCheckIfUrlHasMealIdAsShallowRouting = () => {
     useEffect(() => {
         runOnce()
     }, [])
+}
+
+export const usForNextAndPrevTraversal = (list: (IngredientsType | MealItemType)[], highestIdx:number) => {
+    const [startsEnds, setStartsEnds] = useState<number[]>([0, highestIdx])
+    const [showNow, setShowNow] = useState<(IngredientsType|MealItemType)[]>([])
+
+    const handleNext = () => {
+        const newStart = startsEnds[1];
+        const newEnd = newStart + highestIdx;
+        if (newStart < list.length) {
+          const readyList = list.slice(newStart, newEnd)
+          setShowNow(readyList)
+          setStartsEnds([newStart, newEnd])
+          // console.log(newStart, newEnd, "next block")
+        }
+      }
+    
+      const handlePrev = () => {
+        const newStart = startsEnds[0] - highestIdx;
+        const newEnd = startsEnds[0]
+        if (newStart >= 0) {
+          const readyList = list.slice(newStart, newEnd)
+          setShowNow(readyList)
+          setStartsEnds([newStart, newEnd])
+          // console.log(newStart, newEnd, "prev block")
+        }
+      }
+
+    // const handleNext = () => {
+    //     const newStart = startsEnds[1];
+    //     const newEnd = newStart + highestIdx;
+    //     if (newStart < list.length) {
+    //       const readyList = list.slice(newStart, newEnd)
+    //       setShowNow(readyList)
+    //       setStartsEnds([newStart, newEnd])
+    //       // console.log(newStart, newEnd, "next block")
+    //     }
+    //   }
+    
+    //   const handlePrev = () => {
+    //     const newStart = startsEnds[0] - highestIdx;
+    //     const newEnd = startsEnds[0]
+    //     if (newStart >= 0) {
+    //       const readyList = list.slice(newStart, newEnd)
+    //       setShowNow(readyList)
+    //       setStartsEnds([newStart, newEnd])
+    //       // console.log(newStart, newEnd, "prev block")
+    //     }
+    //   }
+    
+      return {
+        showNow, setShowNow, handleNext, handlePrev, startsEnds
+      }
 }
