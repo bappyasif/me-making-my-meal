@@ -14,7 +14,7 @@ export const MostPopularCategory = () => {
 
   const renderContent = (
     names?.map(name => (
-      <Link className="text-center bg-slate-600 px-4 text-slate-200 hover:text-slate-400" onClick={() => handleClick(name)} key={name} to={`/categories/${name || "Beef"}`}>{t(`${name}`) || "Beef"}</Link>
+      <Link className="text-center bg-slate-600 px-4 text-slate-200 hover:text-slate-400" title={name} onClick={() => handleClick(name)} key={name} to={`/categories/${name || "Beef"}`}>{t(`${name}`) || "Beef"}</Link>
     ))
   )
 

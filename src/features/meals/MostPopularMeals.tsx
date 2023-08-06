@@ -37,7 +37,7 @@ export const MostPopularMeals = () => {
     }
 
     const content = (
-        meals.map(item => <Link className="text-center bg-slate-600 xxs:px-1 sm:px-4 text-slate-200 hover:text-slate-400 rounded" onClick={() => handleClick(item)} key={item.name} to={`/meals/${item.id}`}>{item.name.length > 11 ? item.name.slice(0,7)+"...." : item.name}</Link>)
+        meals.map(item => <Link className="text-center bg-slate-600 xxs:px-1 sm:px-4 text-slate-200 hover:text-slate-400 rounded" title={item.name} onClick={() => handleClick(item)} key={item.name} to={`/meals/${item.id}`}>{item.name.length > 11 ? item.name.slice(0,7)+"...." : item.name}</Link>)
     )
 
     useEffect(() => {

@@ -15,7 +15,7 @@ export const CategoriesList = () => {
 
     return (
         <div className="flex flex-col gap-6 z-10">
-            <h2 className="text-6xl">{t("Categories")} {t("List")}</h2>
+            <h1 className="xxs:text-2xl md:text-4xl xl:text-6xl">{t("Categories")} {t("List")}</h1>
             <div className="flex gap-4 justify-around flex-wrap w-full">{renderCategories}</div>
         </div>
     )

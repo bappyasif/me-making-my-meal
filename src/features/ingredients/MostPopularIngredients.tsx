@@ -14,7 +14,7 @@ export const MostPopularIngredients = () => {
     const renderContent = (
         names.map(name => {
             return (
-                <Link className="text-center w-fit bg-slate-600 xxs:px-1 sm:px-4 text-slate-200 hover:text-slate-400" onClick={() => handleClick(name)} key={name} to={`/ingredients/${name || "Lime"}`}>{name || "Lime"}</Link>
+                <Link className="text-center w-fit bg-slate-600 xxs:px-1 sm:px-4 text-slate-200 hover:text-slate-400" title={name} onClick={() => handleClick(name)} key={name} to={`/ingredients/${name || "Lime"}`}>{name || "Lime"}</Link>
             )
         })
     )

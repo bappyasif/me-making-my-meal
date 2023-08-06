@@ -35,7 +35,7 @@ const CopyrightInfo = () => {
 }
 
 const StackUsed = () => {
-  const stacksUsed = stackItems.map(item => <div className="flex gap-2 items-center text-xl"><span>{item.name}</span><span>{item.icon}</span></div>)
+  const stacksUsed = stackItems.map(item => <div key={item.name} className="flex gap-2 items-center text-xl"><span>{item.name}</span><span>{item.icon}</span></div>)
   return (
     <div className="flex flex-col gap-y-1">
       <h2 className="text-2xl">Stack Used</h2>

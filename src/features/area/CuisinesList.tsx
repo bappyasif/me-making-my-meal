@@ -8,8 +8,8 @@ export const CuisinesList = () => {
   const { t } = useTranslation()
 
   return (
-    <div className="flex flex-col gap-6">
-      <h2 className="text-6xl">{t("Cuisines")} {t("List")}</h2>
+    <div className="flex flex-col gap-6 z-10">
+      <h1 className="xxs:text-2xl md:text-4xl xl:text-6xl">{t("Cuisines")} {t("List")}</h1>
       {/* <div className="flex flex-wrap justify-around gap-4">{renderCuisines}</div> */}
       <RenderCuisinesList fullList={true} />
     </div>

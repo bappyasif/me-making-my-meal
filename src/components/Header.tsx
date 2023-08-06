@@ -14,7 +14,11 @@ export const Header = () => {
                     width: "445px"
                 }}
             >
-                <LanguageSelection />
+                {
+                    window.location.pathname === "/"
+                    ? <LanguageSelection />
+                    : null
+                }
                 <Search />
             </div>
         </div>

@@ -7,6 +7,7 @@ import { Provider } from "react-redux"
 import store from './app/store.ts'
 import { fetchCategoriesFromAPI, fetchCuisines, fetchIngredients, fetchViewedMealsFromFirebase } from './data_fetching/index.ts'
 import "./i18n.ts"
+import { Analytics } from '@vercel/analytics/react'
 // import { IntlProvider } from 'react-intl'
 store.dispatch(fetchCategoriesFromAPI())
 store.dispatch(fetchCuisines())
@@ -22,6 +23,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     <Suspense fallback={<h1>Loading I18n</h1>}>
       {/* <IntlProvider locale='en' defaultLocale="es"> */}
         <Provider store={store}>
+        <Analytics />
           <BrowserRouter>
             <Routes>
               <Route path='/*' element={<App />} />
