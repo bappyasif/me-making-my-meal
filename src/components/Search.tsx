@@ -58,7 +58,7 @@ const SearchView = ({ name }: { name: string }) => {
     return (
         <div className="w-full xxs:text-xl md:text-2xl relative">
             {/* Items - {items.length} */}
-            <input className="xxs:w-fit sm:w-full text-xl text-blue-900" type="text" value={text} onChange={handleChange} placeholder="type here to search" />
+            <input className="xxs:w-fit sm:w-full text-xl text-blue-200 bg-slate-900 opacity-60 outline outline-1 rounded" type="text" value={text} onChange={handleChange} placeholder="type here to search" />
             {
                 partialMatch.length
                     ?

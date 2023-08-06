@@ -15,7 +15,7 @@ export const HeaderImage = () => {
                 objectFit: "cover",
                 backgroundRepeat: "no-repeat",
                 backgroundSize: "100% 100%",
-                minHeight: window.location.pathname === "/" ? "290px" : "220px",
+                minHeight: window.location.pathname === "/" ? "371px" : "231px",
                 backgroundColor: "rgba(17,17,17,0.6)",
                 backgroundBlendMode: "darken"
             }}

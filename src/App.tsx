@@ -42,7 +42,7 @@ function App() {
       <HeaderImage />
       {/* <AppBackgroundImage /> */}
       <div
-        className="flex flex-col gap-11 items-center justify-between min-h-full xxs:w-full md:w-5/6 mx-auto"
+        className="flex flex-col gap-y-24 items-center justify-between min-h-full xxs:w-full md:w-5/6 mx-auto"
       >
         <Header />
         <Routes>

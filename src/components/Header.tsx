@@ -2,12 +2,20 @@ import { ChangeEvent, useState } from "react"
 import { useTranslation } from "react-i18next"
 import { Link } from "react-router-dom"
 import { Search } from "./Search"
+import logo from "../assets/4ms_logo.png"
+import {FaHamburger} from "react-icons/fa"
 
 export const Header = () => {
     return (
         <div className="w-full flex flex-col xxs:items-start xl:items-center gap-y-8 z-10">
+            {/* <CompanyLogo />
             <RenderNavs />
-            <HamburgerMenu />
+            <HamburgerMenu /> */}
+            <div className="flex xxl:justify-center xxs:justify-between gap-4 h-fit items-center relative w-full">
+                <CompanyLogo />
+                <RenderNavs />
+                <HamburgerMenu />
+            </div>
             <div
                 className="flex flex-col xxs:gap-y-8 md:gap-x-8 w-96"
                 style={{
@@ -16,12 +24,18 @@ export const Header = () => {
             >
                 {
                     window.location.pathname === "/"
-                    ? <LanguageSelection />
-                    : null
+                        ? <LanguageSelection />
+                        : null
                 }
                 <Search />
             </div>
         </div>
+    )
+}
+
+const CompanyLogo = () => {
+    return (
+        <img className="w-28 rounded-full opacity-80" src={logo} alt="Website Logo" />
     )
 }
 
@@ -67,7 +81,7 @@ const LanguageSelection = () => {
 
 const RenderNavs = () => {
     return (
-        <div className="xxs:hidden xl:flex xxs:gap-x-8 lg:gap-x-8 gap-y-2 xxs:justify-evenly lg:justify-center xxs:text-xl xl:text-2xl xxl:text-3xl my-0.5">
+        <div className="xxs:hidden xl:flex xxs:gap-x-8 lg:gap-x-8 gap-y-2 xxs:justify-evenly lg:justify-center xxs:text-xl xl:text-2xl xxl:text-3xl my-0.5 h-fit">
             <AllNavs />
         </div>
     )
@@ -77,11 +91,11 @@ const AllNavs = () => {
     const { t } = useTranslation()
     return (
         <>
-            <Link className="xxs:w-full xl:w-max xxs:px-1 lg:px-4 xxs:py-0.5 lg:py-2 font-bold hover:text-blue-200 nav-item" to={"/"}>{t("Home")}</Link>
-            <Link className="xxs:w-full xl:w-max xxs:px-1 lg:px-4 xxs:py-0.5 lg:py-2 font-bold hover:text-blue-200 nav-item" to={"/cuisines"}>{t('Cuisines')}</Link>
-            <Link className="xxs:w-full xl:w-max xxs:px-1 lg:px-4 xxs:py-0.5 lg:py-2 font-bold hover:text-blue-200 nav-item" to={"/categories"}>{t("Categories")}</Link>
-            <Link className="xxs:w-full xl:w-max xxs:px-1 lg:px-4 xxs:py-0.5 lg:py-2 font-bold hover:text-blue-200 nav-item" to={"/ingredients"}>{t("Ingredients")}</Link>
-            <Link className="xxs:w-full xl:w-max xxs:px-1 lg:px-4 xxs:py-0.5 lg:py-2 font-bold hover:text-blue-200 nav-item" to={"/popularMeals"}>{t("Popular Meals")}</Link>
+            <Link className="xxs:w-full xl:w-max xxs:px-1 lg:px-4 xxs:py-0.5 lg:py-2 font-bold hover:text-blue-200 nav-item opacity-80" to={"/"}>{t("Home")}</Link>
+            <Link className="xxs:w-full xl:w-max xxs:px-1 lg:px-4 xxs:py-0.5 lg:py-2 font-bold hover:text-blue-200 nav-item opacity-80" to={"/cuisines"}>{t('Cuisines')}</Link>
+            <Link className="xxs:w-full xl:w-max xxs:px-1 lg:px-4 xxs:py-0.5 lg:py-2 font-bold hover:text-blue-200 nav-item opacity-80" to={"/categories"}>{t("Categories")}</Link>
+            <Link className="xxs:w-full xl:w-max xxs:px-1 lg:px-4 xxs:py-0.5 lg:py-2 font-bold hover:text-blue-200 nav-item opacity-80" to={"/ingredients"}>{t("Ingredients")}</Link>
+            <Link className="xxs:w-full xl:w-max xxs:px-1 lg:px-4 xxs:py-0.5 lg:py-2 font-bold hover:text-blue-200 nav-item opacity-80" to={"/popularMeals"}>{t("Popular Meals")}</Link>
         </>
     )
 }
@@ -94,8 +108,11 @@ const HamburgerMenu = () => {
     const handleClose = () => setShow(false);
 
     return (
-        <div className="xxs:block xl:hidden self-end absolute">
-            <p className="hover:text-blue-200 nav-item px-2 py-4" onClick={handleToggle}>Menu</p>
+        <div className="xxs:block xl:hidden self-end absolute right-0 top-0">
+            <p className="hover:text-blue-200 nav-item px-2 py-2.5 flex gap-x-1" onClick={handleToggle} title="Menu">
+                {/* <span>Menu</span> */}
+                <span className="text-4xl"><FaHamburger /></span>
+            </p>
             {
                 show
                     ? <div onClick={handleClose} className="absolute right-0 bg-gray-400 flex flex-col gap-y-2 w-max text-right self-end">
