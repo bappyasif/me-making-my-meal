@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom"
 import { useAppDispatch } from "../../hooks"
-import { usForNextAndPrevTraversal, useConfirmUserAuth, useToCheckDataExistsOnFirebase, useToGetIngredients } from "../../hooks/forComponents"
+import { useForNextAndPrevTraversal, useConfirmUserAuth, useToCheckDataExistsOnFirebase, useToGetIngredients } from "../../hooks/forComponents"
 import { IngredientsType, increaseCountForIngredient } from "./ingredientSlice"
-import { useEffect } from "react"
+import { useTranslation } from "react-i18next"
 
 export const IngredientsList = () => {
   return <RenderList />
@@ -11,11 +11,7 @@ export const IngredientsList = () => {
 export const RenderList = () => {
   const list = useToGetIngredients()
 
-  const { setShowNow, handleNext, handlePrev, showNow, startsEnds } = usForNextAndPrevTraversal(list, 100)
-
-  useEffect(() => {
-    list && setShowNow(list.slice(0, 100))
-  }, [list])
+  const { handleNext, handlePrev, showNow, startsEnds } = useForNextAndPrevTraversal(list, 100)
 
   const content = (
     (showNow as IngredientsType[]).map((item) => <RenderIngredient name={item.name} key={item.name} />)
@@ -30,11 +26,13 @@ export const RenderList = () => {
     </div>
   )
 
+  const { t } = useTranslation()
+
   const headingsContent = (
     <div className="flex justify-between gap-x-2 items-baseline">
-      <h1 className="xxs:text-2xl md:text-4xl xl:text-6xl">Total - {list.length} - Ingredients Found</h1>
+      <h1 className="xxs:text-2xl md:text-4xl xl:text-6xl">{t("Total")} - {list.length} - {t("Ingredients")} {t("Found")}</h1>
 
-      <h2 className="xxs:text-lg md:text-xl xl:text-2xl">Currently Showing {startsEnds[0]} - {startsEnds[1] < list.length ? startsEnds[1] : list.length} </h2>
+      <h2 className="xxs:text-lg md:text-xl xl:text-2xl">{t("Currently Showing")} {startsEnds[0]} - {startsEnds[1] < list.length ? startsEnds[1] : list.length} </h2>
     </div>
   )
 

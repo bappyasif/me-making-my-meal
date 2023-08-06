@@ -8,7 +8,7 @@ export const CategoriesList = () => {
     const categories = useToGetCategories()
 
     const renderCategories = (
-        categories?.map((item) => <RenderCategoryMeal count={item.count} id={item.id} imgSrc={item.imgSrc} name={item.name} key={item.id + item.name} />)
+        categories?.map((item) => <RenderCategory count={item.count} id={item.id} imgSrc={item.imgSrc} name={item.name} key={item.id + item.name} />)
     )
 
     const { t } = useTranslation()
@@ -21,7 +21,7 @@ export const CategoriesList = () => {
     )
 }
 
-const RenderCategoryMeal = ({ ...item }: CategoryItemType) => {
+const RenderCategory = ({ ...item }: CategoryItemType) => {
     const { imgSrc, name } = item
 
     const dispatch = useAppDispatch();
@@ -52,7 +52,7 @@ export const FirstEightList = () => {
     const categories = useToGetCategories()
 
     const renderCategories = (
-        categories?.map((item, idx) => idx < 8 && <RenderCategoryMeal id={item.id} imgSrc={item.imgSrc} name={item.name} key={item.id + item.name} count={item.count} />)
+        categories?.map((item, idx) => idx < 8 && <RenderCategory id={item.id} imgSrc={item.imgSrc} name={item.name} key={item.id + item.name} count={item.count} />)
     )
 
     const { t } = useTranslation()

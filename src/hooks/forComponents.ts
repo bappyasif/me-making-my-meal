@@ -7,6 +7,7 @@ import { CuisineNameType, CuisinesListType, inCreaseCountForCuisine } from "../f
 import { IngredientsType, increaseCountForIngredient } from "../features/ingredients/ingredientSlice";
 import { annoymousAuth, readingDataFromFirestore, readingDataFromFirestoreSubDocument } from "../firebase/utils";
 import { MealItemType } from "../features/category/categorySlice";
+import { ViewedMealType } from "../features/meals/mealsSlice";
 
 export const useToGetCategories = () => {
     const list = useAppSelector(state => state.categories.list);
@@ -386,9 +387,9 @@ export const useToCheckIfUrlHasMealIdAsShallowRouting = () => {
     }, [])
 }
 
-export const usForNextAndPrevTraversal = (list: (IngredientsType | MealItemType)[], highestIdx:number) => {
+export const useForNextAndPrevTraversal = (list: (IngredientsType | MealItemType|ViewedMealType)[], highestIdx:number) => {
     const [startsEnds, setStartsEnds] = useState<number[]>([0, highestIdx])
-    const [showNow, setShowNow] = useState<(IngredientsType|MealItemType)[]>([])
+    const [showNow, setShowNow] = useState<(IngredientsType|MealItemType|ViewedMealType)[]>([])
 
     const handleNext = () => {
         const newStart = startsEnds[1];
@@ -412,27 +413,9 @@ export const usForNextAndPrevTraversal = (list: (IngredientsType | MealItemType)
         }
       }
 
-    // const handleNext = () => {
-    //     const newStart = startsEnds[1];
-    //     const newEnd = newStart + highestIdx;
-    //     if (newStart < list.length) {
-    //       const readyList = list.slice(newStart, newEnd)
-    //       setShowNow(readyList)
-    //       setStartsEnds([newStart, newEnd])
-    //       // console.log(newStart, newEnd, "next block")
-    //     }
-    //   }
-    
-    //   const handlePrev = () => {
-    //     const newStart = startsEnds[0] - highestIdx;
-    //     const newEnd = startsEnds[0]
-    //     if (newStart >= 0) {
-    //       const readyList = list.slice(newStart, newEnd)
-    //       setShowNow(readyList)
-    //       setStartsEnds([newStart, newEnd])
-    //       // console.log(newStart, newEnd, "prev block")
-    //     }
-    //   }
+      useEffect(() => {
+        list && setShowNow(list.slice(0, highestIdx))
+      }, [list])
     
       return {
         showNow, setShowNow, handleNext, handlePrev, startsEnds
