@@ -75,7 +75,7 @@ export const TranslateMealsDetails = ({ qStr }: { qStr: string }) => {
     const {t} = useTranslation()
 
     const content = (
-        <div className="flex flex-col items-center">
+        <div className="flex flex-col items-center gap-y-4">
             <div className="flex gap-4">
                 <h2 className="text-4xl">{t("Instructions")}</h2>
                 {

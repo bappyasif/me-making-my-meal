@@ -31,9 +31,9 @@ export const RenderMealBasicInfo = () => {
     const content = (
         <div key={mealId} className="flex flex-col items-center gap-y-8 mx-auto z-10">
 
-            <h1>{mealName}</h1>
+            <h1 className="text-center bg-slate-600 px-4 text-slate-200 hover:text-slate-400 flex justify-center place-items-center xxs:h-fit xxs:text-2xl xl:text-4xl xxl:text-6xl mx-auto rounded">{mealName}</h1>
 
-            <a className="nav-item px-2" target="_blank" href={mealSource}>{t("Visit Source Website")}</a>
+            <a className="nav-item px-2 rounded" target="_blank" href={mealSource}>{t("Visit Source Website")}</a>
 
             {/* <Share description={mealName} /> */}
 
@@ -91,8 +91,8 @@ export const CategoryAndCuisineButton = ({category, cuisine}: {category:string, 
 
     return (
         <p className="flex gap-4">
-            <button onClick={handleCategoryClick}>{t(`${category}`)}</button>
-            <button onClick={handleCuisineClick}>{t(`${cuisine}`)}</button>
+            <button className="text-center xxs:text-xl xl:text-2xl xxs:py-1 sm:py-1.5 md:py-2" onClick={handleCategoryClick}>{t(`${category}`)}</button>
+            <button className="text-center xxs:text-xl xl:text-2xl xxs:py-1 sm:py-1.5 md:py-2" onClick={handleCuisineClick}>{t(`${cuisine}`)}</button>
         </p>
     )
 }
@@ -113,8 +113,8 @@ const RenderIngredientsAndMeasures = () => {
     const content = (
         ingredients.map((item, idx) => {
             return (
-                <div key={item.text + idx} className="flex justify-center gap-4 text-2xl w-96">
-                    <Link className="nav-item px-2 w-52 opacity-80" to={`/ingredients/${item.text}`} onClick={() => handleClick(item.text)}>{item.text}</Link> -- <span className="w-20">{measures[idx].text}</span>
+                <div key={item.text + idx} className="flex justify-center gap-4 xxs:text-lg md:text-2xl w-96">
+                    <Link className="nav-item px-2 w-44 opacity-80 h-fit rounded" to={`/ingredients/${item.text}`} onClick={() => handleClick(item.text)}>{item.text}</Link> -- <span className="w-36 h-fit">{measures[idx].text}</span>
                 </div>
             )
         })

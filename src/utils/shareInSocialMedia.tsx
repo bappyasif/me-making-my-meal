@@ -79,7 +79,7 @@ export const ShareableOptions = ({ mealName, category, img }: { mealName: string
         mealName && modifyingUrl()
     }, [mealName])
 
-    return (
+    const sharedLinks = (
         <div className="flex gap-4">
             <FacebookShareButton
                 // url={"https://peing.net/ja/"}
@@ -109,6 +109,13 @@ export const ShareableOptions = ({ mealName, category, img }: { mealName: string
             >
                 <PinterestIcon size={32} round={true} />
             </PinterestShareButton>
+        </div>
+    )
+
+    return (
+        <div className="flex flex-col gap-y-4 items-center">
+            <h2 className="xxs:text-xl md:text-2xl bg-slate-800 px-2 rounded">Share This Recipe</h2>
+            {sharedLinks}
         </div>
     )
 }

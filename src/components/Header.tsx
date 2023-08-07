@@ -7,19 +7,18 @@ import {FaHamburger} from "react-icons/fa"
 
 export const Header = () => {
     return (
-        <div className="w-full flex flex-col xxs:items-start xl:items-center gap-y-8 z-10">
-            {/* <CompanyLogo />
-            <RenderNavs />
-            <HamburgerMenu /> */}
+        <div className="w-full flex flex-col xxs:items-start sm:items-center gap-y-4 z-10">
+
             <div className="flex xxl:justify-center xxs:justify-between gap-4 h-fit items-center relative w-full">
                 <CompanyLogo />
                 <RenderNavs />
                 <HamburgerMenu />
             </div>
+            
             <div
-                className="flex flex-col xxs:gap-y-8 md:gap-x-8 w-96"
+                className="flex flex-col xxs:gap-y-5 md:gap-x-8 w-96"
                 style={{
-                    width: "445px"
+                    width: "489px"
                 }}
             >
                 {
@@ -43,10 +42,12 @@ const LanguageSelection = () => {
 
     const languages = [
         { value: '', text: "Options" },
-        { value: 'en', text: "English" },
-        { value: 'ku', text: "Kurdish" },
         { value: 'bn', text: "Bengali" },
-        { value: 'nl', text: "Dutch" }
+        { value: 'zh', text: "Chinese" },
+        { value: 'nl', text: "Dutch" },
+        { value: 'en', text: "English" },
+        { value: 'fr', text: "French" },
+        { value: 'ku', text: "Kurdish" },
     ]
 
     // It is a hook imported from 'react-i18next'
@@ -69,7 +70,7 @@ const LanguageSelection = () => {
         <div className="flex xxs:flex-col sm:flex-row gap-y-1 gap-x-4 h-fit">
 
             <label className="xxs:text-xl md:text-2xl w-full">{t('Choose')}</label>
-            <select className="xxs:text-xl md:text-2xl bg-slate-600 w-fit h-fit" value={lang} onChange={handleChange}>
+            <select className="xxs:text-xl md:text-2xl bg-slate-600 w-fit h-fit rounded" value={lang} onChange={handleChange}>
                 {languages.map(item => {
                     return (<option className="xxs:text-xl md:text-2xl" key={item.value}
                         value={item.value}>{t(`${item.text}`)}</option>);
@@ -89,15 +90,12 @@ const RenderNavs = () => {
 
 const AllNavs = () => {
     const { t } = useTranslation()
-    return (
-        <>
-            <Link className="xxs:w-full xl:w-max xxs:px-1 lg:px-4 xxs:py-0.5 lg:py-2 font-bold hover:text-blue-200 nav-item opacity-80" to={"/"}>{t("Home")}</Link>
-            <Link className="xxs:w-full xl:w-max xxs:px-1 lg:px-4 xxs:py-0.5 lg:py-2 font-bold hover:text-blue-200 nav-item opacity-80" to={"/cuisines"}>{t('Cuisines')}</Link>
-            <Link className="xxs:w-full xl:w-max xxs:px-1 lg:px-4 xxs:py-0.5 lg:py-2 font-bold hover:text-blue-200 nav-item opacity-80" to={"/categories"}>{t("Categories")}</Link>
-            <Link className="xxs:w-full xl:w-max xxs:px-1 lg:px-4 xxs:py-0.5 lg:py-2 font-bold hover:text-blue-200 nav-item opacity-80" to={"/ingredients"}>{t("Ingredients")}</Link>
-            <Link className="xxs:w-full xl:w-max xxs:px-1 lg:px-4 xxs:py-0.5 lg:py-2 font-bold hover:text-blue-200 nav-item opacity-80" to={"/popularMeals"}>{t("Popular Meals")}</Link>
-        </>
-    )
+    const renderNavs = navs.map(item => {
+        return (
+            <Link key={item.name} className="xxs:w-full xl:w-max xxs:px-1 lg:px-4 xxs:py-0.5 lg:py-2 font-bold hover:text-blue-200 nav-item opacity-80 rounded" to={item.url}>{t(item.name)}</Link>
+        )
+    })
+    return renderNavs
 }
 
 const HamburgerMenu = () => {
@@ -110,7 +108,6 @@ const HamburgerMenu = () => {
     return (
         <div className="xxs:block xl:hidden self-end absolute right-0 top-0">
             <p className="hover:text-blue-200 nav-item px-2 py-2.5 flex gap-x-1" onClick={handleToggle} title="Menu">
-                {/* <span>Menu</span> */}
                 <span className="text-4xl"><FaHamburger /></span>
             </p>
             {
@@ -123,3 +120,22 @@ const HamburgerMenu = () => {
         </div>
     )
 }
+
+const navs = [
+    {
+        name: "Home",
+        url: "/"
+    }, {
+        name: "Cuisines",
+        url: "/cuisines"
+    }, {
+        name: "Categories",
+        url: "/categories"
+    }, {
+        name: "Ingredients",
+        url: "/ingredients"
+    }, {
+        name: "Popular Meals",
+        url: "/popularMeals"
+    }
+]
