@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { FacebookIcon, FacebookShareButton, PinterestIcon, PinterestShareButton, TwitterIcon, TwitterShareButton } from "react-share";
 
 interface ShareProps {
@@ -112,9 +113,11 @@ export const ShareableOptions = ({ mealName, category, img }: { mealName: string
         </div>
     )
 
+    const {t} = useTranslation()
+
     return (
-        <div className="flex flex-col gap-y-4 items-center">
-            <h2 className="xxs:text-xl md:text-2xl bg-slate-800 px-2 rounded">Share This Recipe</h2>
+        <div className="flex flex-col gap-y-4 items-center place-content-center">
+            <h2 className="xxs:text-xl md:text-2xl bg-slate-800 px-4 rounded py-1">{t("Share This Recipe")}</h2>
             {sharedLinks}
         </div>
     )

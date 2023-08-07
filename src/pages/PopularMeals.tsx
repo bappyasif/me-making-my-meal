@@ -27,7 +27,7 @@ export const PopularMeals = () => {
 
     return (
         <div className="flex flex-col gap-y-2 z-10 items-center">
-            <h1 className="xxs:text-2xl md:text-4xl xl:text-6xl">{t("Popular Meals")}</h1>
+            <h1 className="xxs:text-2xl md:text-4xl xl:text-6xl">{t("List")} : {t("Popular Meals")}</h1>
 
             {headingsContent}
 

@@ -63,16 +63,18 @@ export const RenderMealBasicInfo = () => {
             <Helmet>
                 <meta name="keywords" content={mealName} />
                 {/* <meta http-equiv="X-UA-Compatible" content={mealSource} /> */}
-                <meta name="Description" content={`View Recipe, Instruction and Video, to make ${mealName}`} />
+                <meta name="Description" content={`View Recipe, Instruction And Video, How To Make ${mealName}`} />
                 <title>Meal Details: {mealName}</title>
                 <meta property="og:type" content="article" />
-                <meta property="og:video" content="https://example.com/bond/trailer.swf" />
+                {/* <meta property="og:video" content="https://example.com/bond/trailer.swf" /> */}
                 {/* <meta property="og:image" content="../../assets/react.svg" /> */}
                 <meta property="og:image" content={mealThumb} />
                 <meta name="twitter:card" content="summary_large_image" />
                 {/* <meta name="twitter:card" content={mealThumb} /> */}
                 <meta property="og:URL" content={mealThumb} />
-                <meta property="og:image" content="http://www.vandal.com.br/products/15171-cine-grow" />
+                {/* <meta property="og:image" content="http://www.vandal.com.br/
+                products/15171-cine-grow" /> */}
+                <meta property="og:image" content={mealThumb} />
                 <meta name="keywords" content={`${mealName}, ${category}`} />
                 {/* <meta property="og:locale" content="en_GB" />
                 <meta property="og:locale:alternate" content="fr_FR" />
@@ -84,7 +86,7 @@ export const RenderMealBasicInfo = () => {
     )
 }
 
-export const CategoryAndCuisineButton = ({category, cuisine}: {category:string, cuisine: string}) => {
+export const CategoryAndCuisineButton = ({ category, cuisine }: { category: string, cuisine: string }) => {
     const { handleCategoryClick, handleCuisineClick } = useToIncreaseCategoryAndCuisineCounts(category, cuisine)
 
     const { t } = useTranslation()
@@ -113,8 +115,13 @@ const RenderIngredientsAndMeasures = () => {
     const content = (
         ingredients.map((item, idx) => {
             return (
-                <div key={item.text + idx} className="flex justify-center gap-4 xxs:text-lg md:text-2xl w-96">
-                    <Link className="nav-item px-2 w-44 opacity-80 h-fit rounded" to={`/ingredients/${item.text}`} onClick={() => handleClick(item.text)}>{item.text}</Link> -- <span className="w-36 h-fit">{measures[idx].text}</span>
+                <div
+                    key={item.text + idx}
+                    className="flex justify-center gap-x-4 xxs:text-lg md:text-2xl w-full"
+                >
+                    <Link className="nav-item px-2 opacity-80 h-fit rounded w-full text-center" to={`/ingredients/${item.text}`} onClick={() => handleClick(item.text)}>{item.text}</Link> 
+                    <span className="w-10">--</span>
+                    <span className="w-56 h-fit bg-slate-800 text-slate-400 text-center">{measures[idx].text}</span>
                 </div>
             )
         })
@@ -134,10 +141,7 @@ const RenderIngredientsAndMeasures = () => {
                 <h2 className="text-4xl">{t("Ingredients And Measurements")}</h2>
                 {/* {btnElement} */}
             </div>
-            {/* <div className="flex gap-x-8 gap-y-4 flex-wrap justify-center">
-                {content}
-            </div> */}
-            <div className="grid xxs:grid-cols-1 md:grid-cols-2 xl:grid-cols-3 xxl:grid-cols-4 gap-4 xxs:text-xl md:text-2xl">
+            <div className="grid xxs:grid-cols-1 lg:grid-cols-2 xxl:grid-cols-3 gap-x-6 gap-y-2 xxs:text-xl md:text-2xl">
                 {content}
             </div>
         </div>
