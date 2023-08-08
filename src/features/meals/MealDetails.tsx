@@ -58,6 +58,8 @@ export const RenderMealBasicInfo = () => {
         </div>
     )
 
+    console.log(mealThumb, "mealThumb")
+
     return (
         <>
             <Helmet>
@@ -69,9 +71,15 @@ export const RenderMealBasicInfo = () => {
                 {/* <meta property="og:video" content="https://example.com/bond/trailer.swf" /> */}
                 {/* <meta property="og:image" content="../../assets/react.svg" /> */}
                 <meta property="og:image" content={mealThumb} />
-                <meta name="twitter:card" content="summary_large_image" />
-                {/* <meta name="twitter:card" content={mealThumb} /> */}
-                <meta property="og:URL" content={mealThumb} />
+                
+                {/* <meta name="twitter:image" content="summary_large_image" />
+                <meta name="twitter:image:src" content="https://www.themealdb.com/images/media/meals/uyqrrv1511553350.jpg" />
+                <meta name="twitter:image:src" content={mealThumb} />
+                <meta name="twitter:image" content="https://www.themealdb.com/images/media/meals/uyqrrv1511553350.jpg" />
+                <meta name="twitter:image" content={mealThumb} />
+                <meta name="twitter:card" content={mealThumb} /> */}
+
+                {/* <meta property="og:URL" content={mealThumb} /> */}
                 {/* <meta property="og:image" content="http://www.vandal.com.br/
                 products/15171-cine-grow" /> */}
                 <meta property="og:image" content={mealThumb} />
