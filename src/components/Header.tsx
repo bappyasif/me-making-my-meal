@@ -7,7 +7,7 @@ import {FaHamburger} from "react-icons/fa"
 
 export const Header = () => {
     return (
-        <div className="w-full flex flex-col xxs:items-start sm:items-center gap-y-4 z-10">
+        <div className="w-full flex flex-col xxs:items-start sm:items-center gap-y-4 z-20">
 
             <div className="flex xxl:justify-center xxs:justify-between gap-4 h-fit items-center relative w-full">
                 <CompanyLogo />

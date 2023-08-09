@@ -28,7 +28,7 @@ export const FirstNineCuisines = () => {
       <div className="flex justify-between z-10">
         <h2 className="xxs:text-xl md:text-2xl lg:text-4xl">{t("Meal Cuisines")}</h2>
         {/* <Link className="text-2xl" to={"/cuisines"}>{t("See All Available Cuisines")}</Link> */}
-        <Link className="xxs:text-xl md:text-2xl" to={"/cuisines"}>{t("See All")}</Link>
+        <Link className="xxs:text-xl md:text-2xl" to={"/cuisines"} title={t("Click To See All")}>{t("See All")}</Link>
       </div>
       <RenderCuisinesList fullList={false} />
       {/* <button onClick={handleClick}>See All</button> */}

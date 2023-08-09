@@ -38,7 +38,7 @@ const SearchView = ({ name }: { name: string }) => {
 
     const filterMatches = () => {
         const filtered = items.filter(item => {
-            return item.name.includes(text) ? item : null
+            return item.name.toLocaleLowerCase().includes(text.toLowerCase()) ? item : null
         })
         // console.log(filtered, "FILTYERED")
         setPartialMatch(filtered)

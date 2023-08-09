@@ -73,47 +73,53 @@ export const ShareableOptions = ({ mealName, category, img }: { mealName: string
         const hosturl = splits[0]
         const mealId = splits[1]
         // console.log(mealId, hosturl, hosturl+`?mealId=${mealId}`)
-        setShareableUrl(hosturl+`?mealId=${mealId}`)
+        setShareableUrl(hosturl + `?mealId=${mealId}`)
     }
 
     useEffect(() => {
         mealName && modifyingUrl()
     }, [mealName])
 
+    const { t } = useTranslation()
+
     const sharedLinks = (
         <div className="flex gap-4">
-            <FacebookShareButton
-                // url={"https://peing.net/ja/"}
-                url={shareableUrl}
-                quote={`View Recipe, Instruction and Video, to make ${mealName}`}
-                hashtag={mealName.split(" ").join("_")}
-                // description={"aiueo"}
-                className="Demo__some-network__share-button"
-            >
-                <FacebookIcon size={32} round />
-            </FacebookShareButton>
+            <span className="self-center" title={t("Share now")}>
+                <FacebookShareButton
+                    // url={"https://peing.net/ja/"}
+                    url={shareableUrl}
+                    quote={`View Recipe, Instruction and Video, to make ${mealName}`}
+                    hashtag={mealName.split(" ").join("_")}
+                    // description={"aiueo"}
+                    className="Demo__some-network__share-button"
+                >
+                    <FacebookIcon size={36} round />
+                </FacebookShareButton>
+            </span>
 
-            <TwitterShareButton
-                title={`View Recipe, Instruction and Video, to make ${mealName}`}
-                // url={"https://peing.net/ja/"}
-                url={shareableUrl}
-                hashtags={[mealName.split(" ").join("_"), category.split(" ").join("_")]}
-            >
-                <TwitterIcon size={32} round={true} />
-            </TwitterShareButton>
+            <span className="self-center" title={t("Share now")}>
+                <TwitterShareButton
+                    title={`View Recipe, Instruction and Video, to make ${mealName}`}
+                    // url={"https://peing.net/ja/"}
+                    url={shareableUrl}
+                    hashtags={[mealName.split(" ").join("_"), category.split(" ").join("_")]}
+                >
+                    <TwitterIcon size={32} round={true} />
+                </TwitterShareButton>
+            </span>
 
-            <PinterestShareButton
-                url={shareableUrl}
-                media={img || ""}
-                title={`Cook ${mealName}`}
-                description={`View Recipe, Instruction and Video, to make ${mealName}`}
-            >
-                <PinterestIcon size={32} round={true} />
-            </PinterestShareButton>
+            <span className="self-center" title={t("Share now")}>
+                <PinterestShareButton
+                    url={shareableUrl}
+                    media={img || ""}
+                    title={`Cook ${mealName}`}
+                    description={`View Recipe, Instruction and Video, to make ${mealName}`}
+                >
+                    <PinterestIcon size={32} round={true} />
+                </PinterestShareButton>
+            </span>
         </div>
     )
-
-    const {t} = useTranslation()
 
     return (
         <div className="flex flex-col gap-y-4 items-center place-content-center">

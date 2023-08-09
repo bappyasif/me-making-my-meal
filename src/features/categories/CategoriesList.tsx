@@ -61,7 +61,7 @@ export const FirstEightList = () => {
         <div className="flex flex-col gap-y-8 w-full mx-auto">
             <div className="flex justify-between">
                 <h2 className="xxs:text-xl md:text-2xl lg:text-4xl">{t(`Meal Categories`)}</h2>
-                <Link className="xxs:text-xl md:text-2xl" to={"/categories"}>{t("See All")}</Link>
+                <Link className="xxs:text-xl md:text-2xl" to={"/categories"} title={t("Click To See All")}>{t("See All")}</Link>
             </div>
             <div className="flex gap-x-4 gap-y-6 justify-around flex-wrap w-full">{renderCategories}</div>
         </div>
