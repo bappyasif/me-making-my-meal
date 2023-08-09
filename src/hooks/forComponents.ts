@@ -210,19 +210,20 @@ export const useToGetFourPopularItems = (list: (CategoryItemType | CuisineNameTy
 
     const highestOnly = list.filter(item => item.count >= highestCount);
 
-    const notZerosButLessThanHighest = list.filter(item => item.count > 0 && item.count < highestCount).sort((a, b) => a.count < b.count ? -1 : 1)
+    const notZerosButLessThanHighest = list.filter(item => item.count > 0 && item.count < highestCount).sort((a, b) => a.count > b.count ? -1 : 1)
 
     const addAllFromHighest = () => {
         highestOnly.forEach((item) => {
-            if (names.length < 4) {
+            if (names.length < 6) {
                 setNames(prev => [...prev, item.name])
             }
         })
     }
 
     const addHasCountsItems = () => {
+        // console.log(notZerosButLessThanHighest, "non zero counts!!", list, highestOnly)
         notZerosButLessThanHighest.forEach(item => {
-            if (names.length < 4) {
+            if (names.length < 6) {
                 setNames(prev => [...prev, item.name])
             }
         })
@@ -233,21 +234,21 @@ export const useToGetFourPopularItems = (list: (CategoryItemType | CuisineNameTy
         const zeroCountsItems = list.filter(item => item.count === 0)
         zeroCountsItems.forEach(item => {
             const rnd = Math.random()
-            if (names.length < 4 && rnd > .6) {
+            if (names.length < 6 && rnd > .6) {
                 setNames(prev => [...prev, item.name])
             }
         })
     }
 
     useEffect(() => {
-        highestOnly.length && highestOnly.length < 4 && addAllFromHighest()
+        highestOnly.length && highestOnly.length < 6 && addAllFromHighest()
         notZerosButLessThanHighest.length && addHasCountsItems()
-        highestOnly.length && highestOnly.length < 4 && names.length < 4 && needFewMoreItemToFill()
+        highestOnly.length && highestOnly.length < 6 && names.length < 6 && needFewMoreItemToFill()
     }, [highestOnly, notZerosButLessThanHighest, highestCount])
 
     // console.log(highestOnly, notZerosButLessThanHighest)
 
-    return { names: removeDuplicates().slice(0, 4) }
+    return { names: removeDuplicates().slice(0, 6) }
 }
 
 export const useToGetAnRandomMeal = () => {

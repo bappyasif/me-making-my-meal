@@ -58,7 +58,7 @@ export const RenderMealBasicInfo = () => {
         </div>
     )
 
-    console.log(mealThumb, "mealThumb")
+    // console.log(mealThumb, "mealThumb")
 
     return (
         <>

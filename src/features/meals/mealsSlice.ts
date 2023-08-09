@@ -62,29 +62,42 @@ const mealsSlice = createSlice({
     name: "meals",
     reducers: {
         increaseMealCount: (state, action) => {
-            const { id, name, update } = action.payload;
+            const { id, name, update, imgSrc } = action.payload;
 
             const foundItem = state.mealsViewed.findIndex(item => item.id === action.payload.id)
 
             if (foundItem !== -1) {
                 state.mealsViewed = state.mealsViewed.map(item => {
                     if (item.id === id) {
-                        item.count = item.count ? item.count + 1 : 1
+                        // item.count = item.count ? item.count + 1 : 1
+                        item.count += 1
                         if(update) {
                             // update firebase subcollection document
                             updateSinglePropertyInFirebaseSubCollectionDocument("Meals", "Meal", name)
                             // console.log("UPDATING FIREBASE")
-                        } else {
-                            // add to firebase subcollection
-                            addDataIntoDocumentSubCollection("Meals", "Meal", item.name, item)
-                        }
+                        } 
+                        // else {
+                        //     // add to firebase subcollection
+                        //     addDataIntoDocumentSubCollection("Meals", "Meal", item.name, item)
+                        // }
                         // addDataIntoDocumentSubCollection("Meals", "Meal", item.name, item)
                     }
                     return item
                 })
             } else {
-                state.mealsViewed.push({ ...action.payload, count: 1 })
-                addDataIntoDocumentSubCollection("Meals", "Meal", name, action.payload)
+                // modifying payload data to match mealViewType
+                const moddedData:ViewedMealType = {
+                    id: id,
+                    imgSrc: imgSrc,
+                    name: name,
+                    count: 1
+                }
+
+                // updating store with new meal entry
+                state.mealsViewed.push(moddedData)
+                
+                // add to firebase subcollection
+                addDataIntoDocumentSubCollection("Meals", "Meal", name, moddedData )
             }
 
             // kepping it sorted so that data retrival from components gets easier with highest counts
