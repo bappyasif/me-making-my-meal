@@ -32,13 +32,6 @@ export const annoymousAuth = () => {
     })
 }
 
-// type DataPropsType = {
-//     ingredients?: PropsType[],
-//     categories?: PropsType[],
-//     cuisines?: PropsType[],
-//     meals?: PropsType[],
-// }
-
 type DataPropsType = {
     ingredients?: IngredientsType[],
     categories?: CategoryItemType[],
@@ -46,34 +39,16 @@ type DataPropsType = {
     meals?: ViewedMealType[],
 }
 
-// type PropsType = {
-//     // [key: string]?: string[],
-//     [key: string]: string,
-// }
-
 // add a new document into a collection
 export const addDataIntoCollection = (collName: string, data: DataPropsType, pathName: string) => {
     setDoc(doc(db, collName, pathName), data).then(() => console.log("DATA SAVED!!"))
 }
-// export const addDataIntoCollection = (collName: string, data: DataPropsType) => {
-//     addDoc(collection(db, collName), data).then(() => console.log("DATA SAVED!!"))
-// }
 
 export const addDataIntoDocumentSubCollection = async (docName: string, subCollectionName: string, subDocName: string, data: any) => {
-    // let db = firebase.firestore();
-    // DocumentReference categoryRef = db.collection
     const baseCollection = collection(db, "4M")
-    // const BeefSubCollection = collection(categoryCollection, "Beef");
-    // const BeefSubCollection = collection(baseCollection, "foodCategories", "Beef")
-
-    // const BeefSubCollection = collection(baseCollection, "foodCategories", "category", "Beef")
-
-    // const BeefSubCollection = collection(baseCollection, "foodCategories",  "category")
 
     const refSubCollection = collection(baseCollection, docName, subCollectionName)
 
-    // await addDoc(BeefSubCollection, {tets: "test"})
-    // await setDoc(doc(refSubCollection, "Beef"), {test: "test"})
     await setDoc(doc(refSubCollection, subDocName), data)
 }
 

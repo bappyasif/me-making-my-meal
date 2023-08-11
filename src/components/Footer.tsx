@@ -7,9 +7,6 @@ export const Footer = () => {
     <div
       className="flex flex-col gap-y-8 items-center py-4"
       style={{
-        // backgroundImage: `url("${headerBg}")`,
-        // backgroundImage: `url("${heroTwoBg}")`,
-        // backgroundImage: `url("${appBg}")`,
         backgroundImage: `url("https://source.unsplash.com/random/?Cooking,ingredients")`,
         objectFit: "cover",
         backgroundRepeat: "no-repeat",
@@ -19,7 +16,6 @@ export const Footer = () => {
         backgroundBlendMode: "darken"
       }}
     >
-      {/* <h2>Footer</h2> */}
       <StackUsed />
       <CopyrightInfo />
     </div>
