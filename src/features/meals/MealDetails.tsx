@@ -71,7 +71,7 @@ export const RenderMealBasicInfo = () => {
                 {/* <meta property="og:video" content="https://example.com/bond/trailer.swf" /> */}
                 {/* <meta property="og:image" content="../../assets/react.svg" /> */}
                 <meta property="og:image" content={mealThumb} />
-                
+
                 {/* <meta name="twitter:image" content="summary_large_image" />
                 <meta name="twitter:image:src" content="https://www.themealdb.com/images/media/meals/uyqrrv1511553350.jpg" />
                 <meta name="twitter:image:src" content={mealThumb} />
@@ -125,11 +125,26 @@ const RenderIngredientsAndMeasures = () => {
             return (
                 <div
                     key={item.text + idx}
-                    className="flex justify-center gap-x-4 xxs:text-lg md:text-2xl w-full"
+                    className="flex justify-center gap-x-2 xxs:text-lg md:text-2xl w-full"
                 >
-                    <Link className="nav-item px-2 opacity-80 h-fit rounded w-full text-center" to={`/ingredients/${item.text}`} onClick={() => handleClick(item.text)}>{item.text}</Link> 
-                    <span className="w-10">--</span>
-                    <span className="w-56 h-fit bg-slate-800 text-slate-400 text-center">{measures[idx].text}</span>
+                    <Link className="nav-item px-2 opacity-80 h-fit rounded text-center w-96" to={`/ingredients/${item.text}`} onClick={() => handleClick(item.text)} title={item.text}>{item.text.length > 11 ? item.text.slice(0, 11) + "...." : item.text}</Link>
+                    <span className="w-9">--</span>
+                    <span className="w-full h-fit bg-slate-800 text-slate-400 text-center" title={measures[idx].text}>{measures[idx].text.length > 12 ? measures[idx].text.slice(0, 12) + "...." : measures[idx].text}</span>
+                </div>
+            )
+        })
+    )
+
+    const contentForSmallerScreens = (
+        ingredients.map((item, idx) => {
+            return (
+                <div
+                    key={item.text + idx}
+                    className="flex justify-center gap-x-2 xxs:text-lg md:text-2xl w-full"
+                >
+                    <Link className="nav-item px-2 opacity-80 h-fit rounded text-center w-96" to={`/ingredients/${item.text}`} onClick={() => handleClick(item.text)} title={item.text}>{item.text}</Link>
+                    <span className="w-9">--</span>
+                    <span className="w-full h-fit bg-slate-800 text-slate-400 text-center" title={measures[idx].text}>{measures[idx].text}</span>
                 </div>
             )
         })
@@ -149,8 +164,16 @@ const RenderIngredientsAndMeasures = () => {
                 <h2 className="text-4xl">{t("Ingredients And Measurements")}</h2>
                 {/* {btnElement} */}
             </div>
-            <div className="grid xxs:grid-cols-1 lg:grid-cols-2 xxl:grid-cols-3 gap-x-6 gap-y-2 xxs:text-xl md:text-2xl">
+            {/* <div className="grid xxs:grid-cols-1 lg:grid-cols-2 xxl:grid-cols-3 gap-x-6 gap-y-2 xxs:text-xl md:text-2xl w-full">
                 {content}
+            </div> */}
+
+            <div className="xxs:hidden xl:grid xxs:grid-cols-1 lg:grid-cols-2 xxl:grid-cols-3 gap-x-6 gap-y-2 xxs:text-xl md:text-2xl w-full">
+                {content}
+            </div>
+
+            <div className="xxs:grid xl:hidden xxs:grid-cols-1 lg:grid-cols-2 xxl:grid-cols-3 gap-x-6 gap-y-2 xxs:text-xl md:text-2xl w-full">
+                {contentForSmallerScreens}
             </div>
         </div>
     )
