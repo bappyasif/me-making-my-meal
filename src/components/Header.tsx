@@ -3,18 +3,23 @@ import { useTranslation } from "react-i18next"
 import { Link } from "react-router-dom"
 import { Search } from "./Search"
 import logo from "../assets/4ms_logo.png"
-import {FaHamburger} from "react-icons/fa"
+import { FaHamburger } from "react-icons/fa"
+import { useToDecideNavViewBasedOnLanguageSelected } from "../hooks/forComponents"
 
 export const Header = () => {
+    const showMenu = useToDecideNavViewBasedOnLanguageSelected()
+
     return (
         <div className="w-full flex flex-col xxs:items-start sm:items-center gap-y-4 z-20">
 
-            <div className="flex xxl:justify-center xxs:justify-between gap-4 h-fit items-center relative w-full">
+            <div
+                className={`flex ${showMenu ? "justify-between" : "xxl:justify-center xxs:justify-between"} gap-4 h-fit items-center relative w-full`}
+            >
                 <CompanyLogo />
                 <RenderNavs />
                 <HamburgerMenu />
             </div>
-            
+
             <div
                 className="flex flex-col xxs:gap-y-5 md:gap-x-8 w-96"
                 style={{
@@ -39,16 +44,6 @@ const CompanyLogo = () => {
 }
 
 const LanguageSelection = () => {
-
-    const languages = [
-        { value: '', text: "Options" },
-        { value: 'bn', text: "Bengali" },
-        { value: 'zh', text: "Chinese" },
-        { value: 'nl', text: "Dutch" },
-        { value: 'en', text: "English" },
-        { value: 'fr', text: "French" },
-        { value: 'ku', text: "Kurdish" },
-    ]
 
     // It is a hook imported from 'react-i18next'
     const { t } = useTranslation();
@@ -81,8 +76,12 @@ const LanguageSelection = () => {
 }
 
 const RenderNavs = () => {
+    const showMenu = useToDecideNavViewBasedOnLanguageSelected()
+    // console.log(showMenu, "showMenu")
     return (
-        <div className="xxs:hidden xl:flex xxs:gap-x-8 lg:gap-x-8 gap-y-2 xxs:justify-evenly lg:justify-center xxs:text-xl xl:text-2xl xxl:text-3xl my-0.5 h-fit">
+        <div
+            className={`xxs:gap-x-8 lg:gap-x-8 gap-y-2 xxs:justify-evenly lg:justify-center xxs:text-xl xl:text-2xl xxl:text-3xl my-0.5 h-fit ${showMenu ? "hidden" : "xxs:hidden xl:flex"}`}
+        >
             <AllNavs />
         </div>
     )
@@ -105,8 +104,12 @@ const HamburgerMenu = () => {
 
     const handleClose = () => setShow(false);
 
+    const showMenu = useToDecideNavViewBasedOnLanguageSelected()
+
     return (
-        <div className="xxs:block xl:hidden self-end absolute right-0 top-0">
+        <div
+            className={`${showMenu ? "block" : "xxs:block xl:hidden"} self-end absolute right-0 top-0`}
+        >
             <p className="hover:text-blue-200 nav-item px-2 py-2.5 flex gap-x-1" onClick={handleToggle} title="Menu">
                 <span className="text-4xl"><FaHamburger /></span>
             </p>
@@ -138,4 +141,14 @@ const navs = [
         name: "Popular Meals",
         url: "/popularMeals"
     }
+]
+
+export const languages = [
+    { value: '', text: "Options" },
+    { value: 'bn', text: "Bengali" },
+    { value: 'zh', text: "Chinese" },
+    { value: 'nl', text: "Dutch" },
+    { value: 'en', text: "English" },
+    { value: 'fr', text: "French" },
+    { value: 'ku', text: "Kurdish" },
 ]

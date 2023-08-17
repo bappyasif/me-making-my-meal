@@ -8,6 +8,8 @@ import { IngredientsType, increaseCountForIngredient } from "../features/ingredi
 import { annoymousAuth, readingDataFromFirestore, readingDataFromFirestoreSubDocument } from "../firebase/utils";
 import { MealItemType } from "../features/category/categorySlice";
 import { ViewedMealType } from "../features/meals/mealsSlice";
+import i18next from "i18next";
+import { languages } from "../components/Header";
 
 export const useToGetCategories = () => {
     const list = useAppSelector(state => state.categories.list);
@@ -428,4 +430,12 @@ export const useForNextAndPrevTraversal = (list: (IngredientsType | MealItemType
     return {
         showNow, disableBtn, handleNext, handlePrev, startsEnds
     }
+}
+
+export const useToDecideNavViewBasedOnLanguageSelected = () => {
+    const langInUse = i18next.language;
+    const foundLang = languages.find(lang => lang.value === langInUse)
+    const showMenu = ["Dutch", "French", "Kurdish"].includes(foundLang?.text as string)
+    // console.log(showMenu, "showMenu!!", foundLang, langInUse)
+    return showMenu
 }
