@@ -14,7 +14,7 @@ export const MostPopularCuisine = () => {
     const renderContent = (
         names.map(name => {
             return (
-                <Link className="text-center bg-slate-600 px-4 text-slate-200 hover:text-slate-400 xxs:w-fit sm:w-48" title={t(`${name}`)} onClick={() => handleClick(name)} key={name} to={`/cuisines/${name || "Thai"}`}>{t(`${name}`) || "Thai"}</Link>
+                <Link className="text-center bg-slate-600 px-4 text-slate-200 hover:text-slate-400 xxs:w-fit sm:w-48 flex items-center justify-center" title={name} onClick={() => handleClick(name)} key={name} to={`/cuisines/${name || "Thai"}`}>{t(`${name}`) || "Thai"}</Link>
             )
         })
     )
