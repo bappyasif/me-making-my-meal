@@ -76,5 +76,5 @@ const RenderCuisine = ({name}: {name: string}) => {
 
   const { t } = useTranslation()
 
-  return <button onClick={() => handleClick(name)} key={name} className="xxs:text-xl md:text-2xl xxs:w-36 sm:w-48 md:w-60 lg:w-80 h-fit flex flex-col items-center gap-y-4 opacity-80">{t(`${name}`)}</button>
+  return <button title={name} onClick={() => handleClick(name)} key={name} className="xxs:text-xl md:text-2xl xxs:w-36 sm:w-48 md:w-60 lg:w-80 h-fit flex flex-col items-center gap-y-4 opacity-80">{t(`${name}`)}</button>
 }

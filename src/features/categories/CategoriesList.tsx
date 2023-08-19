@@ -38,6 +38,7 @@ const RenderCategory = ({ ...item }: CategoryItemType) => {
 
     return (
         <Link
+            title={name}
             className="xxs:w-36 sm:w-48 md:w-60 xxs:h-fit lg:w-96 lg:h-fit aspect-auto flex flex-col gap-4 text-center xxs:text-xl md:text-2xl lg:text-4xl items-center"
             to={`/categories/${name}`}
             onClick={() => handleClicked(`${name}`)}
