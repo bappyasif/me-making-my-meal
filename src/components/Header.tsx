@@ -40,7 +40,7 @@ export const Header = () => {
 const CompanyLogo = () => {
     const {t} = useTranslation()
     const showMenu = useToDecideNavViewBasedOnLanguageSelected()
-    
+
     return (
         <Link title={showMenu ? t("Home") : ""} to={"/"}><img className="w-28 rounded-full opacity-80" src={logo} alt="Website Logo" /></Link>
     )
@@ -71,7 +71,7 @@ const LanguageSelection = () => {
             <select className="xxs:text-xl md:text-2xl bg-slate-600 w-fit h-fit rounded" value={lang} onChange={handleChange}>
                 {languages.map(item => {
                     return (<option className="xxs:text-xl md:text-2xl" key={item.value}
-                        value={item.value}>{t(`${item.text}`)}</option>);
+                        value={item.value} title={item.text}>{t(`${item.text}`)}</option>);
                 })}
             </select>
         </div>
