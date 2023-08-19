@@ -18,7 +18,7 @@ export const fetchCategoriesFromFirebase = createAsyncThunk("fetchCategoriesFrom
     return { categories: subCollData }
 })
 
-export const fetchCuisines = createAsyncThunk("meals/ferchCuisines", async () => {
+export const fetchCuisines = createAsyncThunk("fetchCuisines", async () => {
     const response = await fetch(AREA_URL);
     return response.json()
 })

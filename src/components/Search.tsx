@@ -30,7 +30,7 @@ const SearchView = ({ name }: { name: string }) => {
         items = useAppSelector(state => state.cuisine.list)
     } else if (name === "Ingredients") {
         items = useAppSelector(state => state.ingredient.list)
-    } else if (name === "Popular Meals") {
+    } else if (name === "Viewed Meals") {
         items = useAppSelector(state => state.meal.mealsViewed)
     }
 
@@ -40,11 +40,12 @@ const SearchView = ({ name }: { name: string }) => {
         const filtered = items.filter(item => {
             return item.name.toLocaleLowerCase().includes(text.toLowerCase()) ? item : null
         })
-        // console.log(filtered, "FILTYERED")
+        console.log(filtered, "FILTYERED", items)
         setPartialMatch(filtered)
     }
 
     const renderPartials = () => partialMatch.map(item => {
+        // console.log(item.name, "url")
         return (
             <Link key={item.name} onClick={() => setText("")} to={`/${name}/${item.name}`}>{item.name}</Link>
         )
@@ -72,7 +73,7 @@ const SearchView = ({ name }: { name: string }) => {
 const ChooseSearchDomainOption = ({ name, setName }: { name: string, setName: Dispatch<SetStateAction<string>> }) => {
     const {t} = useTranslation()
 
-    const options = ["Categories", "Cuisines", "Ingredients", "Popular Meals"];
+    const options = ["Categories", "Cuisines", "Ingredients", "Viewed Meals"];
 
     const handleClick = (nm: string) => setName(nm)
 

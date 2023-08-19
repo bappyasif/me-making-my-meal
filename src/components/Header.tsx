@@ -23,7 +23,7 @@ export const Header = () => {
             <div
                 className="flex flex-col xxs:gap-y-5 md:gap-x-8 w-96"
                 style={{
-                    width: "489px"
+                    width: "560px"
                 }}
             >
                 {

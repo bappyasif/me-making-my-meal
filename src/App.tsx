@@ -15,6 +15,7 @@ import { useToCheckIfUrlHasMealIdAsShallowRouting } from "./hooks/forComponents"
 import { IngredientsList } from "./features/ingredients/IngredientsList"
 import { HeaderImage } from "./components/SomeImages"
 import appBg from "./assets/app_bg.jpg"
+import ViewedMeals from "./pages/ViewedMeals"
 function App() {
   useToCheckIfUrlHasMealIdAsShallowRouting()
 
@@ -65,6 +66,10 @@ function App() {
           </Route>
           <Route path="popularMeals">
             <Route index element={<PopularMeals />} />
+          </Route>
+          <Route path="Viewed Meals">
+            <Route index element={<h2>Viewed Meals!!</h2>} />
+            <Route path=":name" element={<ViewedMeals />} />
           </Route>
         </Routes>
         {/* <Footer /> */}
