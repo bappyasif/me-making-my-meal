@@ -91,7 +91,7 @@ const AllNavs = () => {
     const { t } = useTranslation()
     const renderNavs = navs.map(item => {
         return (
-            <Link key={item.name} className="xxs:w-full xl:w-max xxs:px-1 lg:px-4 xxs:py-0.5 lg:py-2 font-bold hover:text-blue-200 nav-item opacity-80 rounded" to={item.url}>{t(item.name)}</Link>
+            <Link key={item.name} className="xxs:w-full xxs:px-1 lg:px-4 xxs:py-0.5 lg:py-2 font-bold hover:text-blue-200 nav-item opacity-80 rounded" to={item.url}>{t(item.name)}</Link>
         )
     })
     return renderNavs
